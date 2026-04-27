@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remote Work — Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151821;
+    --card: #1c2030;
+    --border: #252a3a;
+    --accent: #5b7cfa;
+    --accent2: #f5a623;
+    --green: #3ecf8e;
+    --red: #f56565;
+    --text: #e8eaf0;
+    --muted: #7a80a0;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -30%;
+    left: -20%;
+    width: 70vw;
+    height: 70vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,124,250,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%;
+    right: -15%;
+    width: 60vw;
+    height: 60vw;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ——— SCREENS ——— */
+  .screen { display: none; position: relative; z-index: 1; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 40px 20px; }
+
+  /* ——— INTRO ——— */
+  #intro {
+    text-align: center;
+    gap: 28px;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(91,124,250,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(91,124,250,0.3);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .intro-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 520px;
+    font-weight: 300;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .meta-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent2);
+  }
+
+  /* ——— BUTTONS ——— */
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 100px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(91,124,250,0.35); }
+  .btn-primary:hover::after { background: rgba(255,255,255,0.08); }
+  .btn-primary:active { transform: translateY(0); }
+
+  /* ——— QUIZ SCREEN ——— */
+  #quiz {
+    gap: 0;
+    justify-content: flex-start;
+    padding: 30px 20px 60px;
+  }
+
+  .quiz-header {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .q-counter {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .timer-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  #timer-bar-outer {
+    width: 160px;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  #timer-bar {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 1s linear, background 0.5s;
+  }
+
+  #timer-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent);
+    min-width: 32px;
+    text-align: right;
+    transition: color 0.3s;
+  }
+
+  /* Progress dots */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  .pdot {
+    width: 28px; height: 5px;
+    border-radius: 3px;
+    background: var(--border);
+    transition: background 0.4s, transform 0.2s;
+  }
+  .pdot.done { background: var(--green); }
+  .pdot.wrong { background: var(--red); }
+  .pdot.current { background: var(--accent); transform: scaleY(1.6); }
+
+  /* Question card */
+  .q-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 760px;
+    animation: slideUp 0.35s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-section {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 14px;
+  }
+
+  .q-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.05rem, 2.5vw, 1.3rem);
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 28px;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media(max-width: 560px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .q-card { padding: 24px 20px; }
+  }
+
+  .opt-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.4;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .opt-btn:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: rgba(91,124,250,0.08);
+    transform: translateY(-1px);
+  }
+
+  .opt-btn:disabled { cursor: default; }
+
+  .opt-btn.correct {
+    border-color: var(--green);
+    background: rgba(62,207,142,0.1);
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  .opt-btn.wrong {
+    border-color: var(--red);
+    background: rgba(245,101,101,0.1);
+    color: var(--red);
+  }
+
+  .opt-label {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-right: 10px;
+  }
+
+  .opt-btn.correct .opt-label { color: var(--green); }
+  .opt-btn.wrong .opt-label { color: var(--red); }
+
+  /* Explanation */
+  .explanation {
+    margin-top: 20px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(91,124,250,0.07);
+    border-left: 3px solid var(--accent);
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .explanation strong { color: var(--text); }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .next-row {
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* ——— RESULTS ——— */
+  #results {
+    text-align: center;
+    gap: 32px;
+  }
+
+  .score-ring {
+    position: relative;
+    width: 160px;
+    height: 160px;
+  }
+
+  .score-ring svg { transform: rotate(-90deg); }
+
+  .score-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+  }
+
+  .score-label-sm {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .verdict {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.6rem;
+  }
+
+  .verdict-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    max-width: 400px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .results-breakdown {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .rb-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 28px;
+    min-width: 110px;
+  }
+
+  .rb-val {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+  }
+
+  .rb-val.green { color: var(--green); }
+  .rb-val.red { color: var(--red); }
+  .rb-val.gold { color: var(--accent2); }
+
+  .rb-lbl { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    padding: 14px 32px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- ══════════ INTRO ══════════ -->
+<div id="intro" class="screen active">
+  <div class="badge">Post-Session Quiz</div>
+  <h1>Remote Work<br><span>Reality Check</span></h1>
+  <p class="intro-sub">10 questions covering everything presented today — definitions, statistics, legal frameworks, productivity, and the future of work.</p>
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-dot"></div>10 Questions</div>
+    <div class="meta-item"><div class="meta-dot" style="background:var(--accent)"></div>30 sec per question</div>
+    <div class="meta-item"><div class="meta-dot" style="background:var(--green)"></div>~5–8 min total</div>
+  </div>
+  <button class="btn-primary" onclick="startQuiz()">Start Quiz →</button>
+</div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <span class="q-counter" id="q-counter">Question 1 / 10</span>
+    <div class="timer-wrap">
+      <div id="timer-bar-outer"><div id="timer-bar"></div></div>
+      <span id="timer-label">30</span>
+    </div>
+  </div>
+
+  <div class="progress-dots" id="progress-dots"></div>
+
+  <div class="q-card" id="q-card">
+    <div class="q-section" id="q-section">Section</div>
+    <div class="q-text" id="q-text">Question text</div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="explanation" id="explanation" style="display:none;"></div>
+    <div class="next-row" id="next-row" style="display:none;">
+      <button class="btn-primary" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RESULTS ══════════ -->
+<div id="results" class="screen">
+  <div class="badge">Results</div>
+  <div class="score-ring">
+    <svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="68" fill="none" stroke="var(--border)" stroke-width="10"/>
+      <circle cx="80" cy="80" r="68" fill="none" stroke="var(--accent)" stroke-width="10"
+        stroke-linecap="round" stroke-dasharray="427" id="score-arc" stroke-dashoffset="427"/>
+    </svg>
+    <div class="score-ring-text">
+      <span class="score-num" id="score-num">0/10</span>
+      <span class="score-label-sm">score</span>
+    </div>
+  </div>
+  <div>
+    <div class="verdict" id="verdict">—</div>
+    <div class="verdict-sub" id="verdict-sub">—</div>
+  </div>
+  <div class="results-breakdown">
+    <div class="rb-item">
+      <div class="rb-val green" id="rb-correct">0</div>
+      <div class="rb-lbl">Correct</div>
+    </div>
+    <div class="rb-item">
+      <div class="rb-val red" id="rb-wrong">0</div>
+      <div class="rb-lbl">Incorrect</div>
+    </div>
+    <div class="rb-item">
+      <div class="rb-val gold" id="rb-skipped">0</div>
+      <div class="rb-lbl">Skipped</div>
+    </div>
+  </div>
+  <button class="btn-ghost" onclick="restart()">↺ Try Again</button>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    section: "Section 1 — Framework",
+    q: "Before 2020, remote work was mainly associated with which two groups?",
+    opts: ["Large corporations and governments", "Freelancers and tech startups", "Healthcare workers and educators", "Finance professionals and lawyers"],
+    correct: 1,
+    explain: "Prior to the pandemic, remote work was a niche arrangement primarily reserved for <strong>freelancers and tech startups</strong>. The traditional office was the unquestioned standard for most industries."
+  },
+  {
+    section: "Section 1 — Framework",
+    q: "What is the 'Paradox of Remote Work' described in the presentation?",
+    opts: [
+      "Workers earn more but spend more on equipment",
+      "Companies save money but lose productivity",
+      "Workers gained autonomy while corporations increased digital monitoring",
+      "Talent pools expanded but hiring slowed down"
+    ],
+    correct: 2,
+    explain: "The paradox is the constant tension between <strong>freedom and control</strong> — professionals gained unprecedented autonomy and flexibility, while corporations simultaneously increased digital monitoring and performance tracking."
+  },
+  {
+    section: "Section 1 — Models",
+    q: "According to the presentation, which remote work model provides complete professional independence but trades away job security?",
+    opts: ["Fully Remote", "Hybrid Work", "Outsourcing", "Freelancing"],
+    correct: 3,
+    explain: "<strong>Freelancing</strong> provides complete professional independence, but trades away job security and stable income. It is distinct from fully remote, which still implies an employer-employee relationship."
+  },
+  {
+    section: "Section 2 — Advantages",
+    q: "Which of the following was listed as a company-level advantage of remote work?",
+    opts: ["Higher employee salaries", "Easier recruitment from anywhere", "Stronger team cohesion", "Faster decision making"],
+    correct: 1,
+    explain: "For companies, <strong>easier recruitment</strong> — the ability to hire talent from anywhere — was a key benefit, alongside reduced costs and lower absenteeism."
+  },
+  {
+    section: "Section 2 — Reality Check",
+    q: "The presentation argues that 'flexibility is partly a myth.' What supports this claim?",
+    opts: [
+      "Remote workers are paid less than office workers",
+      "Deadlines, meetings, and schedules still control the workday",
+      "Most remote jobs require on-site visits once a month",
+      "Technology makes remote collaboration impossible"
+    ],
+    correct: 1,
+    explain: "The reality check slide points out that <strong>deadlines, meetings, and schedules still control the day</strong>, meaning the promise of full flexibility rarely holds true in practice."
+  },
+  {
+    section: "Section 2 — Key Numbers",
+    q: "What percentage of employees work remotely at least part-time today (post-pandemic)?",
+    opts: ["Around 5–7%", "Around 15%", "Around 30%", "Around 60%"],
+    correct: 2,
+    explain: "Before COVID, remote work was rare at only <strong>5–7%</strong>. Today, <strong>around 30%</strong> of employees work remotely at least part-time — a dramatic structural shift."
+  },
+  {
+    section: "Section 3 — Legal",
+    q: "Which article of Tunisia's Labour Code authorises remote work?",
+    opts: ["Article 12", "Article 29", "Article 47", "Article 81"],
+    correct: 1,
+    explain: "<strong>Article 29</strong> of the Labour Code allows remote work in Tunisia. However, many companies still lack clear contracts covering working hours, social security, and employee rights."
+  },
+  {
+    section: "Section 3 — Productivity",
+    q: "A Stanford study found remote workers can be up to 13% more productive — but a Microsoft report showed a trade-off. What decreased?",
+    opts: ["Individual task speed", "Team creativity and innovation", "Meeting attendance", "Software tool usage"],
+    correct: 1,
+    explain: "While individual productivity rose, the Microsoft report revealed that <strong>team creativity decreased</strong>. This is why hybrid work became the dominant model — it tries to balance both dimensions."
+  },
+  {
+    section: "Section 3 — Tools",
+    q: "Which of these was described as an AI-powered tool that improved efficiency and reduced workload in remote settings?",
+    opts: ["Slack", "Zoom", "Notion AI", "Google Drive"],
+    correct: 2,
+    explain: "<strong>Notion AI</strong> was cited as an example of AI-powered solutions shaping the future of remote work, improving efficiency beyond what standard communication tools offer."
+  },
+  {
+    section: "Section 3 — Remote Work 2.0",
+    q: "What is the presentation's final conclusion about the future of work?",
+    opts: [
+      "Remote work will completely replace offices within 5 years",
+      "The office will make a full comeback by 2030",
+      "Work is moving toward a hybrid, technology-driven model — neither fully remote nor fully office-based",
+      "Remote work is only viable for tech companies"
+    ],
+    correct: 2,
+    explain: "The conclusion is clear: the future will be <strong>neither fully remote nor fully office-based</strong>, but a balance between flexibility, control, and digital collaboration — a hybrid, technology-driven model still being defined."
+  }
+];
+
+const LABELS = ['A', 'B', 'C', 'D'];
+const TIME_PER_Q = 30;
+
+let current = 0;
+let score = 0;
+let correct = 0;
+let wrong = 0;
+let skipped = 0;
+let timerInterval = null;
+let timeLeft = TIME_PER_Q;
+let answered = false;
+let dotStates = Array(10).fill('');
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startQuiz() {
+  current = 0; score = 0; correct = 0; wrong = 0; skipped = 0;
+  dotStates = Array(10).fill('');
+  buildDots();
+  show('quiz');
+  renderQuestion();
+}
+
+function buildDots() {
+  const wrap = document.getElementById('progress-dots');
+  wrap.innerHTML = '';
+  QUESTIONS.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'pdot' + (i === 0 ? ' current' : '');
+    d.id = 'dot-' + i;
+    wrap.appendChild(d);
+  });
+}
+
+function updateDots() {
+  QUESTIONS.forEach((_, i) => {
+    const d = document.getElementById('dot-' + i);
+    d.className = 'pdot';
+    if (dotStates[i] === 'done') d.classList.add('done');
+    else if (dotStates[i] === 'wrong') d.classList.add('wrong');
+    else if (dotStates[i] === 'skip') d.classList.add('wrong');
+    if (i === current) d.classList.add('current');
+  });
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = QUESTIONS[current];
+  document.getElementById('q-counter').textContent = `Question ${current + 1} / ${QUESTIONS.length}`;
+  document.getElementById('q-section').textContent = q.section;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('explanation').style.display = 'none';
+  document.getElementById('next-row').style.display = 'none';
+
+  // Rebuild card animation
+  const card = document.getElementById('q-card');
+  card.style.animation = 'none';
+  card.offsetHeight; // reflow
+  card.style.animation = '';
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-label">${LABELS[i]}</span>${opt}`;
+    btn.onclick = () => selectAnswer(i);
+    grid.appendChild(btn);
+  });
+
+  updateDots();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timeLeft = TIME_PER_Q;
+  updateTimerUI();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if (!answered) timeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const pct = (timeLeft / TIME_PER_Q) * 100;
+  const bar = document.getElementById('timer-bar');
+  const lbl = document.getElementById('timer-label');
+  bar.style.width = pct + '%';
+
+  if (timeLeft <= 10) {
+    bar.style.background = 'var(--red)';
+    lbl.style.color = 'var(--red)';
+  } else if (timeLeft <= 20) {
+    bar.style.background = 'var(--accent2)';
+    lbl.style.color = 'var(--accent2)';
+  } else {
+    bar.style.background = 'var(--accent)';
+    lbl.style.color = 'var(--accent)';
+  }
+  lbl.textContent = timeLeft;
+}
+
+function timeUp() {
+  answered = true;
+  skipped++;
+  dotStates[current] = 'skip';
+  const q = QUESTIONS[current];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns[q.correct].classList.add('correct');
+  btns.forEach(b => b.disabled = true);
+  showExplanation('⏱ Time\'s up! ' + q.explain);
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  clearInterval(timerInterval);
+
+  const q = QUESTIONS[current];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+
+  if (idx === q.correct) {
+    btns[idx].classList.add('correct');
+    score++;
+    correct++;
+    dotStates[current] = 'done';
+    showExplanation('✓ Correct! ' + q.explain);
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.correct].classList.add('correct');
+    wrong++;
+    dotStates[current] = 'wrong';
+    showExplanation('✗ Not quite. ' + q.explain);
+  }
+  updateDots();
+}
+
+function showExplanation(html) {
+  const el = document.getElementById('explanation');
+  el.innerHTML = html;
+  el.style.display = 'block';
+  document.getElementById('next-row').style.display = 'flex';
+}
+
+function nextQuestion() {
+  current++;
+  if (current >= QUESTIONS.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  show('results');
+  const total = QUESTIONS.length;
+  const pct = score / total;
+
+  document.getElementById('score-num').textContent = `${score}/${total}`;
+  document.getElementById('rb-correct').textContent = correct;
+  document.getElementById('rb-wrong').textContent = wrong;
+  document.getElementById('rb-skipped').textContent = skipped;
+
+  // Animate ring
+  const circumference = 427;
+  const offset = circumference - (pct * circumference);
+  setTimeout(() => {
+    document.getElementById('score-arc').style.transition = 'stroke-dashoffset 1s ease';
+    document.getElementById('score-arc').style.strokeDashoffset = offset;
+  }, 200);
+
+  // Color ring
+  const arc = document.getElementById('score-arc');
+  if (pct >= 0.8) arc.setAttribute('stroke', 'var(--green)');
+  else if (pct >= 0.5) arc.setAttribute('stroke', 'var(--accent)');
+  else arc.setAttribute('stroke', 'var(--red)');
+
+  // Verdict
+  let verdict, sub;
+  if (score === 10) {
+    verdict = "Perfect Score 🎯";
+    sub = "Outstanding! You absorbed every concept from the presentation. You clearly understand the full picture of remote work.";
+  } else if (score >= 8) {
+    verdict = "Excellent Work 🔥";
+    sub = "You have a strong grasp of the material — advantages, legal frameworks, statistics, and the future of work.";
+  } else if (score >= 6) {
+    verdict = "Good Effort 👍";
+    sub = "Solid understanding. Review the sections where you missed answers — especially the statistics and legal parts.";
+  } else if (score >= 4) {
+    verdict = "Keep Reviewing 📖";
+    sub = "You caught the main ideas but some details slipped through. Another read of the slides will help reinforce them.";
+  } else {
+    verdict = "Try Again 💪";
+    sub = "The material covers a lot of ground. Go back to the presentation, then take the quiz again — you'll improve!";
+  }
+
+  document.getElementById('verdict').textContent = verdict;
+  document.getElementById('verdict-sub').textContent = sub;
+}
+
+function restart() {
+  startQuiz();
+}
+</script>
+</body>
+</html>
