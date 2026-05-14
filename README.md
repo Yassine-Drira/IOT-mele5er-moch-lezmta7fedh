@@ -1,1 +1,1227 @@
 # Remote_Work_Quiz_ForProject
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Remote Work — AR Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #010408;
+  --deep: #040c18;
+  --panel: rgba(6,20,44,0.72);
+  --panel-bright: rgba(8,28,62,0.85);
+  --cyan: #00f5ff;
+  --cyan-dim: rgba(0,245,255,0.15);
+  --cyan-glow: rgba(0,245,255,0.4);
+  --teal: #00e5c8;
+  --purple: #b060ff;
+  --purple-dim: rgba(176,96,255,0.15);
+  --gold: #ffd060;
+  --green: #00ff88;
+  --red: #ff4060;
+  --white90: rgba(255,255,255,0.92);
+  --white50: rgba(255,255,255,0.5);
+  --white20: rgba(255,255,255,0.2);
+  --white08: rgba(255,255,255,0.08);
+  --border-c: rgba(0,245,255,0.25);
+  --border-p: rgba(176,96,255,0.25);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; height:100%;
+  background: var(--void);
+  color: var(--white90);
+  font-family: 'Rajdhani', sans-serif;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: manipulation; /* Prevents double-tap zoom on mobile */
+}
+
+/* ═══════════ CANVAS BACKGROUND ═══════════ */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ═══════════ DEPTH GRID ═══════════ */
+.grid-plane {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(800px) rotateX(55deg) translateY(30%);
+  transform-origin: bottom center;
+  animation: gridMove 8s linear infinite;
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to   { background-position: 0 60px; }
+}
+
+/* ═══════════ HUD CORNERS ═══════════ */
+.hud-corner {
+  position: fixed;
+  width: min(60px, 10vw); height: min(60px, 10vw);
+  z-index: 10;
+  pointer-events: none;
+}
+.hud-corner::before, .hud-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--cyan);
+}
+.hud-corner::before { width: 2px; height: 100%; }
+.hud-corner::after  { width: 100%; height: 2px; }
+
+.hud-tl { top:16px; left:16px; }
+.hud-tr { top:16px; right:16px; transform: scaleX(-1); }
+.hud-bl { bottom:16px; left:16px; transform: scaleY(-1); }
+.hud-br { bottom:16px; right:16px; transform: scale(-1); }
+
+/* HUD data overlays */
+.hud-data {
+  position: fixed;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: rgba(0,245,255,0.5);
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1.8;
+}
+.hud-data.tl { top: 82px; left: 20px; }
+.hud-data.tr { top: 82px; right: 20px; text-align: right; }
+.hud-data.bl { bottom: 82px; left: 20px; }
+
+/* Hide background data text on very small screens to avoid overlap */
+@media(max-width: 600px) {
+  .hud-data { display: none; }
+}
+
+/* Scan line */
+.scanline {
+  position: fixed;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.6), transparent);
+  z-index: 10;
+  pointer-events: none;
+  animation: scan 4s linear infinite;
+}
+@keyframes scan {
+  from { top: -2px; opacity: 1; }
+  to   { top: 100vh; opacity: 0.3; }
+}
+
+/* ═══════════ SCREENS ═══════════ */
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  perspective: 1200px;
+  padding: 15px;
+}
+.screen.active { display: flex; }
+
+/* ═══════════ INTRO ═══════════ */
+#intro { gap: 0; }
+
+.intro-orb {
+  width: clamp(120px, 40vw, 180px); height: clamp(120px, 40vw, 180px);
+  position: relative;
+  margin-bottom: 36px;
+  animation: orbFloat 4s ease-in-out infinite;
+}
+@keyframes orbFloat {
+  0%,100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-16px) rotateX(8deg); }
+}
+
+.orb-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--cyan);
+  animation: ringRotate 6s linear infinite;
+  box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 20px rgba(0,245,255,0.05);
+}
+.orb-ring:nth-child(2) {
+  inset: 14px;
+  border-color: var(--purple);
+  animation-duration: 4s;
+  animation-direction: reverse;
+  box-shadow: 0 0 15px rgba(176,96,255,0.4), inset 0 0 15px rgba(176,96,255,0.05);
+}
+.orb-ring:nth-child(3) {
+  inset: 28px;
+  border-color: var(--teal);
+  animation-duration: 8s;
+}
+.orb-core {
+  position: absolute;
+  inset: 42px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,245,255,0.3), rgba(176,96,255,0.2), transparent);
+  animation: corePulse 2s ease-in-out infinite;
+}
+@keyframes corePulse {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+@keyframes ringRotate {
+  from { transform: rotateX(70deg) rotate(0deg); }
+  to   { transform: rotateX(70deg) rotate(360deg); }
+}
+
+.intro-eyebrow {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 3vw, 11px);
+  color: var(--cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s 0.2s forwards;
+  text-align: center;
+}
+
+.intro-title {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(2.2rem, 8vw, 3.6rem);
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s 0.4s forwards;
+  text-shadow: 0 0 40px rgba(0,245,255,0.4);
+}
+.intro-title .hl { color: var(--cyan); }
+.intro-title .hl2 { color: var(--purple); }
+
+.intro-meta {
+  display: flex;
+  gap: clamp(12px, 3vw, 32px);
+  margin: 28px 0 40px;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s 0.6s forwards;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.meta-chip {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 2.5vw, 11px);
+  color: var(--cyan);
+  border: 1px solid var(--border-c);
+  background: var(--cyan-dim);
+  padding: 6px 14px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+.meta-chip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.15), transparent);
+  animation: chipShimmer 3s infinite;
+}
+@keyframes chipShimmer {
+  from { left: -100%; }
+  to   { left: 100%; }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity:0; transform: translateY(20px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ═══════════ LAUNCH BUTTON ═══════════ */
+.btn-launch {
+  position: relative;
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--cyan);
+  border: none;
+  padding: 18px clamp(30px, 8vw, 52px);
+  cursor: pointer;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  transition: all 0.2s;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s 0.8s forwards;
+  box-shadow: 0 0 40px var(--cyan-glow), 0 0 80px rgba(0,245,255,0.15);
+}
+.btn-launch:hover {
+  background: white;
+  box-shadow: 0 0 60px rgba(0,245,255,0.8), 0 0 120px rgba(0,245,255,0.3);
+  transform: scale(1.04);
+}
+.btn-launch:active { transform: scale(0.98); }
+
+/* ═══════════ QUIZ SCREEN ═══════════ */
+#quiz {
+  gap: 16px;
+  padding: 10px;
+}
+
+/* Top HUD bar */
+.quiz-hud {
+  width: 100%;
+  max-width: 820px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.q-id {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(10px, 3vw, 11px);
+  color: var(--cyan);
+  letter-spacing: 2px;
+}
+
+.timer-hud {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.timer-track {
+  width: clamp(80px, 20vw, 180px);
+  height: 4px;
+  background: rgba(0,245,255,0.1);
+  border-radius: 0;
+  position: relative;
+  overflow: visible;
+}
+.timer-fill {
+  height: 100%;
+  background: var(--cyan);
+  transition: width 1s linear, background 0.5s;
+  box-shadow: 0 0 10px var(--cyan);
+  position: relative;
+}
+.timer-fill::after {
+  content: '';
+  position: absolute;
+  right: -3px; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px var(--cyan);
+}
+
+.timer-num {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  color: var(--cyan);
+  min-width: 28px;
+  text-align: right;
+  transition: color 0.3s;
+  text-shadow: 0 0 12px currentColor;
+}
+
+/* Progress nodes */
+.progress-nodes {
+  display: flex;
+  gap: clamp(4px, 1.5vw, 8px);
+  align-items: center;
+}
+.pnode {
+  width: clamp(14px, 3vw, 24px); 
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.4s;
+  position: relative;
+}
+.pnode.cur {
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 0 8px var(--cyan-glow);
+  transform: scaleY(2.5);
+}
+.pnode.ok {
+  background: var(--green);
+  border-color: var(--green);
+}
+.pnode.no {
+  background: var(--red);
+  border-color: var(--red);
+}
+.pnode.skip {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ═══════════ HOLOGRAPHIC PANEL ═══════════ */
+.holo-panel {
+  width: 100%;
+  max-width: 820px;
+  max-height: 75vh; /* Prevents overflow on mobile */
+  overflow-y: auto; /* Allows scrolling */
+  overflow-x: hidden;
+  background: var(--panel);
+  border: 1px solid var(--border-c);
+  border-radius: 4px;
+  padding: clamp(20px, 5vw, 36px) clamp(16px, 5vw, 40px);
+  position: relative;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 0 0 1px rgba(0,245,255,0.05),
+    0 20px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(0,245,255,0.2),
+    inset 0 -1px 0 rgba(176,96,255,0.1);
+  transform-style: preserve-3d;
+  animation: panelIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* Custom Cyberpunk Scrollbar */
+.holo-panel::-webkit-scrollbar { width: 6px; }
+.holo-panel::-webkit-scrollbar-track { background: rgba(0,245,255,0.05); }
+.holo-panel::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
+.holo-panel::-webkit-scrollbar-thumb:hover { background: white; }
+
+@keyframes panelIn {
+  from { opacity:0; transform: perspective(1000px) rotateX(-8deg) translateY(30px) scale(0.97); }
+  to   { opacity:1; transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1); }
+}
+
+/* Refraction edge */
+.holo-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--teal), transparent);
+  opacity: 0.8;
+}
+
+/* Interior glow */
+.holo-panel::after {
+  content: '';
+  position: absolute;
+  top: -40%; left: -20%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(0,245,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Corner notches */
+.panel-notch {
+  position: absolute;
+  width: 14px; height: 14px;
+  border-color: var(--cyan);
+  border-style: solid;
+  opacity: 0.7;
+  z-index: 2; /* Keeps them above scrollable content */
+}
+.panel-notch.tl { top:0; left:0; border-width:2px 0 0 2px; }
+.panel-notch.tr { top:0; right:0; border-width:2px 2px 0 0; }
+.panel-notch.bl { bottom:0; left:0; border-width:0 0 2px 2px; }
+.panel-notch.br { bottom:0; right:0; border-width:0 2px 2px 0; }
+
+.q-section-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--purple);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.q-section-tag::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--purple);
+  display: inline-block;
+}
+
+.q-text {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 24px;
+  color: var(--white90);
+  letter-spacing: 0.01em;
+}
+
+/* ═══════════ OPTIONS ═══════════ */
+.opts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+@media(max-width:650px) {
+  .opts-grid { grid-template-columns: 1fr; }
+}
+
+.opt-btn {
+  position: relative;
+  background: rgba(0,245,255,0.03);
+  border: 1px solid rgba(0,245,255,0.18);
+  color: var(--white90);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(0.95rem, 3.5vw, 1rem);
+  font-weight: 500;
+  text-align: left;
+  padding: 14px 16px 14px 44px;
+  cursor: pointer;
+  transition: all 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.opt-btn::before {
+  content: attr(data-lbl);
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: 1px;
+}
+
+.opt-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,245,255,0) 0%, rgba(0,245,255,0.06) 100%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.opt-btn:hover:not(:disabled) {
+  border-color: var(--cyan);
+  background: rgba(0,245,255,0.08);
+  box-shadow: 0 0 20px rgba(0,245,255,0.12), inset 0 0 20px rgba(0,245,255,0.04);
+  transform: translateX(4px);
+}
+.opt-btn:hover:not(:disabled)::after { opacity: 1; }
+
+.opt-btn:disabled { cursor: default; }
+
+.opt-btn.correct {
+  border-color: var(--green);
+  background: rgba(0,255,136,0.08);
+  color: var(--green);
+  box-shadow: 0 0 20px rgba(0,255,136,0.2);
+  animation: correctPulse 0.5s ease;
+}
+.opt-btn.correct::before { color: var(--green); }
+
+.opt-btn.wrong {
+  border-color: var(--red);
+  background: rgba(255,64,96,0.08);
+  color: var(--red);
+  box-shadow: 0 0 15px rgba(255,64,96,0.15);
+  animation: wrongShake 0.4s ease;
+}
+.opt-btn.wrong::before { color: var(--red); }
+
+@keyframes correctPulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+@keyframes wrongShake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* ═══════════ EXPLANATION & NEXT ROW ═══════════ */
+.explanation {
+  margin-top: 20px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--purple);
+  background: var(--purple-dim);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+  font-weight: 400;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.65;
+  animation: fadeSlideUp 0.3s ease;
+  position: relative;
+}
+.explanation strong { color: var(--white90); font-weight: 600; }
+.explanation .expl-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--purple);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Sticky Next Button so it never gets lost off-screen */
+.next-row {
+  position: sticky;
+  bottom: 0px; 
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+  background: linear-gradient(to bottom, transparent 0%, var(--panel) 40%, var(--panel) 100%);
+  z-index: 10;
+}
+
+.btn-next {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: clamp(0.7rem, 2.5vw, 0.75rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--cyan);
+  border: none;
+  padding: 14px clamp(20px, 5vw, 36px);
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: all 0.2s;
+  box-shadow: 0 0 24px var(--cyan-glow);
+}
+.btn-next:hover {
+  background: white;
+  box-shadow: 0 0 40px rgba(0,245,255,0.7);
+  transform: scale(1.04);
+}
+
+/* ═══════════ RESULTS ═══════════ */
+#results { gap: clamp(16px, 4vw, 28px); text-align: center; }
+
+.results-header {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 2.5vw, 11px);
+  letter-spacing: 4px;
+  color: var(--cyan);
+  text-transform: uppercase;
+}
+
+/* Holographic score ring */
+.score-holo {
+  position: relative;
+  width: clamp(140px, 40vw, 200px); 
+  height: clamp(140px, 40vw, 200px);
+  margin: 0 auto;
+}
+.score-holo svg { 
+  width: 100%; height: 100%; 
+  transform: rotate(-90deg); 
+  filter: drop-shadow(0 0 12px var(--cyan)); 
+}
+.score-holo-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.score-big {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  color: var(--white90);
+  text-shadow: 0 0 20px var(--cyan-glow);
+  line-height: 1;
+}
+.score-out {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(9px, 2.5vw, 11px);
+  color: var(--cyan);
+  letter-spacing: 2px;
+  margin-top: 6px;
+}
+
+.verdict-title {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 30px var(--cyan-glow);
+  margin-bottom: 8px;
+}
+
+.verdict-body {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(0.9rem, 3.5vw, 1rem);
+  font-weight: 400;
+  color: var(--white50);
+  max-width: 420px;
+  line-height: 1.7;
+  margin: 0 auto;
+}
+
+.stats-row {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: var(--panel);
+  border: 1px solid var(--border-c);
+  padding: 14px 18px;
+  min-width: clamp(80px, 25vw, 100px);
+  text-align: center;
+  position: relative;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  backdrop-filter: blur(12px);
+}
+.stat-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+.stat-val {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  line-height: 1;
+}
+.stat-val.g { color: var(--green); text-shadow: 0 0 16px rgba(0,255,136,0.5); }
+.stat-val.r { color: var(--red);   text-shadow: 0 0 16px rgba(255,64,96,0.5); }
+.stat-val.y { color: var(--gold);  text-shadow: 0 0 16px rgba(255,208,96,0.5); }
+
+.stat-lbl {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(8px, 2vw, 9px);
+  letter-spacing: 2px;
+  color: var(--white50);
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.btn-restart {
+  font-family: 'Orbitron', monospace;
+  font-weight: 600;
+  font-size: clamp(0.7rem, 2.5vw, 0.75rem);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: transparent;
+  border: 1px solid var(--border-c);
+  padding: 14px clamp(20px, 6vw, 36px);
+  cursor: pointer;
+  transition: all 0.2s;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  margin-top: 10px;
+}
+.btn-restart:hover {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+  box-shadow: 0 0 24px rgba(0,245,255,0.2);
+}
+
+/* Ripple */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(0,245,255,0.3);
+  transform: scale(0);
+  animation: rippleAnim 0.6s linear;
+  pointer-events: none;
+  z-index: 99;
+}
+@keyframes rippleAnim {
+  to { transform: scale(4); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="grid-plane"></div>
+
+<div class="scanline"></div>
+
+<div class="hud-corner hud-tl"></div>
+<div class="hud-corner hud-tr"></div>
+<div class="hud-corner hud-bl"></div>
+<div class="hud-corner hud-br"></div>
+
+<div class="hud-data tl" id="hud-tl">
+  SYS::ONLINE<br>
+  LOC::SPATIAL_LAYER_7<br>
+  RES::1920×1080<br>
+  PING::&lt;1ms
+</div>
+<div class="hud-data tr" id="hud-tr">
+  MODULE::QUIZ_v2.4<br>
+  AUTH::VERIFIED<br>
+  ENC::AES-256<br>
+  <span id="hud-time">--:--:--</span>
+</div>
+<div class="hud-data bl">
+  REMOTE_WORK::ANALYSIS<br>
+  SECTIONS::03<br>
+  Q_LOADED::10
+</div>
+
+<div id="intro" class="screen active">
+  <div class="intro-orb">
+    <div class="orb-ring"></div>
+    <div class="orb-ring"></div>
+    <div class="orb-ring"></div>
+    <div class="orb-core"></div>
+  </div>
+  <div class="intro-eyebrow">// POST-SESSION ASSESSMENT //</div>
+  <div class="intro-title">
+    REMOTE<br>
+    <span class="hl">WORK</span> <span class="hl2">QUIZ</span>
+  </div>
+  <div class="intro-meta">
+    <div class="meta-chip">10 QUESTIONS</div>
+    <div class="meta-chip">30s / QUESTION</div>
+    <div class="meta-chip">~8 MIN TOTAL</div>
+  </div>
+  <button class="btn-launch" id="btn-launch" onclick="startOrResumeQuiz()">INITIALIZE SESSION</button>
+</div>
+
+<div id="quiz" class="screen">
+  <div class="quiz-hud">
+    <span class="q-id" id="q-id">Q.01 / 10</span>
+    <div class="progress-nodes" id="prog-nodes"></div>
+    <div class="timer-hud">
+      <div class="timer-track"><div class="timer-fill" id="t-fill"></div></div>
+      <span class="timer-num" id="t-num">30</span>
+    </div>
+  </div>
+
+  <div class="holo-panel" id="q-panel">
+    <div class="panel-notch tl"></div>
+    <div class="panel-notch tr"></div>
+    <div class="panel-notch bl"></div>
+    <div class="panel-notch br"></div>
+    <div class="q-section-tag" id="q-sec">SECTION</div>
+    <div class="q-text" id="q-txt">Question text</div>
+    <div class="opts-grid" id="opts-grid"></div>
+    <div class="explanation" id="expl" style="display:none;"></div>
+    <div class="next-row" id="next-row" style="display:none;">
+      <button class="btn-next" onclick="nextQ()">NEXT QUERY →</button>
+    </div>
+  </div>
+</div>
+
+<div id="results" class="screen">
+  <div class="results-header">// SESSION COMPLETE — ANALYSIS REPORT //</div>
+  <div class="score-holo">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(0,245,255,0.1)" stroke-width="8"/>
+      <circle cx="100" cy="100" r="85" fill="none" stroke="var(--cyan)" stroke-width="8"
+        stroke-linecap="butt" stroke-dasharray="534" id="score-arc" stroke-dashoffset="534"/>
+    </svg>
+    <div class="score-holo-text">
+      <div class="score-big" id="sc-num">0</div>
+      <div class="score-out" id="sc-out">OUT OF 10</div>
+    </div>
+  </div>
+  <div>
+    <div class="verdict-title" id="verd-title">PROCESSING…</div>
+    <div class="verdict-body" id="verd-body"></div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-val g" id="s-ok">0</div>
+      <div class="stat-lbl">CORRECT</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val r" id="s-no">0</div>
+      <div class="stat-lbl">INCORRECT</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val y" id="s-sk">0</div>
+      <div class="stat-lbl">SKIPPED</div>
+    </div>
+  </div>
+  <button class="btn-restart" onclick="restart()">↺ REINITIALIZE</button>
+</div>
+
+<script>
+/* ═══ AMBIENT PARTICLE CANVAS ═══ */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resizeCanvas() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.r = Math.random() * 1.2 + 0.2;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.a = Math.random() * 0.5 + 0.1;
+    this.color = Math.random() > 0.5 ? '0,245,255' : '176,96,255';
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${this.color},${this.a})`;
+    ctx.fill();
+  }
+}
+
+function initParticles() {
+  particles = Array.from({length: 80}, () => new Particle()); // Reduced slightly for mobile performance
+}
+
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,245,255,${0.06 * (1 - dist/100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animCanvas() {
+  ctx.clearRect(0, 0, W, H);
+  drawConnections();
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animCanvas);
+}
+
+resizeCanvas();
+initParticles();
+animCanvas();
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+/* ═══ HUD CLOCK ═══ */
+function updateHUDTime() {
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,'0');
+  const mm = String(now.getMinutes()).padStart(2,'0');
+  const ss = String(now.getSeconds()).padStart(2,'0');
+  const el = document.getElementById('hud-time');
+  if (el) el.textContent = `${hh}:${mm}:${ss}`;
+}
+setInterval(updateHUDTime, 1000);
+updateHUDTime();
+
+/* ═══ RIPPLE ═══ */
+document.addEventListener('click', e => {
+  if (e.target.tagName === 'BUTTON') {
+    const rip = document.createElement('span');
+    rip.className = 'ripple';
+    rip.style.cssText = `left:${e.clientX-20}px;top:${e.clientY-20}px;width:40px;height:40px;`;
+    document.body.appendChild(rip);
+    setTimeout(() => rip.remove(), 600);
+  }
+});
+
+/* ═══ QUIZ DATA ═══ */
+const QS = [
+  { sec:"SECTION 01 — FRAMEWORK", q:"Before 2020, remote work was mainly associated with which two groups?", opts:["Large corporations and governments","Freelancers and tech startups","Healthcare workers and educators","Finance professionals and lawyers"], c:1, ex:"Prior to the pandemic, remote work was a niche arrangement primarily reserved for <strong>freelancers and tech startups</strong>. The traditional office was the unquestioned standard for most industries." },
+  { sec:"SECTION 01 — FRAMEWORK", q:"What is the 'Paradox of Remote Work' described in the presentation?", opts:["Workers earn more but spend more on equipment","Companies save money but lose productivity","Workers gained autonomy while corporations increased digital monitoring","Talent pools expanded but hiring slowed down"], c:2, ex:"The paradox is the constant tension between <strong>freedom and control</strong> — professionals gained unprecedented autonomy and flexibility, while corporations simultaneously increased digital monitoring and performance tracking." },
+  { sec:"SECTION 01 — MODELS", q:"Which remote work model provides complete professional independence but trades away job security?", opts:["Fully Remote","Hybrid Work","Outsourcing","Freelancing"], c:3, ex:"<strong>Freelancing</strong> provides complete professional independence, but trades away job security and stable income — distinct from fully remote which still implies an employer-employee relationship." },
+  { sec:"SECTION 02 — ADVANTAGES", q:"Which of the following was listed as a company-level advantage of remote work?", opts:["Higher employee salaries","Easier recruitment from anywhere","Stronger team cohesion","Faster decision making"], c:1, ex:"For companies, <strong>easier recruitment</strong> — the ability to hire talent from anywhere — was a key benefit, alongside reduced costs and lower absenteeism." },
+  { sec:"SECTION 02 — REALITY CHECK", q:"The presentation argues that 'flexibility is partly a myth.' What supports this claim?", opts:["Remote workers are paid less than office workers","Deadlines, meetings, and schedules still control the workday","Most remote jobs require on-site visits once a month","Technology makes remote collaboration impossible"], c:1, ex:"The reality check slide points out that <strong>deadlines, meetings, and schedules still control the day</strong>, meaning the promise of full flexibility rarely holds true in practice." },
+  { sec:"SECTION 02 — KEY NUMBERS", q:"What percentage of employees work remotely at least part-time today (post-pandemic)?", opts:["Around 5–7%","Around 15%","Around 30%","Around 60%"], c:2, ex:"Before COVID, remote work was rare at only <strong>5–7%</strong>. Today, <strong>around 30%</strong> of employees work remotely at least part-time — a dramatic structural shift." },
+  { sec:"SECTION 03 — LEGAL", q:"Which article of Tunisia's Labour Code authorises remote work?", opts:["Article 12","Article 29","Article 47","Article 81"], c:1, ex:"<strong>Article 29</strong> of the Labour Code allows remote work in Tunisia. However, many companies still lack clear contracts covering working hours, social security, and employee rights." },
+  { sec:"SECTION 03 — PRODUCTIVITY", q:"A Stanford study found remote workers can be up to 13% more productive — but a Microsoft report showed a trade-off. What decreased?", opts:["Individual task speed","Team creativity and innovation","Meeting attendance","Software tool usage"], c:1, ex:"While individual productivity rose, the Microsoft report revealed that <strong>team creativity decreased</strong>. This is why hybrid work became the dominant model — balancing both dimensions." },
+  { sec:"SECTION 03 — TOOLS", q:"Which was described as an AI-powered tool that improved efficiency and reduced workload in remote settings?", opts:["Slack","Zoom","Notion AI","Google Drive"], c:2, ex:"<strong>Notion AI</strong> was cited as an AI-powered solution shaping the future of remote work, improving efficiency beyond what standard communication tools offer." },
+  { sec:"SECTION 03 — REMOTE WORK 2.0", q:"What is the presentation's final conclusion about the future of work?", opts:["Remote work will completely replace offices within 5 years","The office will make a full comeback by 2030","Work is moving toward a hybrid, technology-driven model — neither fully remote nor fully office-based","Remote work is only viable for tech companies"], c:2, ex:"The conclusion: the future will be <strong>neither fully remote nor fully office-based</strong>, but a balance between flexibility, control, and digital collaboration — a hybrid model still being defined." }
+];
+
+const LBLS = ['A','B','C','D'];
+const TIME = 30;
+
+let cur=0, score=0, correct=0, wrong=0, skipped=0;
+let tInt=null, tLeft=TIME, answered=false;
+let dotState = Array(10).fill('');
+
+/* ═══ STATE MANAGEMENT (LOCAL STORAGE) ═══ */
+function saveState() {
+  const state = { cur, score, correct, wrong, skipped, dotState };
+  localStorage.setItem('arQuizState', JSON.stringify(state));
+}
+
+function loadState() {
+  const saved = localStorage.getItem('arQuizState');
+  if (saved) {
+    const state = JSON.parse(saved);
+    cur = state.cur;
+    score = state.score;
+    correct = state.correct;
+    wrong = state.wrong;
+    skipped = state.skipped;
+    dotState = state.dotState;
+    return true;
+  }
+  return false;
+}
+
+function clearState() {
+  localStorage.removeItem('arQuizState');
+}
+
+// Check for saved state on load to update the launch button
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('arQuizState')) {
+    document.getElementById('btn-launch').textContent = 'RESUME SESSION';
+  }
+});
+
+/* ═══ CORE LOGIC ═══ */
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startOrResumeQuiz() {
+  if (loadState() && cur < QS.length) {
+    // Resume
+    buildNodes();
+    show('quiz');
+    renderQ();
+  } else {
+    // Start fresh
+    startQuiz();
+  }
+}
+
+function startQuiz() {
+  clearState();
+  cur=0; score=0; correct=0; wrong=0; skipped=0;
+  dotState=Array(10).fill('');
+  buildNodes();
+  show('quiz');
+  renderQ();
+}
+
+function buildNodes() {
+  const wrap = document.getElementById('prog-nodes');
+  wrap.innerHTML = '';
+  QS.forEach((_,i) => {
+    const d = document.createElement('div');
+    d.className='pnode'; d.id='pn'+i;
+    wrap.appendChild(d);
+  });
+}
+
+function syncNodes() {
+  QS.forEach((_,i) => {
+    const d = document.getElementById('pn'+i);
+    if (!d) return;
+    d.className = 'pnode';
+    if (dotState[i]==='ok') d.classList.add('ok');
+    else if (dotState[i]==='no') d.classList.add('no');
+    else if (dotState[i]==='skip') d.classList.add('skip');
+    if (i===cur) d.classList.add('cur');
+  });
+}
+
+function renderQ() {
+  answered = false;
+  const q = QS[cur];
+  document.getElementById('q-id').textContent = `Q.${String(cur+1).padStart(2,'0')} / ${QS.length}`;
+  document.getElementById('q-sec').textContent = q.sec;
+  document.getElementById('q-txt').textContent = q.q;
+  document.getElementById('expl').style.display = 'none';
+  document.getElementById('next-row').style.display = 'none';
+
+  // Restart panel animation
+  const panel = document.getElementById('q-panel');
+  panel.style.animation = 'none'; panel.offsetHeight;
+  panel.style.animation = '';
+  
+  // Scroll to top of panel for new question
+  panel.scrollTop = 0;
+
+  const grid = document.getElementById('opts-grid');
+  grid.innerHTML = '';
+  q.opts.forEach((opt,i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.setAttribute('data-lbl', LBLS[i]);
+    btn.textContent = opt;
+    btn.onclick = () => pick(i);
+    grid.appendChild(btn);
+  });
+
+  syncNodes();
+  startTimer();
+  saveState(); // Save state at the start of each question
+}
+
+function startTimer() {
+  clearInterval(tInt);
+  tLeft = TIME;
+  updTimer();
+  tInt = setInterval(() => {
+    tLeft--;
+    updTimer();
+    if (tLeft <= 0) { clearInterval(tInt); if (!answered) timeUp(); }
+  }, 1000);
+}
+
+function updTimer() {
+  const pct = (tLeft / TIME) * 100;
+  const fill = document.getElementById('t-fill');
+  const num  = document.getElementById('t-num');
+  fill.style.width = pct + '%';
+  if (tLeft <= 10) {
+    fill.style.background = 'var(--red)';
+    fill.style.boxShadow = '0 0 10px var(--red)';
+    num.style.color = 'var(--red)';
+  } else if (tLeft <= 20) {
+    fill.style.background = 'var(--gold)';
+    fill.style.boxShadow = '0 0 10px var(--gold)';
+    num.style.color = 'var(--gold)';
+  } else {
+    fill.style.background = 'var(--cyan)';
+    fill.style.boxShadow = '0 0 10px var(--cyan)';
+    num.style.color = 'var(--cyan)';
+  }
+  num.textContent = tLeft;
+}
+
+function timeUp() {
+  answered = true; skipped++;
+  dotState[cur] = 'skip';
+  const q = QS[cur];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns[q.c].classList.add('correct');
+  btns.forEach(b => b.disabled = true);
+  showExpl('⏱ TIME EXPIRED — ' + q.ex);
+  syncNodes();
+  saveState();
+}
+
+function pick(idx) {
+  if (answered) return;
+  answered = true;
+  clearInterval(tInt);
+  const q = QS[cur];
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+  if (idx === q.c) {
+    btns[idx].classList.add('correct');
+    score++; correct++;
+    dotState[cur] = 'ok';
+    showExpl('✓ CONFIRMED — ' + q.ex);
+  } else {
+    btns[idx].classList.add('wrong');
+    btns[q.c].classList.add('correct');
+    wrong++;
+    dotState[cur] = 'no';
+    showExpl('✗ NEGATIVE — ' + q.ex);
+  }
+  syncNodes();
+  saveState();
+}
+
+function showExpl(html) {
+  const el = document.getElementById('expl');
+  el.innerHTML = `<span class="expl-label">// SYSTEM ANALYSIS //</span>${html}`;
+  el.style.display = 'block';
+  document.getElementById('next-row').style.display = 'flex';
+  
+  // Auto-scroll slightly so the next button is obvious, even though it's sticky
+  const panel = document.getElementById('q-panel');
+  setTimeout(() => {
+    panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
+  }, 100);
+}
+
+function nextQ() {
+  cur++;
+  if (cur >= QS.length) showResults();
+  else renderQ();
+}
+
+function showResults() {
+  clearState(); // Wipe state once finished
+  show('results');
+  const pct = score / QS.length;
+  document.getElementById('sc-num').textContent = score;
+  document.getElementById('s-ok').textContent = correct;
+  document.getElementById('s-no').textContent = wrong;
+  document.getElementById('s-sk').textContent = skipped;
+
+  const arc = document.getElementById('score-arc');
+  const circum = 534;
+  arc.style.strokeDashoffset = circum;
+  setTimeout(() => {
+    arc.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1)';
+    arc.style.strokeDashoffset = circum - (pct * circum);
+  }, 300);
+
+  if (pct >= 0.8) { arc.setAttribute('stroke','var(--green)'); arc.parentElement.style.filter='drop-shadow(0 0 12px var(--green))'; }
+  else if (pct >= 0.5) { arc.setAttribute('stroke','var(--cyan)'); }
+  else { arc.setAttribute('stroke','var(--red)'); arc.parentElement.style.filter='drop-shadow(0 0 12px var(--red))'; }
+
+  const verdicts = [
+    [10, "PERFECT SCORE", "Outstanding. You absorbed every concept from the presentation. Full system comprehension confirmed."],
+    [8,  "EXCELLENT OUTPUT", "Strong grasp across all three sections — framework, statistics, legal, and future technology."],
+    [6,  "SATISFACTORY RESULT", "Solid understanding. Review the sections where you dropped — especially statistics and legal frameworks."],
+    [4,  "PARTIAL ACQUISITION", "You caught the main ideas but key details need reinforcement. Revisit the slides and retry."],
+    [0,  "REBOOT REQUIRED", "The material covers substantial ground. Return to the presentation, then reinitialize the quiz."]
+  ];
+
+  const [,t,b] = verdicts.find(([min]) => score >= min);
+  document.getElementById('verd-title').textContent = t;
+  document.getElementById('verd-body').textContent = b;
+}
+
+function restart() { startQuiz(); }
+</script>
+</body>
+</html>
