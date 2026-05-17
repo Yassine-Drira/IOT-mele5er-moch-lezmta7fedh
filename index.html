@@ -2,22 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-08BE8H3FYV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-08BE8H3FYV');
-</script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAR — Révision Interactive</title>
-<meta name="description" content="Plateforme de révision interactive : RMI, REST, Kafka, RPC — SAR">
+<title>IoT VIP Pro — Révision Interactive</title>
+<meta name="description" content="Plateforme de révision interactive : IoT, LoRa, Sigfox, MQTT, 5G">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -28,7 +16,6 @@
   --font:'Sora',system-ui,sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
-
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:var(--font);font-size:15px;line-height:1.6;min-height:100vh;position:relative;z-index:0}
 body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at top,rgba(139,92,246,.06) 0%,transparent 50%);z-index:-1;pointer-events:none}
@@ -40,11 +27,11 @@ body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%
 nav{position:sticky;top:0;z-index:1000;background:rgba(9,9,11,0.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center}
 .nav-brand{padding:0 16px;font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;border-right:1px solid var(--border);letter-spacing:.5px;height:48px;display:flex;align-items:center}
 .nav-tabs{display:flex;flex:1;overflow-x:auto}
-.tab-btn{padding:0 18px;height:48px;background:none;border:none;border-bottom:2px solid transparent;color:var(--txt2);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:500;white-space:nowrap;transition:all .2s}
+.tab-btn{padding:0 14px;height:48px;background:none;border:none;border-bottom:2px solid transparent;color:var(--txt2);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:500;white-space:nowrap;transition:all .2s}
 .tab-btn:hover{color:var(--txt);background:rgba(139,92,246,.07)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
-.nav-right{display:flex;align-items:center;gap:8px;padding:0 12px;border-left:1px solid var(--border)}
-#search-box{background:var(--bg);border:1px solid var(--border);color:var(--txt);padding:7px 12px;border-radius:6px;font-family:var(--font);font-size:13px;width:190px;transition:border .2s}
+.nav-right{display:flex;align-items:center;gap:6px;padding:0 8px;border-left:1px solid var(--border)}
+#search-box{background:var(--bg);border:1px solid var(--border);color:var(--txt);padding:7px 10px;border-radius:6px;font-family:var(--font);font-size:13px;width:150px;transition:border .2s}
 #search-box:focus{outline:none;border-color:var(--accent)}
 #search-box::placeholder{color:var(--txt2)}
 main{max-width:1180px;margin:0 auto;padding:24px 16px}
@@ -169,19 +156,16 @@ textarea.code-area:focus{outline:none;border-color:var(--accent)}
 .hamburger{display:none;background:none;border:none;color:var(--txt);font-size:22px;cursor:pointer;padding:0 14px;height:48px}
 .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:950;display:none;backdrop-filter:blur(2px)}
 .sidebar-overlay.open{display:block}
-@media(max-width:850px){nav{flex-wrap:wrap;padding:4px 0}.hamburger{display:block}.nav-brand{border-right:none;padding-left:0;flex:1}.nav-right{width:100%;border-left:none;border-top:1px solid var(--border);padding:8px 16px;justify-content:center;margin-top:4px}.kbd-btn{display:none}.nav-tabs{position:fixed;top:0;left:-260px;width:260px;height:100vh;background:var(--panel);border-right:1px solid var(--border);border-top:none;flex-direction:column;z-index:1000;transition:left .3s cubic-bezier(.4,0,.2,1);padding-top:20px;overflow-y:auto;align-items:stretch}.nav-tabs.open{left:0}.tab-btn{width:100%;text-align:left;border-bottom:none;border-left:3px solid transparent;padding:15px 20px;height:auto;font-size:14px}.tab-btn.active{border-bottom:none;border-left-color:var(--accent);background:rgba(139,92,246,.07)}.flashcard{height:240px}.fc-txt{font-size:13px}main{padding:14px 10px}#search-box{flex:1;max-width:none}.qn-btn{width:38px;height:38px;font-size:14px}.f-btn{padding:8px 16px;font-size:13px}.btn{min-height:40px}}
+@media(max-width:850px){nav{flex-wrap:wrap;padding:4px 0}.hamburger{display:block}.nav-brand{border-right:none;padding-left:0;flex:1}.nav-right{width:100%;border-left:none;border-top:1px solid var(--border);padding:8px 16px;justify-content:space-between;margin-top:4px;flex-wrap:wrap;gap:8px}.kbd-btn{display:none}.nav-tabs{position:fixed;top:0;left:-260px;width:260px;height:100vh;background:var(--panel);border-right:1px solid var(--border);border-top:none;flex-direction:column;z-index:1000;transition:left .3s cubic-bezier(.4,0,.2,1);padding-top:20px;overflow-y:auto;align-items:stretch}.nav-tabs.open{left:0}.tab-btn{width:100%;text-align:left;border-bottom:none;border-left:3px solid transparent;padding:15px 20px;height:auto;font-size:14px}.tab-btn.active{border-bottom:none;border-left-color:var(--accent);background:rgba(139,92,246,.07)}.flashcard{height:240px}.fc-txt{font-size:13px}main{padding:14px 10px}#search-box{flex:1;max-width:none;order:3;margin-left:0}#streak-counter{order:1}#session-clock{order:2}.qn-btn{width:38px;height:38px;font-size:14px}.f-btn{padding:8px 16px;font-size:13px}.btn{min-height:40px}.q-player{position:static;order:4;width:100%;margin-top:4px;justify-content:space-between;background:linear-gradient(90deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.03) 100%);border:1px solid rgba(139,92,246,0.4);border-radius:10px;padding:8px 14px;box-shadow:inset 0 0 15px rgba(139,92,246,0.05)}.q-select{flex:1;font-size:14px;width:auto}.q-vol-wrapper{display:flex}.q-btn{width:32px;height:32px;font-size:16px;background:rgba(139,92,246,0.15)}.yd-credit{display:none}.toast{bottom:90px}}
 @media print{nav,#scroll-prog,.f-btn,.filter-bar,.btn,.fc-status,.q-nav,.coll-btn,textarea{display:none!important}body{background:#fff;color:#000}.cc{break-inside:avoid;border:1px solid #ccc}.cc-h{background:#f3f4f6}pre,.cs,code{background:#f9fafb;border:1px solid #ddd}}
-/* === EMPTY STATE === */
 .empty{text-align:center;padding:60px 24px;background:rgba(139,92,246,.03);border:1px solid rgba(139,92,246,.1);border-radius:16px;margin-top:16px;animation:fi .22s ease}
 .empty-icon{font-size:48px;display:block;margin-bottom:16px;line-height:1;opacity:0.8}
 .empty-title{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:8px}
 .empty-sub{font-size:13px;color:var(--txt2);line-height:1.6}
-/* === SESSION CLOCK === */
 #session-clock{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--txt2);padding:4px 9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;white-space:nowrap;letter-spacing:.5px}
 #session-clock.active{color:var(--accent);border-color:rgba(139,92,246,.4)}
 .kbd-btn{padding:5px 9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt2);cursor:pointer;font-size:14px;line-height:1;transition:all .2s}
 .kbd-btn:hover{border-color:var(--accent);color:var(--accent)}
-/* === TOAST === */
 .toast{position:fixed;bottom:80px;right:24px;background:var(--ok);color:#fff;padding:12px 20px;border-radius:8px;font-weight:600;font-size:13px;box-shadow:0 10px 25px rgba(0,0,0,.5);transform:translateY(100px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);z-index:9999;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
 .yd-credit{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;background:rgba(24,24,27,.8);backdrop-filter:blur(12px);border:1px solid rgba(139,92,246,.2);border-radius:30px;padding:8px 14px;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);overflow:hidden;z-index:900;box-shadow:0 4px 20px rgba(0,0,0,.4)}
@@ -189,7 +173,6 @@ textarea.code-area:focus{outline:none;border-color:var(--accent)}
 .yd-monogram{font-family:var(--font);font-weight:700;font-size:12px;color:var(--accent);letter-spacing:1px}
 .yd-full{font-family:var(--font);font-size:12px;color:var(--accent2);white-space:nowrap;max-width:0;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);overflow:hidden}
 .yd-credit:hover .yd-full{max-width:200px;opacity:1;margin-left:10px}
-/* === SHORTCUT MODAL === */
 .kb-table{width:100%;border-collapse:collapse;font-size:13px}
 .kb-table tr{border-bottom:1px solid var(--border)}
 .kb-table tr:last-child{border-bottom:none}
@@ -197,6 +180,22 @@ textarea.code-area:focus{outline:none;border-color:var(--accent)}
 .kb-table td:first-child{color:var(--txt2)}
 .kb-table td:last-child{text-align:right;white-space:nowrap}
 kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:11px;color:var(--txt2)}
+.q-player { display:flex; align-items:center; gap:4px; background:rgba(139,92,246,0.06); border:1px solid rgba(139,92,246,0.2); border-radius:30px; padding:3px 8px; font-size:12px; position:relative; overflow:hidden; transition:all 0.3s cubic-bezier(0.4,0,0.2,1); }
+.q-player:hover { border-color:var(--accent); box-shadow:0 0 12px rgba(139,92,246,0.15); background:rgba(139,92,246,0.08); }
+.q-icon { color:var(--accent); font-size:14px; }
+.q-icon.playing { animation: pulse 2s infinite ease-in-out; }
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
+.q-select { background:transparent; border:none; color:var(--txt); font-family:var(--font); font-size:12px; font-weight:600; outline:none; width:95px; cursor:pointer; text-overflow:ellipsis; padding:2px 0; }
+.q-select option { background:#18181b; color:#fafafa; font-size:13px; padding:6px; font-weight:500; }
+.q-btn { background:none; border:none; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; transition:all 0.2s; }
+.q-btn:hover { background:rgba(255,255,255,0.08); }
+.q-btn.play { color:var(--ok); }
+.q-btn.pause { color:var(--warn); }
+.q-vol-wrapper { display:flex; align-items:center; gap:3px; border-left:1px solid var(--border); padding-left:5px; margin-left:2px; }
+.q-vol-icon { font-size:12px; cursor:pointer; transition:color 0.2s; color:var(--txt2); }
+.q-vol-icon:hover { color:var(--txt); }
+.q-vol-slider { width: 30px; accent-color: var(--accent); cursor: pointer; height: 3px; }
+.q-progress { position:absolute; bottom:0; left:0; height:2px; background:var(--accent); width:0%; transition:width 0.1s linear; box-shadow: 0 0 5px var(--accent); }
 </style>
 </head>
 <body>
@@ -204,15 +203,26 @@ kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);bor
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <nav>
   <button class="hamburger" onclick="toggleSidebar()">☰</button>
-  <div class="nav-brand">⚡ SAR Révision</div>
+  <div class="nav-brand">⚡ IoT VIP Pro</div>
   <div class="nav-tabs">
     <button class="tab-btn active" data-tab="qcm">① QCM</button>
-    <button class="tab-btn" data-tab="exercises">② Exercices Code</button>
-    <button class="tab-btn" data-tab="flashcards">③ Flashcards</button>
-    <button class="tab-btn" data-tab="cheatsheet">④ Cheat Sheet</button>
-    <button class="tab-btn" data-tab="traps">⑤ Pièges d'exam</button>
+    <button class="tab-btn" data-tab="flashcards">② Flashcards</button>
+    <button class="tab-btn" data-tab="cheatsheet">③ Cheat Sheet</button>
+    <button class="tab-btn" data-tab="traps">④ Pièges d'exam</button>
   </div>
-  <div class="nav-right" style="gap:12px">
+  <div class="nav-right" style="gap:8px">
+    <div class="q-player" id="quran-player">
+      <div class="q-progress" id="quran-progress"></div>
+      <span class="q-icon" id="quran-icon" title="Abdul Baset Abd al-Samad (Murattal)">🎧</span>
+      <select class="q-select" id="quran-surah"></select>
+      <button class="q-btn play" id="quran-play" title="Jouer">▶</button>
+      <button class="q-btn pause" id="quran-pause" title="Pause" style="display:none">⏸</button>
+      <div class="q-vol-wrapper">
+        <span class="q-vol-icon" id="quran-mute" title="Volume">🔊</span>
+        <input type="range" class="q-vol-slider" id="quran-vol" min="0" max="1" step="0.05" value="0.2" title="Ajuster le volume">
+      </div>
+      <audio id="quran-audio" style="display:none" preload="none"></audio>
+    </div>
     <div id="streak-counter" title="Série de révision (jours consécutifs)" style="font-size:13px;font-weight:700;color:var(--warn);display:flex;align-items:center;gap:4px">
       <span style="font-size:16px">🔥</span> <span id="streak-val">0</span>
     </div>
@@ -223,7 +233,6 @@ kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);bor
 </nav>
 <main>
   <div id="tab-qcm" class="tab-panel active"></div>
-  <div id="tab-exercises" class="tab-panel"></div>
   <div id="tab-flashcards" class="tab-panel"></div>
   <div id="tab-cheatsheet" class="tab-panel"></div>
   <div id="tab-traps" class="tab-panel"></div>
@@ -237,635 +246,302 @@ kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);bor
 <script>
 /* === DATA === */
 const Q=[
-{id:1,ch:"RMI",diff:"easy",q:"Que signifie RMI ?",opts:["Remote Method Invocation","Remote Machine Interface","Remote Module Integration","Rapid Method Invocation"],ans:0,expl:"RMI = Remote Method Invocation. C'est une API Java permettant d'appeler des méthodes sur des objets distants, extension orientée objet du RPC.",trap:""},
-{id:2,ch:"RMI",diff:"easy",q:"Quel est le port par défaut du RMIRegistry ?",opts:["8080","80","1099","3000"],ans:2,expl:"RMIRegistry s'exécute par défaut sur le port 1099. Si le numéro de port est omis dans l'URL lookup, c'est ce port qui est utilisé.",trap:"Piège classique : confondre avec 8080 (HTTP alternatif) ou 80 (HTTP standard)."},
-{id:3,ch:"RMI",diff:"easy",q:"Quelle interface une interface distante RMI doit-elle étendre ?",opts:["Serializable","Runnable","Remote","UnicastRemoteObject"],ans:2,expl:"Toute interface distante RMI doit étendre java.rmi.Remote. Cela indique que les méthodes peuvent être appelées depuis une JVM distante.",trap:""},
-{id:4,ch:"RMI",diff:"easy",q:"Quelle exception TOUTES les méthodes d'une interface distante doivent-elles déclarer ?",opts:["IOException","RemoteException","NetworkException","RMIException"],ans:1,expl:"RemoteException doit être déclarée par toutes les méthodes d'une interface distante RMI car un appel distant peut échouer pour de nombreuses raisons (connexion refusée, objet inexistant, problème de sérialisation).",trap:""},
-{id:5,ch:"RMI",diff:"med",q:"Pour exposer automatiquement un objet distant à l'instanciation, la classe doit étendre :",opts:["java.rmi.Remote","java.io.Serializable","java.rmi.server.UnicastRemoteObject","java.rmi.registry.Registry"],ans:2,expl:"Étendre UnicastRemoteObject provoque l'exposition automatique de l'objet à l'instanciation. Sans cela, il faut appeler UnicastRemoteObject.exportObject(objet) manuellement.",trap:"Piège : UnicastRemoteObject est dans le package java.rmi.server, pas java.rmi."},
-{id:6,ch:"RMI",diff:"med",q:"Quelle est la différence entre Naming.bind() et Naming.rebind() ?",opts:["bind() remplace, rebind() échoue si existe","rebind() remplace même si le nom existe, bind() échoue si le nom existe déjà","Aucune différence","bind() est pour les clients, rebind() pour les serveurs"],ans:1,expl:"rebind() associe un nom à un objet et remplace l'ancien si le nom existe déjà. bind() échoue (AlreadyBoundException) si le nom est déjà utilisé.",trap:""},
-{id:7,ch:"RMI",diff:"med",q:"Que retourne Naming.lookup() et que faut-il faire avec le résultat ?",opts:["Il retourne directement l'interface distante, pas de cast nécessaire","Il retourne Object, un cast vers l'interface est nécessaire","Il retourne une String avec l'URL de l'objet","Il retourne null si l'objet n'existe pas"],ans:1,expl:"lookup() retourne Object. Un cast explicite vers l'interface distante est nécessaire. Un cast incorrect lèverait une ClassCastException.",trap:"Piège : oublier le cast est une erreur de compilation fréquente."},
-{id:8,ch:"RMI",diff:"easy",q:"Quel protocole de transport RMI utilise-t-il par défaut ?",opts:["HTTP","UDP","JRMP basé sur TCP/IP","SOAP"],ans:2,expl:"RMI utilise JRMP (Java Remote Method Protocol) basé sur TCP/IP pour le transport des appels, paramètres et résultats entre JVMs.",trap:""},
-{id:9,ch:"RMI",diff:"med",q:"Quel est le rôle du Stub (talon client) ?",opts:["Exécuter la vraie méthode côté serveur","Représenter localement l'objet distant et masquer la complexité de l'appel","Gérer l'authentification entre client et serveur","Stocker les résultats dans un cache"],ans:1,expl:"Le Stub est le représentant local de l'objet distant côté client. Il initie la connexion, sérialise les paramètres, envoie la requête, attend la réponse et retourne le résultat — masquant toute la complexité réseau.",trap:""},
-{id:10,ch:"RMI",diff:"med",q:"Que fait le Skeleton (talon serveur) ?",opts:["Crée les stubs pour le client","Désassemble les paramètres, appelle la vraie méthode, assemble le résultat et l'envoie","Gère le registre RMI","Démarre le serveur web"],ans:1,expl:"Le Skeleton désérialise les paramètres reçus du réseau, appelle la vraie méthode sur l'objet serveur, sérialise le résultat et le renvoie au Stub client.",trap:"Depuis Java 1.2, il n'y a plus de Skeleton par objet — une classe skeleton générique est partagée."},
-{id:11,ch:"RMI",diff:"easy",q:"La sérialisation Java permet de :",opts:["Compiler les classes Java","Rendre un objet persistant pour stockage/échange réseau","Créer des threads Java","Gérer la sécurité réseau"],ans:1,expl:"La sérialisation permet de rendre un objet JVM persistant : le stocker sur disque ou le transmettre sur réseau pour être recréé à l'identique dans une autre JVM.",trap:""},
-{id:12,ch:"RMI",diff:"hard",q:"Quels sont les 2 formats de sérialisation en Java ?",opts:["Compressed et Uncompressed","Binaire (par défaut) et Texte (XML, JSON)","ASCII et Unicode","Statique et Dynamique"],ans:1,expl:"Java supporte deux formats : Binaire (format par défaut, non lisible par l'humain) et Texte (XML, JSON... plus portables et interopérables).",trap:""},
-{id:13,ch:"RMI",diff:"med",q:"Que contient la Couche de Références d'Objets (Remote Reference Layer) ?",opts:["Le code de la méthode distante","Le service de noms RMIRegistry avec une table de hachage (noms → objets distants)","Le protocole JRMP","La politique de sécurité Java"],ans:1,expl:"La couche de références d'objets permet d'obtenir une référence d'objet distant. Elle est assurée par RMIRegistry qui possède une table de hachage (clés=noms, valeurs=objets distants) et s'exécute sur chaque machine hébergeant des objets distants.",trap:""},
-{id:14,ch:"RMI",diff:"hard",q:"Dans RMI, comment un objet LOCAL est-il passé en paramètre à une méthode distante ?",opts:["Par référence (stub)","Par pointeur","Par valeur (copie sérialisée), l'objet doit implémenter Serializable","Pas possible"],ans:2,expl:"Un objet local est passé par valeur : une copie sérialisée est transmise. L'objet doit implémenter java.io.Serializable. Un objet distant (non-local) est passé par référence via son stub.",trap:"Piège classique : confondre passage par valeur (local/Serializable) et passage par référence (non-local/stub)."},
-{id:15,ch:"RMI",diff:"hard",q:"Qu'est-ce qu'une Fabrique (Factory) dans RMI ?",opts:["Un objet spécial qui génère les stubs automatiquement","Un objet distant enregistré dans le registry qui permet au client de créer des instances multiples côté serveur","Le compilateur rmic","Le gestionnaire de sécurité"],ans:1,expl:"Une Fabrique est un objet distant enregistré dans RMIRegistry (rebind). Le client la récupère (lookup), puis appelle fabrique.NewObjet() pour créer des instances côté serveur. Cela résout le problème de 'new' qui gère uniquement la mémoire locale.",trap:""},
-{id:16,ch:"RMI",diff:"med",q:"Quel est l'intérêt principal du Callback RMI ?",opts:["Accélérer les appels RMI","Permettre au serveur d'appeler le client, augmentant l'asynchronisme et le dynamisme","Sécuriser les connexions","Gérer plusieurs clients simultanément"],ans:1,expl:"Le Callback permet au serveur de rappeler le client. Intérêts : augmenter l'asynchronisme (client demande + retour immédiat, serveur rappelle quand terminé) et le dynamisme (serveur interagit pendant l'exécution).",trap:""},
-{id:17,ch:"RMI",diff:"med",q:"À quoi sert le fichier java.policy dans RMI ?",opts:["Configurer le port RMIRegistry","Spécifier les actions autorisées (connect, listen, accept sur sockets) pour le gestionnaire de sécurité","Définir l'URL du codebase","Générer les stubs automatiquement"],ans:1,expl:"java.policy définit la politique de sécurité pour RMISecurityManager. Il spécifie les opérations socket autorisées : connect (établir connexion), listen (accepter connexions serveur), accept (accepter une demande).",trap:""},
-{id:18,ch:"RMI",diff:"hard",q:"Dans le chargement dynamique RMI, que fait la propriété java.rmi.server.codebase ?",opts:["Spécifie l'URL où trouver les fichiers .class pour les stubs et paramètres","Définit le port du RMIRegistry","Configure le gestionnaire de sécurité","Indique l'adresse IP du serveur"],ans:0,expl:"codebase spécifie l'URL (file:// ou http://) où les fichiers .class peuvent être récupérés. RMI envoie l'objet sérialisé + cette URL, permettant aux clients de charger dynamiquement les classes nécessaires.",trap:""},
-{id:19,ch:"RMI",diff:"hard",q:"Depuis Java 1.2, le Skeleton est-il encore généré par objet ?",opts:["Oui, toujours un skeleton par classe distante","Non, une classe skeleton générique est partagée pour tous les objets distants","Non, les skeletons ont été complètement supprimés","Oui, mais uniquement pour les objets complexes"],ans:1,expl:"Depuis Java 1.2, les squelettes individuels ont été supprimés. Une classe skeleton générique partagée gère tous les objets distants, simplifiant l'architecture.",trap:"Piège : confondre 'squelettes supprimés' (faux) avec 'squelettes individuels supprimés, remplacés par un générique' (vrai)."},
-{id:20,ch:"RMI",diff:"easy",q:"RMI/IIOP sert à :",opts:["Accélérer RMI sur les réseaux locaux","Permettre la communication RMI avec des systèmes non-Java","Gérer plusieurs serveurs RMI","Remplacer la sérialisation binaire"],ans:1,expl:"La limitation de RMI est qu'il est restreint à l'environnement Java. RMI/IIOP permet la communication avec d'autres systèmes (CORBA, autres langages), dépassant cette limite.",trap:""},
-{id:21,ch:"REST",diff:"easy",q:"Que signifie REST ?",opts:["Remote Exchange Service Technology","Representational State Transfer","Resource Endpoint Standard Transfer","RESTful Service Template"],ans:1,expl:"REST = Representational State Transfer. C'est un style d'architecture (pas un protocole) défini dans la thèse de Roy Fielding en 2000, inspiré de l'architecture du Web.",trap:""},
-{id:22,ch:"REST",diff:"easy",q:"Qui a défini les principes REST et en quelle année ?",opts:["Tim Berners-Lee en 1991","Roy Fielding en 2000 (Apache)","James Gosling en 1995","Linus Torvalds en 2001"],ans:1,expl:"Roy Fielding (impliqué dans Apache) a défini REST dans sa thèse de doctorat en 2000. REST est inspiré de l'architecture du Web.",trap:""},
-{id:23,ch:"REST",diff:"easy",q:"REST est-il un protocole ?",opts:["Oui, c'est un protocole applicatif","Oui, similaire à SOAP","Non, c'est un style d'architecture : pas de protocole, pas de format, pas de standard","Non, c'est juste une convention de nommage d'URLs"],ans:2,expl:"REST n'est pas un protocole. C'est une approche/style architectural pour construire des APIs. Pas de protocole imposé, pas de format de données imposé, pas de standard officiel.",trap:"Piège majeur d'exam : beaucoup confondent REST (style) avec SOAP (protocole standardisé WS-*)."},
-{id:24,ch:"REST",diff:"easy",q:"Que signifie Stateless dans REST ?",opts:["Le serveur conserve la session entre les requêtes","Le serveur ne conserve aucune session entre deux requêtes. Chaque requête contient toutes les informations nécessaires","Le client ne stocke rien","Les données ne changent jamais"],ans:1,expl:"Stateless = sans état. Le serveur ne garde aucune mémoire des requêtes précédentes. Chaque requête doit contenir toutes les informations pour être traitée. Avantages : meilleure scalabilité, moins de charge serveur.",trap:""},
-{id:25,ch:"REST",diff:"easy",q:"Quel verbe HTTP correspond à CREATE (CRUD) ?",opts:["GET","PUT","POST","DELETE"],ans:2,expl:"POST → Create. La correspondance CRUD : Create=POST, Retrieve=GET, Update=PUT, Delete=DELETE.",trap:""},
-{id:26,ch:"REST",diff:"med",q:"Lequel de ces verbes HTTP est à la fois idempotent ET safe ?",opts:["POST","PUT","DELETE","GET"],ans:3,expl:"GET est idempotent (appeler N fois = même résultat) ET safe (ne modifie pas la ressource). PUT est idempotent mais pas safe. POST n'est ni l'un ni l'autre. DELETE est idempotent mais pas safe.",trap:"Piège classique : confondre idempotent et safe. Safe = pas de modification. Idempotent = résultat identique peu importe le nombre d'appels."},
-{id:27,ch:"REST",diff:"med",q:"POST est-il idempotent ?",opts:["Oui, comme GET","Oui, mais pas safe","Non, POST n'est pas idempotent","Oui, mais seulement pour la création"],ans:2,expl:"POST n'est PAS idempotent. Appeler POST /books deux fois crée deux livres. Pour les méthodes non idempotentes, des contraintes d'accès concurrent dans la BD sont nécessaires.",trap:""},
-{id:28,ch:"REST",diff:"med",q:"Que retourne DELETE si la ressource n'existe pas ?",opts:["Toujours 200","404 uniquement","500 (erreur serveur)","204 ou 404 (les deux sont valides car DELETE est idempotent)"],ans:3,expl:"DELETE est idempotent. Si la ressource n'existe pas, le serveur peut retourner 204 (No Content) ou 404 (Not Found). Les deux sont acceptables — l'important est que l'état final est le même.",trap:"Piège : penser que DELETE doit toujours retourner 200 ou toujours 404."},
-{id:29,ch:"REST",diff:"easy",q:"Les codes HTTP 400-499 signifient :",opts:["Succès","Erreur serveur","Redirection","Problème dans la requête (erreur client)"],ans:3,expl:"400-499 = problème dans la requête côté client. Exemples : 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found. 500-599 = erreur serveur.",trap:""},
-{id:30,ch:"REST",diff:"med",q:"Bonne pratique REST : les URIs doivent utiliser :",opts:["Des verbes pour décrire les actions","Des noms pour désigner les ressources","Des adresses IP directement","Des noms de méthodes Java"],ans:1,expl:"L'URI représente une ressource (nom), pas une action (verbe). La méthode HTTP exprime l'action. ❌ /getbook → ✅ GET /book/{id}. ❌ /createUser → ✅ POST /users.",trap:""},
-{id:31,ch:"REST",diff:"med",q:"Pour une collection de ressources vs une instance, quelle convention REST utiliser ?",opts:["/books et /book/123","books/ et /book/123","Aucune convention, c'est libre","/Books et /Book/123"],ans:0,expl:"Convention REST : pluriel pour les collections (/books, /users), singulier ou ID pour une instance (/books/123, /user/234). Éviter les majuscules.",trap:""},
-{id:32,ch:"REST",diff:"easy",q:"Qui maintient l'état dans une architecture REST ?",opts:["Le serveur","La base de données","Le client","Le middleware"],ans:2,expl:"Dans REST (stateless), le serveur ne stocke pas l'état entre requêtes. C'est le client qui maintient l'état. La communication REST = transfert de représentation.",trap:""},
-{id:33,ch:"REST",diff:"hard",q:"Différence entre approche orientée Ressource (REST) et orientée Opérations (SOAP) ?",opts:["REST utilise XML, SOAP utilise JSON","REST manipule des ressources via URI, SOAP fait des appels de fonctions/services nommés","REST est plus ancien que SOAP","Il n'y a pas de différence fondamentale"],ans:1,expl:"REST (approche Ressource) : manipulation de ressources via URIs avec verbes HTTP. SOAP (approche Opération) : appels de fonctions et services nommés, protocole standardisé WS-*.",trap:""},
-{id:34,ch:"REST",diff:"med",q:"Que signifie 'versionner les APIs' comme /v3/books ?",opts:["Sécuriser l'accès aux versions privées","Permettre l'évolution de l'API sans casser les clients existants (bonne pratique)","Indiquer la version de Java utilisée","Gérer la pagination des résultats"],ans:1,expl:"Versionner les APIs (/v1/books, /v2/books) est une bonne pratique qui permet d'introduire des changements incompatibles sans casser les clients qui utilisent une version ancienne.",trap:""},
-{id:35,ch:"Kafka",diff:"easy",q:"Qui a développé Kafka et quand ?",opts:["Google en 2005","LinkedIn en 2010","Amazon en 2008","Twitter en 2012"],ans:1,expl:"Kafka a été développé par LinkedIn et lancé en 2010. Il est conçu pour déplacer de très grands volumes de données de manière fiable et scalable.",trap:""},
-{id:36,ch:"Kafka",diff:"easy",q:"Qu'est-ce qu'un Broker Kafka ?",opts:["Un consommateur de messages","Un serveur Kafka responsable de gérer les topics et messages","Un producteur de messages","Un client Kafka"],ans:1,expl:"Un Broker est un serveur Kafka qui reçoit, stocke, gère les topics/partitions et sert les consommateurs. Plusieurs brokers sont regroupés dans un cluster.",trap:""},
-{id:37,ch:"Kafka",diff:"med",q:"Quel est le rôle de ZooKeeper dans Kafka ?",opts:["Transporter les messages entre producteurs et consommateurs","Coordonner les brokers : métadonnées, détection pannes, coordination cluster","Stocker les messages de façon permanente","Chiffrer les messages"],ans:1,expl:"ZooKeeper NE transporte PAS les messages. Il aide les brokers à se coordonner : gestion des métadonnées du cluster, détection des pannes, coordination.",trap:"Piège : ZooKeeper ne transporte AUCUN message — confusion fréquente."},
-{id:38,ch:"Kafka",diff:"med",q:"Qu'est-ce que KRaft dans Kafka ?",opts:["Un protocole de compression Kafka","Le remplacement moderne de ZooKeeper : Kafka gère lui-même ses métadonnées","Un algorithme de chiffrement","Un type de consumer group"],ans:1,expl:"KRaft est le remplacement moderne de ZooKeeper dans les systèmes Kafka récents. Kafka gère lui-même ses métadonnées sans dépendre d'un système externe.",trap:""},
-{id:39,ch:"Kafka",diff:"hard",q:"Formule du Quorum pour l'élection Kafka. Avec N=5 brokers, quel est Q ?",opts:["Q=2","Q=3","Q=4","Q=5"],ans:1,expl:"Formule : Q = (N/2) + 1. Avec N=5 : Q = (5/2)+1 = 2.5+1 = 3 (arrondi). Le quorum est la majorité minimale pour prendre une décision.",trap:"Avec N=4 : Q=(4/2)+1=3. Avec N=6 : Q=(6/2)+1=4."},
-{id:40,ch:"Kafka",diff:"med",q:"Pourquoi préfère-t-on N impair pour un cluster Kafka ?",opts:["Pour équilibrer la charge","Meilleure tolérance aux pannes (N=3 et N=4 tolèrent tous les deux 1 panne, autant avoir 3)","Pour des raisons de performance","Parce que la formule Q ne fonctionne qu'avec des impairs"],ans:1,expl:"N=3 et N=4 tolèrent tous les deux 1 seule panne. Avoir 4 brokers au lieu de 3 n'apporte pas de tolérance supplémentaire. N impair est plus efficace.",trap:""},
-{id:41,ch:"Kafka",diff:"easy",q:"Qu'est-ce qu'une Partition dans Kafka ?",opts:["Un broker séparé","Une subdivision d'un topic pour permettre la lecture parallèle par plusieurs consommateurs","Un type de message Kafka","Un groupe de consommateurs"],ans:1,expl:"Un Topic est divisé en partitions stockées sur les brokers. Chaque partition a son consommateur, permettant la lecture parallèle et accélérant le débit.",trap:""},
-{id:42,ch:"Kafka",diff:"med",q:"Qu'est-ce que le Replication Factor (RF) dans Kafka ?",opts:["Le nombre de partitions par topic","Le nombre de copies d'une partition sur différents brokers","La vitesse de réplication","Le délai de rétention des messages"],ans:1,expl:"Le Replication Factor est le nombre de copies de chaque partition. Si RF=3, chaque partition est copiée sur 3 brokers. Cela protège contre la perte de données en cas de panne.",trap:""},
-{id:43,ch:"Kafka",diff:"easy",q:"Qu'est-ce que l'Offset dans Kafka ?",opts:["La taille d'un message","La position d'un message dans une partition, servant à suivre la lecture","L'adresse IP du broker","Le délai de traitement d'un message"],ans:1,expl:"L'offset est la position du message dans la partition. Il sert à suivre la lecture des consommateurs et à reprendre après des pannes. Un message lu = offset avancé.",trap:""},
-{id:44,ch:"Kafka",diff:"easy",q:"Quelle est la durée de rétention par défaut des messages dans Kafka ?",opts:["1 jour","24 heures","7 jours","30 jours"],ans:2,expl:"Par défaut, Kafka conserve les messages pendant 7 jours. Chaque topic peut avoir sa propre durée de rétention configurable.",trap:"Piège : les messages consommés existent toujours — Kafka ne les supprime pas à la consommation."},
-{id:45,ch:"Kafka",diff:"med",q:"Après consommation d'un message Kafka, que se passe-t-il au message ?",opts:["Il est immédiatement supprimé","Il reste dans la partition jusqu'à expiration de la rétention","Il est archivé dans ZooKeeper","Il est compressé"],ans:1,expl:"Les messages consommés existent toujours dans Kafka après consommation. Ils sont conservés jusqu'à expiration de la durée de rétention (défaut 7 jours).",trap:"Piège majeur : contrairement à une queue classique, Kafka ne supprime pas les messages après consommation."},
-{id:46,ch:"Kafka",diff:"hard",q:"Dans Kafka, le Leader d'une partition est-il unique au niveau du cluster ?",opts:["Oui, un seul leader par cluster","Non, le leader est défini par rapport à une partition. Un broker peut être leader de plusieurs partitions","Oui, c'est le broker principal","Non, tous les brokers sont leaders"],ans:1,expl:"Le leader est défini PAR RAPPORT À UNE PARTITION, pas au cluster. Un broker peut être leader de plusieurs partitions et follower d'autres simultanément.",trap:"Piège : confondre 'leader de cluster' et 'leader de partition'. Ce sont des concepts différents."},
-{id:47,ch:"Kafka",diff:"med",q:"Comment choisit-on dans quelle partition écrire un message ?",opts:["Toujours partition 0","Round Robin ou clé de hash entre contenu et partition","Aléatoirement","Le producteur décide toujours manuellement"],ans:1,expl:"Le choix de partition se fait par : (a) Round Robin (tour à tour entre partitions) ou (b) Clé de hash (le hash du contenu détermine la partition cible).",trap:""},
-{id:48,ch:"Kafka",diff:"easy",q:"De quoi est constitué un message Kafka ?",opts:["Clé + Valeur uniquement","Timestamp + ID + Payload (contenu)","Sujet + Corps + Signature","Header + Body uniquement"],ans:1,expl:"Chaque message Kafka est constitué de : timestamp (horodatage), id (identifiant), payload (contenu du message).",trap:""},
-{id:49,ch:"Kafka",diff:"med",q:"Qu'est-ce que le Consumer Lag dans Kafka ?",opts:["Le délai de démarrage du consommateur","La différence entre messages produits et messages consommés quand le consommateur est trop lent","La latence réseau entre brokers","Le temps de réplication entre leader et followers"],ans:1,expl:"Consumer Lag = différence entre l'offset du dernier message produit et l'offset du dernier message consommé. Se produit quand le consommateur est trop lent par rapport au producteur.",trap:""},
-{id:50,ch:"Kafka",diff:"med",q:"Qu'est-ce qui caractérise le découplage dans Kafka par rapport au modèle Client/Serveur ?",opts:["Kafka est plus rapide","Le consommateur lit indépendamment du producteur, contrairement au C/S où il y a couplage fort","Kafka utilise HTTP alors que C/S utilise TCP","Kafka n'a pas de serveur central"],ans:1,expl:"Kafka se caractérise par le découplage : le consommateur lit indépendamment, à son rythme. En C/S classique, il y a couplage fort (le message doit être reçu immédiatement).",trap:""},
-{id:51,ch:"RPC",diff:"easy",q:"Que signifie RPC ?",opts:["Remote Process Communication","Remote Procedure Call","Remote Protocol Connection","Relayed Procedure Call"],ans:1,expl:"RPC = Remote Procedure Call (Appel de Procédure à Distance). C'est un outil pour construire des applications Client/Serveur dans un langage de haut niveau, construit sur les sockets.",trap:""},
-{id:52,ch:"RPC",diff:"med",q:"Qu'est-ce que le Marshalling dans RPC ?",opts:["Sécuriser les appels réseau","Encoder (emballer) les paramètres d'appel dans un message réseau","Décoder les paramètres reçus","Authentifier le client"],ans:1,expl:"Marshalling = emballage des paramètres : transformer les paramètres d'un appel local en un message réseau transmissible. L'opération inverse est l'Unmarshalling (déballage).",trap:"Piège : ne pas confondre Marshalling (emballage/encodage) et Unmarshalling (déballage/décodage)."},
-{id:53,ch:"RPC",diff:"easy",q:"Qu'est-ce qu'un IDL (Interface Definition Language) ?",opts:["Un langage de programmation pour serveurs","Un langage pivot indépendant des langages évolués, décrivant les interfaces RPC","Une bibliothèque Java pour RMI","Un protocole de communication réseau"],ans:1,expl:"L'IDL est un langage pivot (intermédiaire) indépendant des langages évolués (C, Java, Python...). Il permet l'appel distant quel que soit le langage utilisé, avec correspondance entre types IDL et types des langages.",trap:"Note : en RMI, l'IDL c'est Java lui-même — pas d'IDL séparé."},
-{id:54,ch:"RPC",diff:"med",q:"Quels sont les modes de passage de paramètres définis dans un IDL ?",opts:["READ, WRITE, READWRITE","IN, OUT, IN-OUT","SEND, RECEIVE, BOTH","LOCAL, REMOTE, SHARED"],ans:1,expl:"L'IDL définit le mode de passage des paramètres : IN (paramètre d'entrée), OUT (paramètre de sortie), IN-OUT (les deux). Cela permet de savoir quelles données sont transmises dans quelle direction.",trap:""},
-{id:55,ch:"RPC",diff:"hard",q:"Quelle est la différence entre liaison statique et liaison tardive dans RPC ?",opts:["Liaison statique est plus sécurisée","Liaison statique : adresse fixée à la compilation, pas de serveur de noms. Liaison tardive : résolution à l'exécution via serveur de noms","Liaison tardive est plus rapide","Il n'y a aucune différence pratique"],ans:1,expl:"Liaison statique : localisation connue avant exécution (compilation), @ fixée dans le code, rapide mais pas flexible. Liaison tardive : localisation résolue à l'exécution via serveur de noms, plus flexible.",trap:""},
-{id:56,ch:"RPC",diff:"med",q:"Quelle est la sémantique RPC idéale mais difficile à atteindre ?",opts:["Au moins une fois","Au plus une fois","Exactement une fois","Zéro fois"],ans:2,expl:"'Exactement une fois' est la sémantique idéale : la procédure est exécutée exactement une fois. C'est difficile à atteindre en cas de pannes réseau ou serveur.",trap:""},
-{id:57,ch:"RPC",diff:"med",q:"La sémantique 'au moins une fois' dans RPC est acceptable si :",opts:["Le serveur est très rapide","L'opération est idempotente (appeler N fois = même résultat)","Le client est fiable","Le réseau est stable"],ans:1,expl:"'Au moins une fois' : appel répété jusqu'au succès. Acceptable seulement si l'opération est idempotente — sinon risque d'effets de bord multiples.",trap:""},
-{id:58,ch:"RPC",diff:"med",q:"Quel mécanisme détecte les pannes dans RPC ?",opts:["Ping périodique","Délai de garde (Timeout) : horloge lancée à l'envoi, action de reprise si dépassé","Heartbeat","Checksum des messages"],ans:1,expl:"Les mécanismes de détection reposent sur des délais de garde (timeout). À l'envoi d'un message, une horloge est lancée. Si le délai est dépassé sans réponse, une action de reprise est déclenchée (renvoi du message).",trap:""},
-{id:59,ch:"RPC",diff:"hard",q:"Quel est l'inconvénient du RPC en mode synchrone ?",opts:["C'est plus complexe à programmer","Le client reste inactif (suspendu) pendant toute l'exécution côté serveur — perte de temps","Le résultat peut être incorrect","Il nécessite deux connexions réseau"],ans:1,expl:"En mode synchrone, l'exécution du client est suspendue jusqu'à la réponse du serveur. Solution : créer des activités concurrentes (threads) — l'un fait un travail, l'autre gère l'appel bloquant.",trap:""},
-{id:60,ch:"RPC",diff:"med",q:"Dans RPC mode asynchrone, que fait le client après avoir envoyé le message ?",opts:["Il attend la réponse","Il abandonne l'appel","Il poursuit son exécution immédiatement en parallèle","Il relance le message immédiatement"],ans:2,expl:"En mode asynchrone, le client poursuit son exécution immédiatement après l'émission du message. La procédure s'exécute en parallèle. Le client récupère les résultats quand il en a besoin.",trap:""},
-{id:61,ch:"RPC",diff:"easy",q:"Qu'est-ce qu'un serveur sans état (Stateless) ?",opts:["Un serveur qui garde toutes les infos de session","Un serveur qui n'a pas de disque dur","Un serveur dont les appels successifs s'exécutent sans lien entre eux — chaque opération sans référence au passé","Un serveur qui ne répond pas aux requêtes"],ans:2,expl:"Serveur stateless : les appels successifs s'exécutent sans lien entre eux. Chaque opération s'effectue sans référence au passé. Exemples : HTTP, NFS de SUN.",trap:""},
-{id:62,ch:"RPC",diff:"med",q:"Exemple de serveur avec état (Stateful) ?",opts:["HTTP","NFS","Paiement électronique","DNS"],ans:2,expl:"Le paiement électronique est un exemple de serveur avec état : les exécutions se font en fonction d'un état de la relation C/S laissé par les appels antérieurs. L'ordre est indispensable.",trap:"HTTP et NFS sont des exemples stateless."},
-{id:63,ch:"RPC",diff:"hard",q:"Quels sont les 3 types de données dans RPC ?",opts:["Locales, distantes, partagées","Applicatives, partagées persistantes, protocolaires","Statiques, dynamiques, temporaires","Client, serveur, réseau"],ans:1,expl:"Les 3 types : (1) Données applicatives (manipulées par l'application), (2) Données partagées persistantes (fichiers, BD — posent des problèmes de tolérance aux pannes et concurrence), (3) Données protocolaires (IP, port — pour la transmission).",trap:""},
-{id:64,ch:"RPC",diff:"med",q:"Si un serveur RPC exécute les appels en parallèle avec des threads, quel problème survient ?",opts:["Performance réduite","Contrôle de concurrence nécessaire si les procédures manipulent des données globales persistantes","Impossibilité de retourner les résultats","Le client ne peut pas recevoir les réponses"],ans:1,expl:"Exécution parallèle (threads) = haute performance, mais si les procédures manipulent des données globales persistantes, un contrôle de concurrence (locks, transactions) devient nécessaire.",trap:""},
-{id:65,ch:"RPC",diff:"easy",q:"Quels sont les avantages des RPC par rapport aux sockets bruts ?",opts:["Plus rapides","Haut niveau : détails de communication cachés, structure d'appel connue (procédure), support naturel C/S, intégration OOP","Pas de besoin de réseau","Gratuits et open source"],ans:1,expl:"RPC offre un niveau d'abstraction plus élevé : les détails de communication sont cachés, la structure d'appel de procédure est familière, support naturel C/S, et intégration avec programmation moderne (objets/composants).",trap:""},
-{id:66,ch:"ADV",diff:"hard",q:"Quelles sont les 3 solutions pour le passage d'adresses (pointeurs) en RPC ?",opts:["Conversion, Compression, Expansion","Interdiction totale des pointeurs, mémoire virtuelle partagée éparse, copie-restauration","Sérialisation, Désérialisation, Reconstruction","Copie locale, Copie distante, Copie partagée"],ans:1,expl:"Les 3 solutions au problème des pointeurs en RPC : (1) Interdiction totale (la plus répandue), (2) Mémoire virtuelle partagée éparse (sites partagent un espace virtuel commun), (3) Simulation par copie-restauration (envoyer copie, récupérer valeur modifiée).",trap:""},
-{id:67,ch:"ADV",diff:"hard",q:"Avec copie-restauration : double_inc(a,a) où a=0, x++ et y++. Quel est le résultat final de a ?",opts:["a=2 (identique au passage par adresse)","a=1 (violation de sémantique)","a=0 (aucune modification)","a=3 (erreur de calcul)"],ans:1,expl:"Copie-restauration : double_inc reçoit deux COPIES de a=0. x++ → copie1=1, y++ → copie2=1. La dernière restauration (copie2=1) écrase la première → a=1. Avec vrai passage par adresse : x++ → a=1, y++ → a=2. La copie-restauration viole la sémantique.",trap:"Piège d'exam classique : l'ordre de restauration des copies détermine le résultat final."},
-{id:68,ch:"RPC",diff:"hard",q:"Dans la liaison tardive, quelle est la différence entre 'liaison au premier appel' et 'liaison à chaque appel' ?",opts:["Aucune différence pratique","Au premier appel : l'@ est demandée une fois puis mise en cache. À chaque appel : consulte le serveur de noms à chaque fois","Au premier appel est plus sécurisé","À chaque appel est plus rapide"],ans:1,expl:"Liaison au premier appel : l'adresse est demandée au serveur de noms une seule fois, mise en cache pour les appels suivants (rapide mais l'@ peut changer). Liaison à chaque appel : consulte le serveur de noms à chaque fois (flexible mais plus lent).",trap:""},
-{id:69,ch:"Kafka",diff:"med",q:"Qu'est-ce que le Broker Bootstrap dans Kafka ?",opts:["Le premier broker créé dans le cluster","Le point d'entrée initial utilisé par producteurs/consommateurs pour découvrir les métadonnées du cluster","Le broker leader par défaut","Un broker de sauvegarde"],ans:1,expl:"Le Broker Bootstrap est le point d'entrée initial utilisé par les producteurs et consommateurs pour découvrir les métadonnées du cluster Kafka. Les infos sont ensuite mises en cache.",trap:""},
-{id:70,ch:"RMI",diff:"med",q:"Quelle commande génère les stubs/skeletons RMI ?",opts:["javac","java","rmic","rmiregistry"],ans:2,expl:"rmic est le compilateur IDL de RMI (l'IDL de RMI c'est Java lui-même). Il génère automatiquement les souches (stubs) : adaptateurs, communication réseau, sérialisation.",trap:""},
-{id:71,ch:"REST",diff:"med",q:"PUT est-il safe ?",opts:["Oui","Non — PUT modifie la ressource mais est idempotent","Oui, comme GET","Seulement si la ressource n'existe pas"],ans:1,expl:"PUT n'est PAS safe car il modifie la ressource (mise à jour complète). Mais PUT EST idempotent : envoyer la même requête PUT plusieurs fois produit le même résultat.",trap:""},
-{id:72,ch:"REST",diff:"easy",q:"Que contient le Content d'une requête HTTP ?",opts:["Toujours du JSON","Les données envoyées au serveur (JSON/XML/fichiers). N'existe pas pour GET ou DELETE","Uniquement les headers","L'URL de la ressource"],ans:1,expl:"Le Content contient les données envoyées au serveur (JSON, XML, fichiers binaires/blob). Il n'existe pas toujours — GET et DELETE n'ont généralement pas de body.",trap:""},
-{id:73,ch:"Kafka",diff:"hard",q:"Si le broker leader tombe en panne dans Kafka, que se passe-t-il ?",opts:["Les données sont perdues","Un vote est organisé entre les followers pour élire un nouveau leader de partition","Le cluster s'arrête","ZooKeeper devient le nouveau leader"],ans:1,expl:"Si le leader d'une partition tombe, un vote est organisé entre les followers éligibles (qui ont répliqué les données) pour élire un nouveau leader. Le système assure ainsi la haute disponibilité.",trap:""},
-{id:74,ch:"RPC",diff:"hard",q:"Dans RPC, qu'arrive-t-il si le serveur tombe en panne APRÈS avoir reçu la requête mais AVANT d'envoyer la réponse ?",opts:["Le client sait exactement que la procédure a été exécutée","3 cas possibles : traitement non fait (0 exec), partiel (état incohérent), ou total (exécution inconnue du client)","Le client reçoit une erreur claire","La requête est automatiquement annulée"],ans:1,expl:"Panne serveur après réception : 3 cas : (1) Traitement pas commencé → 0 exécution, (2) Traitement partiel → état incohérent possible, (3) Traitement total → client ne le sait pas. Détection par timeout client. Reprise : client réémet dès que serveur redémarre.",trap:""},
-{id:75,ch:"RMI",diff:"hard",q:"Quel est l'ordre correct des étapes pour développer une app RMI (côté serveur) ?",opts:["1.Compiler 2.Interface 3.Stubs 4.Démarrer","1.Définir interface 2.Implémenter 3.Compiler 4.Créer stubs 5.Démarrer RMIRegistry 6.Lancer serveur","1.Lancer serveur 2.Définir interface 3.Compiler","1.Stubs 2.Interface 3.Compiler 4.Démarrer"],ans:1,expl:"Ordre correct : (1) Définir interface distante (extends Remote), (2) Implémenter (extends UnicastRemoteObject), (3) Compiler l'implémentation, (4) Créer les stubs/skeletons (rmic), (5) Démarrer RMIRegistry, (6) Lancer le serveur.",trap:""},
-{id:76,ch:"Intro_SR",diff:"easy",q:"Qu'est-ce qui caractérise principalement un système centralisé par rapport à un système réparti ?",opts:["Il s'exécute toujours sur le cloud","Il possède une mémoire partagée entre plusieurs machines","Il a un seul processeur et une horloge commune","Il est plus tolérant aux pannes de réseau"],ans:2,expl:"Un système centralisé a tout sur la même machine : 1 seul processeur, horloge commune, 1 mémoire centrale, et un seul système d'exploitation.",trap:"Un système centralisé n'a pas plusieurs machines ni de mémoire partagée entre machines."},
-{id:77,ch:"Intro_SR",diff:"med",q:"Quel est le rôle du Middleware dans un système réparti ?",opts:["Remplacer le système d'exploitation","Connecter directement les sockets TCP","Gérer la mémoire centrale de la machine","Fournir une couche intermédiaire pour masquer la complexité et l'hétérogénéité"],ans:3,expl:"Le Middleware est un logiciel intermédiaire qui masque l'hétérogénéité, cache la complexité du bas niveau, et rend la répartition transparente pour l'application.",trap:"Le middleware ne remplace pas le SE, il s'appuie dessus."},
-{id:78,ch:"Intro_SR",diff:"med",q:"Dans le modèle de communication par événements (Publish/Subscribe), comment les composants interagissent-ils ?",opts:["Le producteur envoie un message dans un topic, les consommateurs abonnés le reçoivent","Le producteur connaît et appelle directement chaque consommateur","Le client fait une requête HTTP GET au serveur","Une socket TCP est créée entre chaque producteur et consommateur"],ans:0,expl:"C'est un mode asynchrone et anonyme : le producteur envoie à un topic sans connaître les consommateurs. Les consommateurs s'y abonnent pour recevoir les événements.",trap:"Le producteur ne connaît pas ses consommateurs, c'est ce qui fait la force du découplage."},
-{id:79,ch:"Sockets",diff:"easy",q:"Quelle est la différence fondamentale entre TCP et UDP ?",opts:["UDP est utilisé pour les pages web, TCP pour la vidéo","TCP utilise des datagrammes, UDP utilise des flux d'octets","TCP est orienté connexion et fiable, UDP est sans connexion et non fiable","TCP est plus rapide que UDP"],ans:2,expl:"TCP est un mode connecté (flux d'octets, fiable, ordonné, avec accusés de réception). UDP est déconnecté (datagrammes, non fiable, non ordonné).",trap:"C'est TCP qui utilise des flux d'octets, pas UDP."},
-{id:80,ch:"Sockets",diff:"med",q:"En programmation Java, comment un serveur TCP accepte-t-il une nouvelle connexion ?",opts:["En créant une DatagramSocket avec le port du client","En appelant ServerSocket.accept() qui crée une nouvelle socket dédiée au client","En lisant le premier paquet reçu","En utilisant la méthode connect() sur sa socket"],ans:1,expl:"Le serveur utilise ServerSocket.accept() qui est bloquant et, lors d'une connexion, crée et renvoie une nouvelle Socket dédiée à la communication avec ce client spécifique.",trap:"DatagramSocket est pour UDP. connect() est utilisé par le client."},
-{id:81,ch:"Sockets",diff:"hard",q:"Pour gérer plusieurs clients simultanément avec TCP (Mode Concurrent), que doit faire le serveur ?",opts:["Augmenter la taille de ses tampons de réception","Ouvrir un nouveau port pour chaque client","Fermer la connexion après chaque requête pour libérer les ressources","Créer un nouveau thread pour chaque client accepté via ServerSocket.accept()"],ans:3,expl:"Pour être concurrent, le programme principal du serveur fait une boucle d'attente (accept()), et pour chaque client accepté, il délègue le traitement à un nouveau thread.",trap:"Le serveur garde le même port d'écoute principal pour accepter de nouveaux clients."},
-{id:82,ch:"Intro_SR",diff:"med",q:"Qu'est-ce que le mode 'Push' dans la communication par événements ?",opts:["Les consommateurs interrogent périodiquement la file d'attente","Le producteur pousse les données directement dans la base de données","La file d'attente appelle une méthode prédéfinie pour envoyer le message au consommateur","Le client force le serveur à redémarrer"],ans:2,expl:"En mode Push (délivrance implicite), c'est le système (file d'attente) qui appelle automatiquement une méthode du consommateur lorsqu'un événement survient.",trap:"L'interrogation périodique correspond au mode Pull, pas Push."},
-{id:83,ch:"Sockets",diff:"easy",q:"Quels sont les ports standard pour HTTP, FTP et SSH respectivement ?",opts:["80, 21, 22","80, 22, 21","8080, 21, 23","80, 25, 22"],ans:0,expl:"HTTP utilise le port 80, FTP le port 21 et SSH le port 22.",trap:"Telnet c'est 23, SMTP (Mail) c'est 25."},
-{id:84,ch:"Sockets",diff:"med",q:"Lors d'une communication UDP en Java, qui doit ouvrir un socket avec un port explicitement défini ?",opts:["Le client uniquement","Les deux doivent avoir des ports explicites","Le serveur uniquement","Aucun, les ports sont gérés par le middleware"],ans:2,expl:"Le serveur attache sa DatagramSocket à un port précis (explicite) pour pouvoir recevoir des messages. La socket du client est attachée à un port libre automatiquement par le système.",trap:""},
-{id:85,ch:"Intro_SR",diff:"hard",q:"Dans le modèle Client-Serveur synchrone, que se passe-t-il pour le client après l'envoi d'une requête ?",opts:["Il continue son exécution et récupérera le résultat plus tard","Il crée un nouveau thread pour écouter la réponse","Il ferme sa socket pour économiser de la mémoire","Il est bloqué en attente de la réponse du serveur"],ans:3,expl:"En mode de communication synchrone, l'émission est bloquante : le client s'arrête (est bloqué) et attend que le serveur lui transmette le résultat.",trap:"Continuer l'exécution correspond à une communication asynchrone."},
-{id:86,ch:"Intro_SR",diff:"easy",q:"Qu'est-ce qu'une socket dans le contexte réseau ?",opts:["Un composant matériel du serveur","Un point de communication permettant l'envoi et la réception de messages","Un protocole de routage IP","Une base de données partagée"],ans:1,expl:"Une socket est un point de communication logiciel. Chaque processus possède sa socket pour envoyer et recevoir des messages via la couche transport.",trap:"Ce n'est pas un composant matériel ni un protocole de routage."},
-{id:87,ch:"Intro_SR",diff:"med",q:"Dans le modèle producteur-consommateur, comment les messages sont-ils échangés ?",opts:["En utilisant une base de données relationnelle","Par une communication point à point uniquement","Par l'intermédiaire d'un objet comme une file d'attente ou une boîte aux lettres","Via des appels de procédure à distance (RPC)"],ans:2,expl:"Le producteur et le consommateur ne communiquent pas directement, ils utilisent une file d'attente ou boîte aux lettres intermédiaire. La communication peut être point à point ou multi-points.",trap:"La communication n'est pas limitée au point à point."},
-{id:88,ch:"Intro_SR",diff:"med",q:"Quel est le rôle de la désignation externe (ou nommage) dans les sockets ?",opts:["Utiliser une adresse IP et un numéro de port pour identifier le processus","Gérer l'indice dans la table des descripteurs du système","Chiffrer les données avant envoi","Masquer l'hétérogénéité des machines"],ans:0,expl:"La désignation externe utilise l'adresse IP pour identifier la machine et le numéro de port pour identifier le processus cible. La désignation interne est l'indice dans la table des descripteurs.",trap:"L'indice de descripteur correspond à la désignation interne."},
-{id:89,ch:"Sockets",diff:"hard",q:"En TCP, que se passe-t-il si le client meurt soudainement ?",opts:["Le serveur continue d'envoyer des données à l'infini","La socket du serveur est automatiquement redirigée vers un autre client","La nouvelle socket dédiée sur le serveur meurt et le serveur est averti","Le serveur redémarre"],ans:2,expl:"TCP a un protocole de maintien de connexion. Si une extrémité meurt (ex: le client), l'autre extrémité est avertie et la socket correspondante sur le serveur est fermée/meurt.",trap:"Le serveur principal ne meurt pas, seulement la socket dédiée à ce client."},
-{id:90,ch:"Sockets",diff:"easy",q:"Parmi les suivants, quel port correspond au protocole SMTP (Mail) ?",opts:["21","22","23","25"],ans:3,expl:"Le port conventionnel pour le Mail (SMTP) est 25.",trap:"21 est FTP, 22 est SSH, 23 est Telnet."},
-{id:91,ch:"Sockets",diff:"med",q:"En UDP, si le serveur meurt, que se passe-t-il pour le client ?",opts:["Le client reçoit une exception de déconnexion immédiate","Le client n'en sait rien, car c'est un mode déconnecté","Le middleware relance automatiquement le serveur","La socket du client est automatiquement fermée par le système"],ans:1,expl:"En UDP (mode déconnecté), il n'y a pas d'établissement de connexion ni de maintien de connexion. Si l'un des processus meurt, l'autre n'en est pas averti.",trap:"Contrairement à TCP, UDP ne détecte pas la fin de connexion de l'autre extrémité."},
-{id:92,ch:"Intro_SR",diff:"med",q:"Dans le modèle producteur-consommateur, qu'est-ce que l'émission bloquante ?",opts:["Le producteur s'arrête si le réseau est lent","Le producteur émet un message sans attendre de confirmation du récepteur","Le producteur attend que le récepteur confirme la réception avant de continuer","Le consommateur bloque le producteur pour éviter la surcharge"],ans:1,expl:"Dans ce contexte (selon le cours), une émission 'bloquante' signifie que le producteur émet le message dans la file et n'attend pas que le récepteur confirme son arrivée (il est bloqué juste le temps du dépôt).",trap:"Attention à la terminologie du cours : le producteur n'attend rien du consommateur lui-même."},
-{id:93,ch:"Intro_SR",diff:"easy",q:"Comment le client obtient-il l'adresse IP d'un serveur à partir de son nom symbolique (ex: www.site.com) ?",opts:["En utilisant le protocole FTP","En faisant une requête DNS (DNS query)","En envoyant un ping au serveur","En scannant les ports du réseau"],ans:1,expl:"Le client demande au système DNS (Domain Name System) d'obtenir l'adresse IP correspondant au nom symbolique. C'est la base du nommage sur Internet.",trap:""},
-{id:94,ch:"Sockets",diff:"med",q:"Quel protocole utilise-t-on pour la couche transport si l'on a besoin de transmettre des données en streaming vidéo très rapide, où la perte de quelques images est acceptable ?",opts:["TCP","HTTP","UDP","SMTP"],ans:2,expl:"UDP est idéal quand la rapidité prime sur la fiabilité (pas de retransmission, pas de contrôle d'ordre). Parfait pour le streaming vidéo ou la VoIP en temps réel.",trap:"TCP garantit la livraison mais au détriment de la vitesse en cas de perte de paquet (retransmission)."},
-{id:95,ch:"RMI",diff:"med",q:"En Java RMI, que contient le fichier de politique de sécurité (java.policy) concernant les sockets ?",opts:["Les ports autorisés pour le pare-feu","Les permissions connect, listen, et accept","Les mots de passe pour le RMIRegistry","L'adresse IP du client"],ans:1,expl:"La politique de sécurité (RMISecurityManager) vérifie les actions réseau, notamment : établir une connexion (connect), accepter des connexions (listen), et répondre à une demande (accept).",trap:""},
-{id:96,ch:"RMI",diff:"hard",q:"Comment fonctionne le chargement dynamique de classes dans RMI ?",opts:["Le code source est envoyé dans chaque requête","Le serveur FTP télécharge tout le projet client","L'objet est envoyé avec une URL (codebase) indiquant où télécharger la définition (.class)","Java RMI ne supporte pas le chargement dynamique"],ans:2,expl:"La propriété java.rmi.server.codebase spécifie une URL. RMI envoie l'objet sérialisé accompagné de cette URL, permettant au récepteur de télécharger dynamiquement le fichier .class s'il ne l'a pas en local.",trap:""},
-{id:97,ch:"RMI",diff:"med",q:"Quel est l'intérêt principal d'utiliser un Callback en RMI ?",opts:["Réduire la taille des objets sérialisés","Sécuriser la communication entre JVMs","Augmenter l'asynchronisme et permettre au serveur d'interagir dynamiquement avec le client","Remplacer le RMIRegistry"],ans:2,expl:"Le Callback permet au client de passer un objet distant au serveur. Le serveur peut ainsi faire un appel asynchrone vers le client quand il a terminé un travail long ou pour une notification.",trap:""},
-{id:98,ch:"REST",diff:"easy",q:"Dans le protocole HTTP, quel Header indique au serveur le format de réponse souhaité par le client ?",opts:["Content-Type","Accept","Authorization","Cookie"],ans:1,expl:"Le header 'Accept' indique le type de média (MIME) que le client comprend et souhaite recevoir en réponse (ex: application/json). 'Content-Type' décrit le contenu actuellement envoyé.",trap:"Content-Type décrit ce qu'on ENVOIE, Accept décrit ce qu'on VEUT RECEVOIR."},
-{id:99,ch:"Kafka",diff:"med",q:"Comment un producteur Kafka choisit-il dans quelle partition d'un topic écrire un message ?",opts:["Toujours dans la partition 0","Uniquement par ordre alphabétique","Soit par Round-Robin (tour de rôle), soit par un hash de la clé du message","Le ZooKeeper choisit dynamiquement"],ans:2,expl:"Sans clé, Kafka utilise le Round-Robin pour équilibrer la charge. Si le message possède une clé, Kafka hache cette clé pour garantir que les messages avec la même clé aillent dans la même partition.",trap:""},
-{id:100,ch:"Kafka",diff:"easy",q:"Quelle est la structure exacte d'un message Kafka ?",opts:["Header HTTP, Body, Footer","Timestamp, ID, Payload (contenu)","Clé primaire, Valeur, IP de l'émetteur","Topic, Partition, Offset"],ans:1,expl:"Chaque message est physiquement constitué d'un Timestamp (horodatage), d'un ID et de son Payload (le contenu de la donnée).",trap:""},
-{id:101,ch:"RPC",diff:"hard",q:"En RPC, qu'est-ce qu'une exécution 'orpheline' ?",opts:["Un client qui n'a pas de serveur","Un appel correctement traité par le serveur mais pour lequel le client a abandonné (timeout expiré)","Un serveur qui redémarre sans prévenir","Une erreur de réseau indétectable"],ans:1,expl:"L'orphelin se produit quand le serveur exécute la procédure, mais le délai de garde du client a expiré (le client croit à un échec). Le serveur finit par nettoyer après plusieurs timeouts ou réémissions du client avec des ID différents.",trap:""},
-{id:102,ch:"RPC",diff:"med",q:"Lorsqu'on utilise des timeouts en RPC, où sont placées les horloges de garde ?",opts:["Sur le routeur réseau central","Côté client à l'envoi de l'appel, côté serveur à l'envoi de la réponse","Uniquement sur le client","Uniquement sur le serveur"],ans:1,expl:"Le client lance une horloge en envoyant l'appel, et le serveur lance une horloge en envoyant la réponse, pour détecter la perte de leurs messages respectifs.",trap:""}
+{id:1,ch:"Intro",diff:"easy",q:"Qu'est-ce que l'IoT ?",opts:["Extension d'Internet aux objets physiques : collecter/agir sans intervention humaine","Un réseau social","Un protocole de routage","Une base de données Cloud"],ans:0,expl:"L'IoT étend Internet au monde physique : les objets collectent des données, communiquent et agissent de manière autonome.",trap:""},
+{id:2,ch:"Intro",diff:"med",q:"Relation entre M2M et IoT ?",opts:["Identiques","IoT = M2M + Services intelligents + Objets connectés. IoT est le sur-ensemble.","M2M remplace l'IoT","M2M = WiFi uniquement"],ans:1,expl:"M2M désigne la communication basique entre machines. L'IoT y ajoute l'intelligence, les services cloud et l'intégration applicative.",trap:"M2M est inclus dans IoT, pas son synonyme."},
+{id:3,ch:"Intro",diff:"easy",q:"Quels sont les 6 composants essentiels d'un système IoT (Mnémo : ACCITR) ?",opts:["Authentification, Capteurs, Connexion, Intégration, Traitement, Réseaux","Alimentation, Câbles, Cloud, Internet, TCP, Routeurs","Application, Contrôle, Code, IA, Temps-réel, Radio","Antennes, Capteurs, Condensateurs, Interrupteurs, Transistors, Résistances"],ans:0,expl:"ACCITR : Authentification, Capteurs, Connexion, Intégration, Traitement, Réseaux.",trap:""},
+{id:4,ch:"Intro",diff:"easy",q:"Quel est le rôle d'un actionneur dans un système IoT ?",opts:["Mesurer la température","Permettre au système d'agir sur le monde physique","Fournir l'énergie à la batterie","Connecter l'objet au WiFi"],ans:1,expl:"Un actionneur transforme un signal électrique en une action physique (allumer une lumière, ouvrir une vanne, etc.).",trap:"Ne pas confondre capteur (mesure le monde réel) et actionneur (agit sur le monde réel)."},
+{id:5,ch:"Hardware",diff:"easy",q:"Parmi ces cartes, laquelle possède le Wi-Fi et le Bluetooth intégrés nativement ?",opts:["Arduino Uno","ESP32","STM32 (modèle de base)","BeagleBone"],ans:1,expl:"L'ESP32 intègre nativement Wi-Fi (802.11 b/g/n) et Bluetooth (4.2/BLE), ce qui le rend idéal pour l'IoT.",trap:"Arduino Uno nécessite un shield (module externe) pour le Wi-Fi/Bluetooth."},
+{id:6,ch:"Hardware",diff:"med",q:"Dans l'IoT, quelle est la source principale de consommation d'énergie d'un capteur ?",opts:["Le traitement local (CPU)","La transmission radio","Le capteur lui-même","La mémoire Flash"],ans:1,expl:"La transmission radio (envoyer et recevoir des ondes) est l'opération la plus énergivore.",trap:"Le CPU consomme beaucoup moins que la puce radio."},
+{id:7,ch:"Hardware",diff:"med",q:"Quel mécanisme permet aux objets IoT sur batterie de durer plusieurs années ?",opts:["Le Duty Cycle (dormir la plupart du temps)","Augmenter la fréquence du processeur","Utiliser uniquement le Wi-Fi","Supprimer la mémoire RAM"],ans:0,expl:"Le Duty Cycle (cycle de service) : l'objet est en mode 'deep sleep' (sommeil profond, <10 µA) 99% du temps et ne se réveille que pour mesurer et transmettre.",trap:""},
+{id:8,ch:"Reseaux",diff:"easy",q:"Quelle technologie utiliser pour une très longue portée et une faible consommation, mais un faible débit ?",opts:["Wi-Fi","LPWAN (ex: LoRa, Sigfox)","5G","Bluetooth (BLE)"],ans:1,expl:"Les LPWAN (Low Power Wide Area Network) sont conçus spécifiquement pour longue portée, faible consommation et faible débit.",trap:""},
+{id:9,ch:"Reseaux",diff:"med",q:"Laquelle de ces affirmations sur LoRa et LoRaWAN est correcte ?",opts:["LoRa est la couche réseau, LoRaWAN est la modulation radio","LoRa = modulation physique (PHY), LoRaWAN = protocole réseau (MAC)","LoRa est payant, LoRaWAN est gratuit","Ce sont deux protocoles concurrents différents"],ans:1,expl:"LoRa est la technologie radio (couche physique propriétaire Semtech). LoRaWAN est le protocole réseau ouvert défini par la LoRa Alliance.",trap:"Piège classique : inverser les rôles de LoRa et LoRaWAN."},
+{id:10,ch:"Reseaux",diff:"hard",q:"Quelle est la topologie d'un réseau LoRaWAN ?",opts:["Maillée (Mesh)","Anneau (Ring)","Étoile d'étoiles (Star-of-stars)","Bus"],ans:2,expl:"Topologie étoile d'étoiles : les capteurs communiquent avec les Gateways, qui eux communiquent avec le Network Server.",trap:"Contrairement à Zigbee qui est maillé (Mesh), LoRaWAN ne permet pas aux capteurs de relayer les messages des autres."},
+{id:11,ch:"Reseaux",diff:"med",q:"Dans LoRaWAN, quelle classe de service offre la plus faible consommation d'énergie ?",opts:["Classe A","Classe B","Classe C","Classe D"],ans:0,expl:"Classe A : l'objet écoute brièvement (2 fenêtres) juste après avoir émis. C'est le mode par défaut et le plus économe.",trap:"Classe C écoute en continu (forte consommation). Classe B s'ouvre à des moments programmés (beacons)."},
+{id:12,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le Spreading Factor (SF) dans LoRa ?",opts:["Le niveau de batterie de l'objet","Le niveau de sécurité du chiffrement","Le facteur d'étalement : un SF élevé augmente la portée mais réduit le débit","Le nombre d'antennes du Gateway"],ans:2,expl:"Un SF plus grand (ex: SF12) permet d'envoyer le signal plus loin (meilleure résistance au bruit), mais le temps d'émission est plus long (débit plus faible).",trap:""},
+{id:13,ch:"Reseaux",diff:"med",q:"Quelle est la principale contrainte réglementaire sur les fréquences libres (ISM) utilisées par LoRaWAN/Sigfox en Europe (868 MHz) ?",opts:["Interdit aux entreprises","Le Duty Cycle : un objet ne peut émettre que 1% du temps max","Obligation de chiffrer en RSA","Limite de 10 objets par Gateway"],ans:1,expl:"Le Duty Cycle (rapport cyclique) limite le temps de parole sur ces bandes libres à 1% pour éviter la saturation du spectre.",trap:"Ce n'est pas une limitation technologique, mais réglementaire."},
+{id:14,ch:"Reseaux",diff:"easy",q:"Quelle est la caractéristique du réseau Sigfox ?",opts:["C'est un réseau WiFi longue portée","C'est un réseau propriétaire géré par un opérateur unique (modèle abonnement) avec des messages très limités","C'est un standard ouvert que tout le monde peut déployer","Il permet de faire du streaming vidéo"],ans:1,expl:"Sigfox est un réseau opéré (il faut payer un abonnement à l'opérateur Sigfox). Il limite à 140 messages de 12 octets par jour (uplink).",trap:"Contrairement à LoRaWAN où on peut déployer son propre réseau privé gratuitement."},
+{id:15,ch:"Reseaux",diff:"easy",q:"Qu'est-ce que le NB-IoT ?",opts:["Un réseau LPWAN basé sur les infrastructures cellulaires (télécom) existantes","Une version longue portée du Bluetooth","Un protocole de routage pour le WiFi","Un réseau par satellite"],ans:0,expl:"NB-IoT (NarrowBand IoT) est un standard LPWAN de la 3GPP qui utilise les fréquences licenciées des opérateurs télécom (LTE/4G).",trap:""},
+{id:16,ch:"Reseaux",diff:"med",q:"Quel élément de l'architecture 2G (GSM) représente l'antenne ?",opts:["BSC","MSC","BTS (Base Transceiver Station)","HLR"],ans:2,expl:"La BTS est la station de base qui gère l'interface radio avec le téléphone mobile.",trap:"Le BSC contrôle plusieurs BTS. Le MSC est le commutateur central."},
+{id:17,ch:"Reseaux",diff:"hard",q:"En 4G (LTE), comment s'appelle le réseau cœur et quelle est sa particularité ?",opts:["MSC, orienté circuit","EPC (Evolved Packet Core), entièrement IP (tout paquet)","SGSN, orienté ATM","5GC, basé sur les services"],ans:1,expl:"Le cœur de réseau 4G est l'EPC. Sa particularité est d'être 'Tout IP', il n'y a plus de commutation de circuit (même pour la voix : VoLTE).",trap:""},
+{id:18,ch:"Reseaux",diff:"med",q:"Quelles sont les 3 grandes avancées de la 5G pour l'IoT ?",opts:["mMTC, URLLC, eMBB","HTTP, MQTT, CoAP","LoRa, Sigfox, NB-IoT","FDMA, TDMA, CDMA"],ans:0,expl:"mMTC (massive IoT), URLLC (Ultra-faible latence et haute fiabilité), eMBB (Très haut débit mobile).",trap:""},
+{id:19,ch:"Reseaux",diff:"hard",q:"Qu'est-ce que le 'Network Slicing' en 5G ?",opts:["Couper les câbles réseau physiques","Partitionner virtuellement un même réseau physique pour offrir des QoS différentes selon l'usage","Augmenter la taille des paquets IP","Partager le mot de passe WiFi"],ans:1,expl:"Le découpage en tranches (Network Slicing) permet de créer des réseaux logiques indépendants sur la même infrastructure physique (ex: un slice ultra-fiable pour la santé, un slice IoT massif, etc.).",trap:""},
+{id:20,ch:"Reseaux",diff:"med",q:"Innovation clé de la 4G LTE par rapport à la 3G ?",opts:["4G est plus lente","Architecture plate (eNodeB = NodeB+RNC fusionnés) + cœur Tout IP (EPC)","4G utilise encore les circuits","4G sans cœur réseau"],ans:1,expl:"4G : eNodeB intègre NodeB+RNC → architecture plate. EPC entièrement IP. Plus de commutation de circuit, même pour la voix (VoLTE).",trap:"En 3G : NodeB et RNC séparés. En 4G : fusionnés dans eNodeB."},
+{id:21,ch:"Protocoles",diff:"easy",q:"Dans l'architecture MQTT, comment les producteurs et consommateurs communiquent-ils ?",opts:["Directement par IP","Via un intermédiaire central appelé Broker","Par diffusion (broadcast) WiFi","En utilisant le DNS"],ans:1,expl:"MQTT utilise un Broker centralisé. Les producteurs publient sur le Broker, les consommateurs s'y abonnent. Ils ne se connaissent pas (découplage total).",trap:""},
+{id:22,ch:"Protocoles",diff:"easy",q:"Comment sont organisées les données dans MQTT ?",opts:["Par adresses IP","Par URL REST","Par Topics hiérarchiques (ex: maison/salon/temp)","Par numéros de port"],ans:2,expl:"MQTT utilise le concept de 'Topic'. Le Publisher publie sur un Topic précis, et le Subscriber s'abonne à ce même Topic.",trap:""},
+{id:23,ch:"Protocoles",diff:"med",q:"Que signifie la Qualité de Service (QoS) niveau 0 dans MQTT ?",opts:["At least once (au moins une fois)","Exactly once (exactement une fois)","At most once (au plus une fois, fire-and-forget)","Aucune donnée n'est envoyée"],ans:2,expl:"QoS 0 : Le message est envoyé sans garantie de réception (pas d'accusé de réception). C'est le plus rapide mais on peut perdre des messages.",trap:"QoS 1 = Au moins une fois. QoS 2 = Exactement une fois."},
+{id:24,ch:"Protocoles",diff:"med",q:"Comparé à HTTP, pourquoi MQTT est-il plus adapté à l'IoT ?",opts:["Il utilise des requêtes synchrones","Il a un overhead (entête) beaucoup plus faible et permet le Push (asynchrone)","Il est plus sécurisé par défaut","Il n'utilise pas TCP"],ans:1,expl:"MQTT a des entêtes très petits (overhead faible), maintient une connexion persistante, et permet au Broker de 'pousser' (Push) la donnée aux clients instantanément.",trap:"MQTT utilise TCP, comme HTTP."},
+{id:25,ch:"Archi",diff:"easy",q:"Quelle est l'architecture classique en 4 couches d'un système IoT ?",opts:["Perception, Réseau, Service/Middleware, Application","Physique, Liaison, Réseau, Transport","Capteur, Routeur, Switch, Serveur","Edge, Fog, Cloud, Web"],ans:0,expl:"Couche 1 Perception (Capteurs), Couche 2 Réseau (Transport), Couche 3 Service (Middleware/Traitement), Couche 4 Application (Utilisateur).",trap:""},
+{id:26,ch:"Archi",diff:"med",q:"Qu'est-ce que le Edge Computing dans l'IoT ?",opts:["Tout envoyer au Cloud pour traitement","Traiter la donnée localement (sur ou près du capteur) pour réduire la latence et la bande passante","Une nouvelle norme WiFi","Un service de stockage en ligne"],ans:1,expl:"Le Edge Computing consiste à déplacer la puissance de calcul 'au bord' du réseau, au plus près de la source des données.",trap:""},
+{id:27,ch:"Intro",diff:"med",q:"L'identification RFID fonctionne avec :",opts:["Des puces GPS","Des tags (étiquettes) qui répondent aux ondes radio d'un lecteur","Des lasers optiques","Des signaux sonores"],ans:1,expl:"La RFID (Radio Frequency Identification) identifie un objet à distance grâce à un tag qui capte l'onde radio du lecteur et renvoie son identifiant.",trap:""},
+{id:28,ch:"Hardware",diff:"hard",q:"Quelle est la différence entre une carte Arduino Uno et un Raspberry Pi ?",opts:["L'Arduino a plus de RAM","Le Raspberry Pi est un microprocesseur avec un OS complet, l'Arduino est un microcontrôleur simple","Il n'y a pas de différence, ce sont deux microcontrôleurs","L'Arduino consomme beaucoup plus"],ans:1,expl:"Un Raspberry Pi exécute un OS (Linux) et possède beaucoup de RAM/CPU. Un Arduino est un microcontrôleur qui exécute une seule boucle de code C/C++, sans OS.",trap:""},
+{id:29,ch:"Reseaux",diff:"med",q:"Quel réseau sans fil est particulièrement adapté pour de la domotique grâce à son réseau maillé (mesh) ?",opts:["WiFi","LoRaWAN","Zigbee","5G"],ans:2,expl:"Zigbee est conçu pour la courte portée et utilise un réseau maillé où chaque objet (alimenté sur secteur) peut servir de relais (routeur) pour étendre la portée du réseau.",trap:"LoRaWAN est étoile d'étoiles, pas maillé."},
+{id:30,ch:"Intro",diff:"easy",q:"Qu'est-ce qu'une 'Gateway' (Passerelle) dans l'IoT ?",opts:["Une antenne 5G","Un appareil qui fait le pont entre le réseau local/capteurs (ex: LoRa) et Internet (IP)","Un capteur de température","Une base de données Cloud"],ans:1,expl:"La Gateway traduit les protocoles (ex: reçoit du signal radio LoRa et l'envoie sur Internet en Ethernet/4G vers le serveur).",trap:""},
+{id:31,ch:"Hardware",diff:"med",q:"Quelle est la consommation typique d'un module ESP32 en Deep Sleep ?",opts:["40-50 mA","10-15 mA","Moins de 10 µA","500 mA"],ans:2,expl:"En Deep Sleep, l'ESP32 consomme moins de 10 µA (microampères). C'est ce mode qui permet aux objets IoT de fonctionner des années sur batterie.",trap:"Ne pas confondre µA (microampères, veille) et mA (milliampères, transmission)."},
+{id:32,ch:"Hardware",diff:"med",q:"Pour un projet IoT industriel (haute fiabilité, longue durée de vie), quelle famille de carte est la plus recommandée ?",opts:["Arduino Uno : le plus simple","STM32 : ARM Cortex-M, robustesse industrielle, excellente gestion d'énergie","Raspberry Pi : Linux complet","ESP8266 : WiFi basique"],ans:1,expl:"STM32 est la référence pour l'industrie : performance élevée, modes d'économie d'énergie avancés (Stop/Standby), robustesse, et certains modèles intègrent LoRa nativement.",trap:""},
+{id:33,ch:"Hardware",diff:"med",q:"Quelle est la principale limite de l'Arduino Uno pour les projets IoT connectés ?",opts:["Il est trop puissant pour l'IoT","Il est trop cher","Il n'a aucune connectivité réseau native (WiFi/Bluetooth) : il faut des modules externes","Il ne peut pas lire de capteurs"],ans:2,expl:"L'Arduino Uno est idéal pour le prototypage et l'apprentissage, mais il nécessite des shields (modules externes) pour toute connectivité réseau. Contrairement à l'ESP32 qui l'intègre nativement.",trap:""},
+{id:34,ch:"Hardware",diff:"med",q:"Quel est l'avantage principal de l'ESP32 par rapport à l'Arduino Uno pour l'IoT ?",opts:["L'Arduino est plus rapide","L'ESP32 intègre Wi-Fi et Bluetooth nativement","L'Arduino consomme moins","L'ESP32 a plus de pins GPIO"],ans:1,expl:"L'avantage majeur de l'ESP32 est son Wi-Fi 802.11 b/g/n ET Bluetooth 4.2/BLE intégrés nativement, sans module externe.",trap:""},
+{id:35,ch:"Reseaux",diff:"easy",q:"Quelle fréquence radio est utilisée par LoRaWAN en Europe ?",opts:["2.4 GHz","5 GHz","868 MHz","1800 MHz"],ans:2,expl:"En Europe, LoRaWAN utilise la bande 868 MHz (bande ISM libre). Aux USA : 915 MHz.",trap:"2.4 GHz = WiFi/Zigbee/BLE. 1800 MHz = 2G/4G (licencié)."},
+{id:36,ch:"Reseaux",diff:"hard",q:"Dans l'architecture LoRaWAN, quelle entité supprime les doublons de messages reçus par plusieurs Gateways ?",opts:["L'Application Server","Le capteur lui-même","Le Network Server","La Gateway principale"],ans:2,expl:"Le Network Server reçoit les messages de toutes les Gateways, déduplique (un capteur peut être reçu par plusieurs gateways), gère l'ADR et achemine vers l'Application Server.",trap:""},
+{id:37,ch:"Reseaux",diff:"med",q:"Qu'est-ce que l'ADR (Adaptive Data Rate) dans LoRaWAN ?",opts:["Un système d'alerte","Mécanisme qui ajuste automatiquement le SF pour optimiser débit et consommation","Un type d'adressage IP","Un protocole de sécurité"],ans:1,expl:"L'ADR permet au Network Server d'ajuster automatiquement le Spreading Factor des capteurs selon la qualité du signal. Optimise débit et durée de vie batterie.",trap:""},
+{id:38,ch:"Reseaux",diff:"easy",q:"Quelle est la différence LoRaWAN vs NB-IoT sur l'infrastructure ?",opts:["LoRaWAN nécessite abonnement","LoRaWAN : fréquences ISM libres, réseau privé possible. NB-IoT : fréquences licenciées, opérateur télécom obligatoire.","Infrastructure identique","NB-IoT uniquement en Europe"],ans:1,expl:"LoRaWAN : 868 MHz libre (ISM), pas d'abonnement, réseau privé déployable. NB-IoT : sur réseau cellulaire LTE, opérateur requis, fréquences payantes.",trap:""},
+{id:39,ch:"Reseaux",diff:"easy",q:"Contrainte principale du réseau Sigfox ?",opts:["Uniquement en intérieur","Opérateur unique (abonnement) + max 140 messages/jour de 12 octets","Plus cher que 5G","Ne supporte pas IoT"],ans:1,expl:"Sigfox = opérateur unique (abonnement obligatoire) + limite stricte 140 msg uplink/jour, 12 octets max. Idéal alertes rares, tracking simple.",trap:"LoRaWAN : réseau privé possible sans abonnement."},
+{id:40,ch:"Reseaux",diff:"easy",q:"Meilleur choix pour wearables et capteurs médicaux portables ?",opts:["LoRaWAN","Sigfox","Bluetooth BLE : faible conso, portée chambre, communication directe avec smartphone","5G mmWave"],ans:2,expl:"BLE = batterie des semaines, portée 10-100m suffisante, communication directe avec tablettes/smartphones. Standard médical courant pour wearables.",trap:""},
+{id:41,ch:"Protocoles",diff:"easy",q:"Architecture du protocole MQTT ?",opts:["Client-Serveur comme HTTP","Publish/Subscribe via Broker central : publishers et subscribers découplés","Peer-to-peer direct","Maître-esclave"],ans:1,expl:"MQTT = Pub/Sub. Publisher envoie au Broker sur un Topic. Subscribers abonnés reçoivent automatiquement. Découplage total entre émetteur et récepteur.",trap:""},
+{id:42,ch:"Protocoles",diff:"med",q:"Les 3 niveaux QoS MQTT et leurs garanties ?",opts:["Bas/Moyen/Haut","QoS 0: au plus une fois (peut perdre). QoS 1: au moins une fois (peut dupliquer). QoS 2: exactement une fois (garanti).","Lent/Normal/Rapide","Non chiffré/Chiffré/Double chiffrement"],ans:1,expl:"QoS 0 = fire and forget (données non critiques). QoS 1 = garanti mais doublon possible (alertes). QoS 2 = garanti unique (transactions critiques).",trap:"QoS 0 n'est PAS 'au moins une fois'. C'est 'au plus une fois'."},
+{id:43,ch:"Protocoles",diff:"med",q:"Quel protocole IoT utilise UDP (pas TCP) pour être encore plus léger ?",opts:["MQTT","HTTP","AMQP","CoAP"],ans:3,expl:"CoAP (Constrained Application Protocol) = HTTP allégé sur UDP. Idéal objets très contraints (peu de mémoire). Supporte REST (GET/POST/PUT/DELETE).",trap:"MQTT utilise TCP. CoAP utilise UDP. Ne pas confondre."},
+{id:44,ch:"Reseaux",diff:"med",q:"Quelle règle résume le compromis portée/débit/consommation IoT ?",opts:["Plus de débit = plus de portée","Débit faible → portée grande → consommation faible : principe des LPWAN","Débit et portée sont indépendants","Plus de débit = moins de consommation"],ans:1,expl:"Règle d'or IoT : réduire le débit augmente la portée et réduit la consommation. C'est le fondement des LPWAN. SF élevé dans LoRa illustre ce principe.",trap:""},
+{id:45,ch:"Archi",diff:"hard",q:"[CAS] 50 capteurs d'humidité sur 5 km² de champs, batterie longue durée. Quelle technologie ?",opts:["WiFi : haut débit","5G : couverture nationale","LoRaWAN : longue portée, faible conso, petits messages, pas d'abonnement opérateur","Bluetooth : communication directe"],ans:2,expl:"LoRaWAN : portée 2-15 km, batterie des années, petits messages (temp/humidité), réseau privé sans abonnement. Cas d'usage parfait agriculture IoT.",trap:"WiFi consomme trop. BT trop court. 5G coûteux et inutile pour de petits messages."},
+{id:46,ch:"Reseaux",diff:"med",q:"Dans le contexte 5G IoT, que signifie URLLC ?",opts:["Universal Radio Link Layer Control","Ultra-Reliable Low-Latency Communications","Ultra Range Long Life Communications","Unified Radio Link and Latency Control"],ans:1,expl:"URLLC = Ultra-Reliable Low-Latency Communications. Cible les applications critiques : chirurgie à distance, véhicules autonomes, industrie 4.0. Latence <1 ms, fiabilité 99.9999%.",trap:""},
+{id:47,ch:"Reseaux",diff:"easy",q:"Quelle est la latence approximative d'un réseau 4G LTE ?",opts:["1 ms","500 ms","30-50 ms","1 seconde"],ans:2,expl:"La 4G LTE offre une latence de ~30-50 ms. La 3G était ~100 ms. La 5G vise <1 ms.",trap:""},
+{id:48,ch:"Reseaux",diff:"med",q:"Dans l'architecture 2G GSM, quelle est la différence entre HLR et VLR ?",opts:["Ils ont le même rôle","HLR = base de données permanente des abonnés. VLR = copie temporaire pour les abonnés en déplacement.","VLR stocke les données permanentes","HLR gère les antennes radio"],ans:1,expl:"HLR (Home Location Register) = profil permanent de l'abonné chez son opérateur. VLR (Visitor Location Register) = copie temporaire créée quand l'abonné entre dans une nouvelle zone.",trap:"HLR = permanent. VLR = temporaire (itinérance)."},
+{id:49,ch:"Reseaux",diff:"med",q:"Quelle est la principale différence entre la commutation de circuits et la commutation de paquets ?",opts:["La commutation de circuits est plus rapide","La commutation de circuits réserve un canal dédié (voix 2G), la commutation de paquets partage la bande passante (IP)","La commutation de paquets ne peut pas transporter la voix","Elles sont identiques"],ans:1,expl:"Commutation de circuits (2G voix) : canal dédié réservé pendant toute la communication. Commutation de paquets (GPRS, 4G) : données fragmentées en paquets, bande passante partagée.",trap:""},
+{id:50,ch:"Protocoles",diff:"med",q:"Quand est-il préférable d'utiliser HTTP plutôt que MQTT dans un projet IoT ?",opts:["Jamais, MQTT est toujours meilleur","Pour les API REST, dashboards web et intégrations avec des services web existants","Pour les capteurs sur batterie en terrain isolé","Pour réduire la consommation d'énergie"],ans:1,expl:"HTTP/REST est naturel pour les API web, les dashboards et les intégrations avec systèmes tiers. MQTT est optimal pour les capteurs temps réel. Les deux sont complémentaires.",trap:""},
+{id:51,ch:"Protocoles",diff:"easy",q:"Qu'est-ce qu'un Broker MQTT et citez un exemple ?",opts:["Un capteur IoT qui publie des données","Un serveur intermédiaire qui reçoit les publications et les redistribue aux abonnés. Ex: Mosquitto, HiveMQ","Un protocole de routage IP","Un type de Topic MQTT"],ans:1,expl:"Le Broker est le cœur du modèle Pub/Sub MQTT. Il reçoit les messages des Publishers et les redirige vers tous les Subscribers du même Topic. Mosquitto (open source) et HiveMQ sont les plus courants.",trap:"Le Broker ne publie pas lui-même, il redistribue."},
+{id:52,ch:"Reseaux",diff:"med",q:"[CAS] Une ville installe 200 capteurs de qualité d'air. Quelle combinaison réseau + protocole est optimale ?",opts:["WiFi + HTTP : familier et simple","LoRaWAN + MQTT : longue portée batterie, données push vers dashboard","Bluetooth + CoAP : faible consommation","5G + WebSocket : ultra-rapide"],ans:1,expl:"LoRaWAN couvre toute la ville (km) avec des capteurs sur batterie (années). MQTT achemine les données vers le dashboard via Broker (push temps réel). Combo classique Smart City.",trap:"WiFi : consomme trop, portée insuffisante. 5G : surdimensionné et coûteux pour de petits messages périodiques."},
+{id:53,ch:"Protocoles",diff:"easy",q:"Dans MQTT, qu'est-ce qu'un 'Topic' ?",opts:["Un message d'erreur","Un canal hiérarchique de publication/abonnement (ex: maison/salon/temp)","Le nom du Broker","Un niveau de QoS"],ans:1,expl:"Un Topic est le canal logique hiérarchique sur lequel un Publisher envoie et auquel des Subscribers s'abonnent. Ex: 'ferme/champ1/humidite'.",trap:""},
+{id:54,ch:"Protocoles",diff:"med",q:"Quelle est la différence entre QoS 0, QoS 1 et QoS 2 en MQTT en termes de cas d'usage ?",opts:["Ils sont identiques, juste des niveaux de vitesse","QoS 0 : données non critiques fréquentes. QoS 1 : alertes (perte intolérable). QoS 2 : transactions uniques critiques.","QoS 2 est toujours recommandé","QoS 0 garantit la livraison"],ans:1,expl:"Choisir le bon QoS selon le besoin : température périodique → QoS 0. Alerte incendie → QoS 1. Commande de paiement → QoS 2. Utiliser QoS 2 partout est un anti-pattern (surcharge réseau).",trap:"QoS 0 ne garantit PAS la livraison."},
+{id:55,ch:"Archi",diff:"med",q:"Dans l'architecture IoT 4 couches, quelle est la fonction de la couche 'Service/Middleware' ?",opts:["Détecter les données physiques","Transporter les données sur le réseau","Traiter, stocker et analyser les données","Afficher les données à l'utilisateur"],ans:2,expl:"La couche Service/Middleware (couche 3) assure le traitement, le stockage et l'analyse des données. Elle fait le lien entre le réseau et l'application.",trap:""},
+{id:56,ch:"Archi",diff:"med",q:"Qu'est-ce que le 'Fog Computing' dans l'IoT ?",opts:["Un service Cloud AWS","Un intermédiaire entre Edge et Cloud : traitement dans les gateways intelligentes","Un protocole de communication","Un type de capteur météo"],ans:1,expl:"Le Fog Computing est une couche intermédiaire entre l'Edge (local) et le Cloud (centralisé). Les gateways intelligentes effectuent un prétraitement avant d'envoyer au cloud.",trap:""},
+{id:57,ch:"Archi",diff:"easy",q:"Quelle est la définition d'une plateforme IoT ?",opts:["Un réseau LPWAN","Un middleware qui permet de connecter, gérer, traiter et visualiser les données des objets connectés","Un type de capteur","Un protocole de communication"],ans:1,expl:"Une plateforme IoT est un middleware intermédiaire entre les capteurs/actionneurs et les applications utilisateurs. Elle assure : gestion dispositifs, collecte, analytics, dashboard, sécurité.",trap:""},
+{id:58,ch:"Archi",diff:"easy",q:"Laquelle est une plateforme IoT Open Source ?",opts:["AWS IoT Core","Azure IoT Hub","ThingsBoard","Google Cloud IoT"],ans:2,expl:"ThingsBoard est une plateforme IoT open source permettant la collecte, visualisation et gestion des données IoT. Node-RED, Mosquitto et Home Assistant sont aussi open source.",trap:"AWS IoT Core, Azure IoT Hub et Google Cloud IoT sont propriétaires (payants)."},
+{id:59,ch:"Archi",diff:"med",q:"Quels sont les défis majeurs de l'IoT ?",opts:["Sécurité, interopérabilité, consommation, scalabilité, vie privée","Uniquement la consommation d'énergie","Uniquement la sécurité réseau","Uniquement le coût des capteurs"],ans:0,expl:"Les défis IoT sont multiples : sécurité (attaques), interopérabilité (hétérogénéité), consommation (batterie), scalabilité (milliards d'objets), vie privée, standardisation, Big Data.",trap:""},
+{id:60,ch:"Intro",diff:"easy",q:"Quel domaine d'application IoT utilise des capteurs pour surveiller la qualité de l'air ?",opts:["Domotique","Ville intelligente (Smart City)","Commerce","Agriculture"],ans:1,expl:"La ville intelligente (Smart City) utilise des capteurs IoT pour surveiller la pollution, l'éclairage, les déchets, le trafic. Ex: capteurs PM2.5, NO2 connectés via LoRaWAN.",trap:""},
+{id:61,ch:"Intro",diff:"easy",q:"Pour surveiller les conditions météo sur un champ agricole avec des capteurs sur batterie, quelle technologie est recommandée ?",opts:["WiFi","Bluetooth","LoRaWAN","5G"],ans:2,expl:"LoRaWAN est idéal : longue portée (plusieurs km de champ), très faible consommation (capteurs sur batterie des années), faible débit suffisant (température, humidité), pas d'abonnement opérateur.",trap:"WiFi consomme trop. Bluetooth a une portée trop courte. 5G est trop coûteux."},
+{id:62,ch:"Reseaux",diff:"easy",q:"Quelle technologie courte portée est la plus adaptée pour des wearables (montres, bracelets connectés) ?",opts:["LoRaWAN","WiFi","Bluetooth BLE","Sigfox"],ans:2,expl:"BLE (Bluetooth Low Energy) est idéal pour les wearables : faible consommation, portée ~10-100m, communication avec smartphone, autonomie de mois.",trap:""},
+{id:63,ch:"Reseaux",diff:"med",q:"Comment évoluent les débits et la latence des générations mobiles de la 2G à la 5G ?",opts:["Les débits et latences n'ont pas évolué","2G: kbps/500ms → 3G: Mbps/100ms → 4G: 100Mbps/30ms → 5G: Gbps/<1ms","La 5G est plus lente que la 4G","Les latences sont identiques pour toutes les générations"],ans:1,expl:"Chaque génération multiplie le débit par ~100 et divise la latence par ~10. 5G cible <1ms pour les applications critiques (URLLC).",trap:""},
+{id:64,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le Massive MIMO dans la 5G et quel est son avantage pour l'IoT ?",opts:["Un protocole de sécurité","Des centaines d'antennes qui permettent de desservir simultanémément de nombreux appareils (IoT massif)","Un type de batterie","Un algorithme de routage"],ans:1,expl:"Massive MIMO (Multiple Input Multiple Output) utilise des dizaines/centaines d'antennes pour multiplier la capacité. Crucial pour mMTC : connecter des milliers d'objets IoT dans une même zone.",trap:""},
+{id:65,ch:"Reseaux",diff:"easy",q:"Qu'est-ce que le Beamforming en 5G et pourquoi est-il utile pour l'IoT ?",opts:["Un protocole de sécurité","Une technique de routage IP","Diriger le signal radio vers un appareil spécifique pour améliorer la portée et réduire les interférences","Un mode d'économie d'énergie"],ans:2,expl:"Le Beamforming dirige le signal 5G précisément vers l'utilisateur au lieu de le diffuser. En IoT massif (mMTC), cela permet de desservir plus d'appareils dans la même zone sans interférences.",trap:""},
+{id:66,ch:"Protocoles",diff:"hard",q:"Un capteur IoT envoie des données de température toutes les heures. MQTT QoS 0 ou 1 est recommandé ?",opts:["QoS 2, pour ne jamais perdre de données","QoS 0, les données non critiques et fréquentes tolèrent la perte","QoS 1 car la température est critique","HTTP car c'est plus fiable"],ans:1,expl:"Pour des données non critiques envoyées fréquemment (température/heure), QoS 0 est suffisant. Une mesure perdue sera compensée par la suivante. QoS 2 surchargerait inutilement le réseau.",trap:""},
+{id:67,ch:"Archi",diff:"med",q:"Dans le flux de données IoT, quelle étape vient après la collecte par les capteurs ?",opts:["L'affichage à l'utilisateur","L'action sur les actionneurs","La transmission via le réseau","Le traitement en cloud"],ans:2,expl:"Le flux IoT classique : 1.Collecte (capteurs) → 2.Transmission (réseau) → 3.Traitement (cloud/edge) → 4.Action (actionneurs) → 5.Feedback (utilisateur).",trap:""},
+{id:68,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le GPRS (2.5G) par rapport au GSM (2G) ?",opts:["Une version plus lente du GSM","L'extension du GSM pour les données IP par commutation de paquets","Un réseau 3G UMTS","Un protocole WiFi longue portée"],ans:1,expl:"GPRS (General Packet Radio Service) est une extension du GSM qui ajoute la commutation de paquets pour accéder à Internet. Débit : 14.4 à 115.2 kbps.",trap:""},
+{id:69,ch:"Reseaux",diff:"med",q:"Comment l'architecture du cœur réseau évolue-t-elle de la 3G à la 4G ?",opts:["Aucun changement","3G : NodeB + RNC séparés + cœur mixte voix/données. 4G : eNodeB = NodeB+RNC fusionnés + EPC Tout IP","4G utilise encore la commutation de circuits pour la voix","3G est plus rapide que 4G"],ans:1,expl:"En 4G, le RNC disparaît et ses fonctions sont intégrées dans l'eNodeB (architecture plate). Le cœur EPC est entièrement IP : la voix passe par VoLTE, plus par des circuits.",trap:""},
+{id:70,ch:"Intro",diff:"med",q:"Quelle caractéristique distingue un 'terminal intelligent' des autres catégories d'objets connectés ?",opts:["Il communique par RFID uniquement","Il inclut un traitement informatique intégré (microprocesseur/microcontrôleur)","Il ne peut pas communiquer par réseau","Il est exclusivement utilisé en industrie"],ans:1,expl:"Un terminal intelligent (ex: ESP32, Arduino) intègre un processeur pour traitement local, contrairement à un simple tag RFID (identification) ou un objet M2M basique.",trap:""},
+{id:71,ch:"Reseaux",diff:"med",q:"Quelle est la portée typique de WiFi en intérieur ?",opts:["10 km","2 km","~200m","50 km"],ans:2,expl:"Le WiFi a une portée d'environ 100-200m en intérieur. C'est une technologie courte portée, contrairement aux LPWAN (km).",trap:""},
+{id:72,ch:"Hardware",diff:"med",q:"Dans quel cas pratique choisit-on l'Arduino Uno plutôt que l'ESP32 ?",opts:["Pour un projet IoT connecté en WiFi","Pour le prototypage rapide local sans besoin réseau, apprentissage débutant, ou contrôle de moteur simple","Pour un déploiement industriel","Pour un projet LoRa avec batterie"],ans:1,expl:"Arduino = facilité maximale, code C simple, pas d'OS. Idéal apprentissage et prototypes sans connectivité. Dès qu'on a besoin de WiFi/BT, l'ESP32 est préférable (équivalent prix, plus puissant).",trap:""},
+{id:73,ch:"Archi",diff:"easy",q:"Citez 3 domaines d'application de l'IoT.",opts:["Réseaux sociaux, jeux vidéo, streaming","Smart City, e-Santé, Agriculture intelligente","DNS, HTTP, FTP","TCP, UDP, IP"],ans:1,expl:"IoT : Smart City (trafic, éclairage), e-Santé (monitoring patient, télémédecine), Agriculture (capteurs champs, irrigation auto), Industrie 4.0, Domotique, Logistique.",trap:""},
+{id:74,ch:"Reseaux",diff:"med",q:"Quel critère est le PLUS important pour choisir LoRaWAN plutôt que WiFi dans un déploiement IoT en plein air ?",opts:["Le débit élevé","La portée longue distance et la faible consommation sur batterie","La vitesse de connexion instantanée","Le nombre d'objets connectés simultanément"],ans:1,expl:"LoRaWAN est choisi pour sa longue portée (km) et sa très faible consommation permettant des années de fonctionnement sur batterie, impossible avec WiFi.",trap:""},
+{id:75,ch:"Protocoles",diff:"hard",q:"Quel est l'avantage de WebSocket par rapport à HTTP classique pour l'IoT temps réel ?",opts:["WebSocket est plus sécurisé","WebSocket maintient une connexion persistante bidirectionnelle permettant le Push du serveur vers le client","WebSocket utilise moins de bande passante","WebSocket fonctionne sans Internet"],ans:1,expl:"WebSocket établit une connexion persistante et bidirectionnelle : le serveur peut envoyer des données au client sans que celui-ci ne les demande (Push). Idéal pour les dashboards temps réel.",trap:"HTTP classique est stateless : le client doit constamment faire des requêtes (polling) pour avoir les nouvelles données."}
 ];
 const FC=[
-{id:1,ch:"RMI",front:"Que fait rmic ?",back:"Génère les stubs (souches) automatiquement à partir de l'interface Java. L'IDL de RMI est Java lui-même.",code:"rmic MonObjetDistant"},
-{id:2,ch:"RMI",front:"Port par défaut RMIRegistry ?",back:"1099. Omis dans l'URL → 1099 utilisé automatiquement.",code:'Naming.lookup("rmi://host/nom") // port=1099'},
-{id:3,ch:"RMI",front:"Que doit étendre une interface distante RMI ?",back:"java.rmi.Remote — toutes ses méthodes doivent déclarer throws RemoteException.",code:"public interface MonIF extends Remote {\n  void maMethod() throws RemoteException;\n}"},
-{id:4,ch:"RMI",front:"Différence bind() vs rebind() ?",back:"rebind() remplace si nom existe. bind() lève AlreadyBoundException si nom déjà pris.",code:"Naming.rebind(\"obj\", monObj); // toujours OK\nNaming.bind(\"obj\", monObj);   // échoue si existe"},
-{id:5,ch:"RMI",front:"Stub = ?",back:"Représentant LOCAL de l'objet distant. Masque toute la complexité réseau. Sérialise les params, envoie la requête, retourne le résultat.",code:""},
-{id:6,ch:"RMI",front:"Skeleton = ?",back:"Côté serveur. Désérialise les params, appelle la VRAIE méthode, sérialise le résultat, renvoie au stub.",code:"// Depuis Java 1.2 : skeleton générique partagé"},
-{id:7,ch:"RMI",front:"Objet local en param RMI → passage comment ?",back:"Par VALEUR (copie sérialisée). L'objet doit implémenter java.io.Serializable.",code:"// Local → Serializable → copie\n// Non-local → stub → référence"},
-{id:8,ch:"RMI",front:"Callback RMI = ?",back:"Le serveur appelle le client. Le client passe un objet callback en param. Le serveur fait un appel asynchrone dessus.",code:""},
-{id:9,ch:"RMI",front:"codebase RMI ?",back:"Propriété java.rmi.server.codebase. URL (file:// ou http://) où trouver les .class pour le chargement dynamique.",code:"java -Djava.rmi.server.codebase=http://srv/classes/ Srv"},
-{id:10,ch:"RMI",front:"Fabrique (Factory) RMI ?",back:"Objet distant enregistré dans le registry. Permet au client de créer des instances multiples côté serveur via fabrique.newObjet().",code:""},
-{id:11,ch:"REST",front:"REST = protocole ?",back:"NON. REST est un STYLE D'ARCHITECTURE. Pas de protocole, pas de format imposé, pas de standard.",code:""},
-{id:12,ch:"REST",front:"Qui définit REST ? Quand ?",back:"Roy Fielding, en 2000 (thèse de doctorat, Apache).",code:""},
-{id:13,ch:"REST",front:"CRUD ↔ HTTP verbs ?",back:"Create→POST, Retrieve→GET, Update→PUT, Delete→DELETE",code:"GET  /books      → liste\nGET  /books/1    → détail\nPOST /books      → créer\nPUT  /books/1    → modifier\nDELETE /books/1  → supprimer"},
-{id:14,ch:"REST",front:"Idempotent vs Safe ?",back:"Safe = ne MODIFIE pas la ressource (GET). Idempotent = résultat identique N appels (GET, PUT, DELETE). POST = ni l'un ni l'autre.",code:""},
-{id:15,ch:"REST",front:"Codes HTTP à retenir ?",back:"1xx Info | 2xx Succès | 3xx Redirection | 4xx Erreur client | 5xx Erreur serveur",code:"200 OK | 201 Created | 204 No Content\n400 Bad Request | 401 Unauth | 404 Not Found\n500 Internal Server Error"},
-{id:16,ch:"REST",front:"Bonne pratique URI ?",back:"Noms (pas verbes) + pluriel pour collections. Éviter majuscules. Versionner : /v1/books",code:"✅ GET /books/{id}\n❌ GET /getBook/{id}"},
-{id:17,ch:"REST",front:"Qui maintient l'état en REST ?",back:"Le CLIENT. Le serveur est stateless : aucune session entre les requêtes.",code:""},
-{id:18,ch:"Kafka",front:"Architecture Kafka ?",back:"Producteurs → Brokers (Cluster) → Consommateurs. Modèle Publish/Subscribe basé sur les topics.",code:""},
-{id:19,ch:"Kafka",front:"Formule Quorum Kafka ?",back:"Q = (N/2) + 1. N=3→Q=2, N=5→Q=3, N=7→Q=4. Préférer N impair.",code:""},
-{id:20,ch:"Kafka",front:"Offset Kafka ?",back:"Position d'un message dans une partition. Permet de suivre la lecture et reprendre après panne. Messages consommés NON supprimés.",code:""},
-{id:21,ch:"Kafka",front:"Rétention par défaut Kafka ?",back:"7 jours. Configurable par topic. Les messages existent toujours après consommation jusqu'à expiration.",code:""},
-{id:22,ch:"Kafka",front:"ZooKeeper vs KRaft ?",back:"ZooKeeper = système externe de coordination (métadonnées, pannes). KRaft = remplacement moderne intégré à Kafka.",code:"// ZooKeeper NE transporte PAS les messages !"},
-{id:23,ch:"Kafka",front:"Leader de partition ?",back:"Broker responsable des R/W pour une partition. Défini PAR PARTITION (pas par cluster). Un broker peut être leader de plusieurs partitions.",code:""},
-{id:24,ch:"Kafka",front:"Replication Factor ?",back:"Nombre de copies d'une partition. RF=3 → 1 leader + 2 followers. Protège contre les pannes.",code:""},
-{id:25,ch:"RPC",front:"Marshalling / Unmarshalling ?",back:"Marshalling = emballage des params en message réseau. Unmarshalling = déballage. Réalisé par les stubs.",code:""},
-{id:26,ch:"RPC",front:"Sémantiques RPC ?",back:"Au moins une fois (idempotent requis) | Au plus une fois (pas de doublon, pas de garantie) | Exactement une fois (idéal, difficile) | Indéfini",code:""},
-{id:27,ch:"RPC",front:"Liaison statique vs tardive ?",back:"Statique : adresse fixée à la compilation, rapide, inflexible. Tardive : résolution à l'exécution via serveur de noms, flexible.",code:""},
-{id:28,ch:"RPC",front:"RPC synchrone vs asynchrone ?",back:"Synchrone : client suspendu jusqu'à réponse (simple mais perte de temps). Asynchrone : client continue immédiatement, résultats récupérés plus tard.",code:""},
-{id:29,ch:"RPC",front:"IDL contient quoi ?",back:"Noms et versions des procédures. Types des paramètres et résultats. Modes de passage (IN, OUT, IN-OUT).",code:""},
-{id:30,ch:"ADV",front:"Copie-restauration : double_inc(a,a) avec a=0 ?",back:"Résultat a=1 (pas 2). Deux copies de a=0 → x++=1, y++=1. Dernière restauration écrase → a=1. Violation de la sémantique du passage par adresse réel.",code:"// Passage par adresse réel → a=2\n// Copie-restauration → a=1"},
-{id:31,ch:"Intro_SR",front:"Système Réparti vs Centralisé ?",back:"Réparti : plusieurs machines autonomes connectées en réseau apparaissant comme un système unique. Centralisé : 1 machine, 1 mémoire centrale, 1 horloge.",code:""},
-{id:32,ch:"Intro_SR",front:"Qu'est-ce qu'un Middleware ?",back:"Couche logicielle intermédiaire entre le réseau et l'application. Masque l'hétérogénéité, cache la complexité et rend la répartition transparente.",code:""},
-{id:33,ch:"Intro_SR",front:"Publish / Subscribe : comment ça marche ?",back:"Le producteur publie des événements dans un 'topic'. Les consommateurs s'abonnent au topic. Les deux ne se connaissent pas (asynchrone et anonyme).",code:""},
-{id:34,ch:"Intro_SR",front:"Mode Push vs Mode Pull (Evénements) ?",back:"Pull : Le consommateur vérifie périodiquement s'il y a des messages. Push : La file d'attente notifie (appelle) le consommateur dès qu'un message arrive.",code:""},
-{id:35,ch:"Sockets",front:"Caractéristiques TCP (Mode connecté) ?",back:"Transmission fiable (ACK, retransmission), ordonnée, communication par flux d'octets. Orienté connexion.",code:""},
-{id:36,ch:"Sockets",front:"Caractéristiques UDP (Mode déconnecté) ?",back:"Transmission non fiable (pas d'ACK), non ordonnée, communication par datagrammes. Plus rapide mais pas de garantie.",code:""},
-{id:37,ch:"Sockets",front:"Comment un serveur TCP gère plusieurs clients ?",back:"Avec le TCP Mode Concurrent : une boucle principale sur ServerSocket.accept() crée un nouveau THREAD pour chaque client connecté.",code:""},
-{id:38,ch:"Sockets",front:"Classes Java pour TCP et UDP ?",back:"UDP : DatagramSocket (client/serveur). TCP : Socket (client), ServerSocket (serveur).",code:"// TCP\nServerSocket srv = new ServerSocket(8080);\nSocket client = new Socket('host', 8080);"},
-{id:39,ch:"Sockets",front:"Que fait ServerSocket.accept() ?",back:"C'est une méthode bloquante. Lorsqu'une connexion arrive, elle crée et retourne une NOUVELLE Socket dédiée à la communication avec ce client.",code:""},
-{id:40,ch:"Intro_SR",front:"Qu'est-ce que le FAP (Format and Protocol) ?",back:"Mécanisme du middleware qui gère les échanges réseau : synchronisation selon un protocole et mise au format (sérialisation) des données.",code:""},
-{id:41,ch:"Sockets",front:"Différence entre désignation interne et externe (Sockets) ?",back:"Interne : indice dans la table des descripteurs du SE. Externe : Adresse IP + Numéro de port.",code:""},
+{id:101,ch:"Intro",front:"IoT (définition)",back:"Extension d'Internet aux objets physiques : collecte, transmission, traitement de données SANS intervention humaine directe.",code:""},
+{id:102,ch:"Intro",front:"M2M vs IoT",back:"M2M = communication machine-machine basique. IoT = M2M + Services intelligents + Objets connectés. IoT est le sur-ensemble.",code:""},
+{id:103,ch:"Intro",front:"Mnémo ACCITR (6 composants IoT)",back:"Authentification · Capteurs · Connexion · Intégration · Traitement · Réseaux",code:"A-C-C-I-T-R\nChaque objet : identité unique → mesure → réseau → compatibilité → analyse → transport"},
+{id:104,ch:"Intro",front:"Capteur vs Actionneur",back:"Capteur : mesure le monde physique → signal électrique (ex: thermomètre).\nActionneur : reçoit un signal → agit sur le monde (ex: allumer une pompe).",code:""},
+{id:105,ch:"Intro",front:"RFID",back:"Radio Frequency Identification : identifie un objet à distance via un tag passif qui répond aux ondes d'un lecteur. Pas de batterie requise.\nUsages : inventaire, badge d'accès, logistique.",code:""},
+{id:106,ch:"Intro",front:"NFC vs RFID",back:"NFC (Near Field Communication) = version RFID très courte distance (0-20 cm), bidirectionnelle.\nUsages : paiement sans contact, partage de fichiers, tags intelligents.\nRFID = portail inventaire, badge. NFC = mobile personnel.",code:""},
+{id:107,ch:"Hardware",front:"ESP32 — points clés",back:"Wi-Fi + Bluetooth (BLE) intégrés nativement.\nTrès faible conso en Deep Sleep (<10 µA).\nPuissant, dual-core 32-bit.\nPrix abordable (~$3-8).\nIdéal : domotique, MQTT, tout projet IoT connecté.",code:""},
+{id:108,ch:"Hardware",front:"Arduino Uno — points clés",back:"Microcontrôleur 8-bit simple. Aucune connectivité réseau native (WiFi/BT) : modules externes requis.\nFaible RAM. Idéal : apprentissage, prototypage local, contrôle de composants.",code:""},
+{id:109,ch:"Hardware",front:"STM32 — points clés",back:"Microcontrôleur ARM 32-bit haute performance. Excellente gestion d'énergie (modes veille profonde). Robustesse industrielle. Certains modèles intègrent LoRa ou WiFi nativement.\nIdéal : produits industriels, IoT à longue durée de vie.",code:""},
+{id:110,ch:"Hardware",front:"Comparatif : Arduino vs ESP32 vs STM32",back:"Arduino : facilité max, faibles perfs, pas WiFi natif.\nESP32 : WiFi+BT natif, haute perf, faible coût.\nSTM32 : meilleure perf, industriel, STM32WL a LoRa.",code:""},
+{id:111,ch:"Hardware",front:"Deep Sleep & Duty Cycle IoT",back:"Deep Sleep : ~10 µA (microampères). L'objet dort, se réveille périodiquement pour mesurer + transmettre. Duty Cycle = % du temps actif. Ex: 1% actif → batterie dure des années.",code:"Tx LoRa : ~40-50 mA\nRx : ~10-15 mA\nSleep : <10 µA"},
+{id:112,ch:"Reseaux",front:"LPWAN — définition et avantages",back:"Low Power Wide Area Network. Longue portée (km) + Très faible consommation + Faible débit + Faible coût. Exemples : LoRaWAN, Sigfox, NB-IoT.",code:"Non adapté : vidéo, streaming, temps-réel strict"},
+{id:113,ch:"Reseaux",front:"LoRa vs LoRaWAN",back:"LoRa = modulation radio (couche PHYSIQUE) propriétaire Semtech. Utilise CSS (Chirp Spread Spectrum).\nLoRaWAN = protocole RÉSEAU (couche MAC) standardisé LoRa Alliance. S'appuie sur LoRa.",code:"LoRa = le signal radio\nLoRaWAN = le protocole réseau"},
+{id:114,ch:"Reseaux",front:"LoRaWAN — chiffres clés",back:"Portée : 2 km (urbain) — 15 km (rural)\nFréquence : 868 MHz Europe (libre ISM)\nDébit : 0.3 à 50 kbps (selon SF)\nChiffrement : AES-128\nDuty Cycle réglementaire : max 1%\nTopologie : étoile d'étoiles",code:""},
+{id:115,ch:"Reseaux",front:"LoRaWAN — Classes A, B, C",back:"Classe A : 2 fenêtres courtes après envoi → MINIMUM obligatoire, consommation la plus FAIBLE.\nClasse B : fenêtres programmées par beacons → Smart City.\nClasse C : réception quasi-continue → Industrie, consommation ÉLEVÉE.",code:""},
+{id:116,ch:"Reseaux",front:"Spreading Factor (SF) LoRa",back:"SF7 → SF12. SF élevé = portée plus grande MAIS débit plus faible + temps d'émission plus long.\nSF7 : rapide, courte portée. SF12 : lent, très longue portée.",code:"SF↑ → portée↑ → débit↓ → temps_émission↑"},
+{id:117,ch:"Reseaux",front:"ADR (Adaptive Data Rate) LoRaWAN",back:"LoRaWAN ajuste automatiquement le SF (et donc le débit) selon la qualité du signal reçu par le Network Server. Optimise : consommation et capacité réseau.",code:""},
+{id:118,ch:"Reseaux",front:"Sigfox — caractéristiques clés",back:"Réseau propriétaire opéré (abonnement obligatoire). UNB (Ultra Narrow Band). 100 bps uplink. Portée 3-50 km. Limite : 140 msg/jour (12 octets max) uplink, 4 downlink.",code:"Vs LoRaWAN : opérateur unique vs réseau propre possible"},
+{id:119,ch:"Reseaux",front:"NB-IoT",back:"NarrowBand IoT — standard 3GPP sur fréquences LICENCIÉES LTE. Opérateur télécom requis. ~200 kbps. Pas de limite de messages. Bonne couverture indoor.",code:""},
+{id:120,ch:"Reseaux",front:"Zigbee",back:"Courte portée (~100m). Très faible consommation. Topologie MAILLÉE (mesh) : chaque nœud alimenté peut relayer les messages d'autres nœuds.\nIdéal : domotique, automatisation bâtiment.",code:""},
+{id:121,ch:"Reseaux",front:"WiFi IoT",back:"Très haut débit. Consommation ÉLEVÉE : autonomie batterie limitée (à la journée). Idéal quand alimentation secteur disponible.\nNon adapté aux capteurs terrains sur batterie.",code:""},
+{id:122,ch:"Reseaux",front:"Bluetooth BLE",back:"Bluetooth Low Energy. Portée 10-100m. Débit ~1 Mbps. Autonomie : mois. Idéal : wearables, santé, objets personnels. Moins adapté IoT grande échelle.",code:""},
+{id:123,ch:"Reseaux",front:"2G GSM — architecture",back:"MS → BTS (antenne) → BSC (contrôle BTS, handover) → MSC (commutateur central)\nBases de données : HLR (permanent) + VLR (itinérance) + AUC (auth) + EIR (appareils)",code:"2G : voix par commutation de circuits. Extension GPRS = paquets IP."},
+{id:124,ch:"Reseaux",front:"Rôles 2G : HLR / VLR / AUC / EIR",back:"HLR : base données abonnés PERMANENTE.\nVLR : base données abonnés en DÉPLACEMENT.\nAUC : Authentification et chiffrement.\nEIR : Registre terminaux (IMEI).",code:""},
+{id:125,ch:"Reseaux",front:"3G UMTS — architecture",back:"UE → NodeB (antenne 3G) → RNC (contrôle NodeB) → Cœur : CS (voix circuits) + PS (données paquets).\nDébit : 2 Mbps typ. HSDPA (3.5G) améliore les débits.",code:""},
+{id:126,ch:"Reseaux",front:"4G LTE — architecture",back:"UE → eNodeB (= NodeB + RNC fusionnés) → EPC (MME + SGW + PGW + HSS)",code:"eNodeB = architecture PLATE (flat)\nEPC = tout IP, plus de commutation circuit"},
+{id:127,ch:"Reseaux",front:"4G LTE — caractéristiques",back:"Tout IP. eNodeB = NodeB+RNC fusionnés (architecture plate).\nDébit 100-150 Mbps (LTE-A : jusqu'à 1 Gbps).\nLatence ~30-50 ms. VoLTE = voix sur IP.",code:""},
+{id:128,ch:"Reseaux",front:"5G — 3 grands cas d'usage IoT",back:"mMTC : connexion de MILLIARDS d'objets (IoT massif).\nURLLC : Ultra fiabilité + latence 1 ms (industrie, médical).\neMBB : Très haut débit (VR, AR, 10 Gbps).",code:""},
+{id:129,ch:"Reseaux",front:"5G — architecture",back:"UE → gNodeB (station de base 5G) → 5G Core (5GC).\n5GC = architecture orientée services (SBA) : gère accès, mobilité, sessions, trafic données.",code:""},
+{id:130,ch:"Reseaux",front:"5G — technologies clés",back:"Massive MIMO : centaines d'antennes, capacité élevée.\nBeamforming : signal dirigé vers l'utilisateur.\nNetwork Slicing : réseaux logiques virtualisés.\nMEC : Edge Computing intégré.",code:""},
+{id:131,ch:"Reseaux",front:"Network Slicing (5G)",back:"Partitionner virtuellement UN réseau physique en plusieurs réseaux logiques indépendants, chacun avec sa propre QoS. Ex: slice IoT massif + slice chirurgie + slice eMBB.",code:""},
+{id:132,ch:"Reseaux",front:"Tableau générations mobiles",back:"2G (GSM): kbps, ~500ms, voix circuit\n3G (UMTS): Mbps, ~100ms, voix+données\n4G (LTE): 100Mbps, ~30ms, Tout IP\n5G (NR): Gbps, <1ms, SBA",code:"Clé : chaque génération ×100 débit, /10 latence"},
+{id:133,ch:"Protocoles",front:"MQTT — architecture",back:"Publisher → Broker ← Subscriber. Publish/Subscribe découplé. Topics hiérarchiques (ex: maison/salon/temp). Connexion persistante TCP.",code:"Port 1883 (standard) | Port 8883 (TLS)"},
+{id:134,ch:"Protocoles",front:"MQTT — 3 niveaux QoS",back:"QoS 0 : At most once (fire-and-forget, peut perdre).\nQoS 1 : At least once (peut dupliquer, accusé de réception).\nQoS 2 : Exactly once (garanti, transaction critique).",code:""},
+{id:135,ch:"Protocoles",front:"MQTT vs HTTP",back:"MQTT : Pub/Sub, overhead ~2 octets, persistant, temps réel ✅, asynchrone.\nHTTP : Req/Resp, headers lourds, nouvelle connexion chaque fois, synchrone.",code:"IoT → MQTT | API Web → HTTP/REST"},
+{id:136,ch:"Protocoles",front:"CoAP",back:"Constrained Application Protocol. HTTP allégé pour objets contraints. Fonctionne sur UDP (pas TCP). RESTful (GET/POST/PUT/DELETE). Idéal pour IoT avec peu de mémoire.",code:""},
+{id:137,ch:"Protocoles",front:"WebSocket pour IoT",back:"Connexion PERSISTANTE et BIDIRECTIONNELLE sur HTTP.\nLe serveur peut pousser des données vers le client sans attendre de requête (Push).\nIdéal : dashboards temps réel, visualisation flux IoT.",code:""},
+{id:138,ch:"Archi",front:"Architecture IoT 4 couches",back:"1. Perception : capteurs, actionneurs, RFID\n2. Réseau : WiFi, LoRa, 5G, transport\n3. Service/Middleware : traitement, stockage, analyse\n4. Application : dashboard, services métier",code:""},
+{id:139,ch:"Archi",front:"Edge vs Fog vs Cloud",back:"Edge : traitement LOCAL sur ou près du capteur. Latence minimale, confidentialité.\nFog : gateway intelligent entre edge et cloud.\nCloud : puissance de calcul centralisée, IA avancée, historique.",code:""},
+{id:140,ch:"Archi",front:"Plateformes IoT : types et exemples",back:"Propriétaires : AWS IoT Core, Azure IoT Hub, Google Cloud IoT, IBM Watson IoT.\nOpen Source : ThingsBoard, Node-RED, Mosquitto, Home Assistant, Eclipse Kapua.",code:""}
 ];
-const EX=[
-{id:1,ch:"RMI",diff:"med",title:"Créer une interface distante RMI",context:"Vous développez un service de calcul distribué accessible à distance.",task:"Écrivez l'interface Java RMI pour un service de calcul exposant une méthode add(int a, int b) retournant un int.",hint:"N'oubliez pas ce que doit étendre l'interface et quelle exception est obligatoire.",solution:`import java.rmi.Remote;
-import java.rmi.RemoteException;
-
-// L'interface DOIT étendre Remote
-public interface CalculService extends Remote {
-    // TOUTES les méthodes doivent déclarer RemoteException
-    // car un appel distant peut toujours échouer (réseau, objet mort...)
-    int add(int a, int b) throws RemoteException;
-}`,trap:"Oublier 'extends Remote' → l'objet ne sera pas reconnu comme distant. Oublier 'throws RemoteException' → erreur de compilation."},
-{id:2,ch:"RMI",diff:"med",title:"Implémenter un objet distant RMI",context:"Suite de l'exercice 1. Vous devez maintenant implémenter l'interface CalculService.",task:"Écrivez la classe CalculServiceImpl qui implémente CalculService avec exposition automatique.",hint:"Quelle classe étendre pour l'exposition automatique ? Quel constructeur appeler ?",solution:`import java.rmi.server.UnicastRemoteObject;
-import java.rmi.RemoteException;
-
-// Étendre UnicastRemoteObject → exposition AUTOMATIQUE à l'instanciation
-public class CalculServiceImpl extends UnicastRemoteObject implements CalculService {
-
-    // Le constructeur DOIT déclarer RemoteException (hérité de UnicastRemoteObject)
-    public CalculServiceImpl() throws RemoteException {
-        super(); // appelle le constructeur de UnicastRemoteObject
-    }
-
-    @Override
-    public int add(int a, int b) throws RemoteException {
-        return a + b; // logique métier simple
-    }
-}`,trap:"Sans étendre UnicastRemoteObject, l'objet est local. Il faudrait appeler UnicastRemoteObject.exportObject(obj) manuellement."},
-{id:3,ch:"RMI",diff:"hard",title:"Créer un serveur RMI complet",context:"Vous devez démarrer un serveur qui expose CalculServiceImpl dans le RMIRegistry.",task:"Écrivez la classe Server avec la méthode main() complète.",hint:"Pensez à : instancier l'objet, l'enregistrer dans le registry avec rebind().",solution:`import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
-import java.rmi.Naming;
-
-public class Server {
-    public static void main(String[] args) throws Exception {
-
-        // 1. Créer l'objet distant (exposition auto via UnicastRemoteObject)
-        CalculServiceImpl service = new CalculServiceImpl();
-
-        // 2. Démarrer le RMIRegistry sur le port par défaut 1099
-        //    (ou lancer rmiregistry en ligne de commande avant)
-        LocateRegistry.createRegistry(1099);
-
-        // 3. Enregistrer l'objet dans le registry
-        //    rebind() : remplace si le nom existe déjà
-        //    bind()   : échoue si le nom existe déjà
-        Naming.rebind("rmi://localhost:1099/CalculService", service);
-
-        System.out.println("Serveur prêt.");
-    }
-}`,trap:"Appeler bind() au lieu de rebind() peut provoquer AlreadyBoundException si le serveur redémarre. Toujours préférer rebind() en développement."},
-{id:4,ch:"RMI",diff:"hard",title:"Créer un client RMI",context:"Le serveur CalculService est démarré sur localhost:1099.",task:"Écrivez la classe Client qui se connecte au serveur, récupère le stub et appelle add(5,3).",hint:"Que retourne Naming.lookup() ? Quel cast est nécessaire ?",solution:`import java.rmi.Naming;
-
-public class Client {
-    public static void main(String[] args) throws Exception {
-
-        // lookup() retourne Object → cast OBLIGATOIRE vers l'interface
-        // Si le nom est incorrect ou le serveur est fermé → RemoteException
-        CalculService service = (CalculService) Naming.lookup(
-            "rmi://localhost:1099/CalculService"
-        );
-        // Si host omis → localhost. Si port omis → 1099.
-
-        // Appeler la méthode comme un objet local !
-        int result = service.add(5, 3);
-        System.out.println("5 + 3 = " + result); // → 8
-    }
-}`,trap:"lookup() retourne Object, pas l'interface. Sans le cast, le code ne compile pas. Si le serveur n'est pas démarré → RemoteException."},
-{id:5,ch:"RMI",diff:"hard",title:"Fabrique d'objets RMI",context:"Vous voulez permettre au client de créer des instances de CalculService à la demande.",task:"Décrivez le mécanisme de Fabrique RMI et expliquez pourquoi 'new' seul ne suffit pas.",hint:"Le problème de 'new' est qu'il gère uniquement la mémoire...",solution:`// PROBLÈME : new gère uniquement la mémoire LOCALE
-// Le client ne peut pas faire : new CalculServiceImpl() sur le serveur
-
-// SOLUTION : Fabrique (Factory)
-
-// 1. Interface Fabrique
-public interface CalculFactory extends Remote {
-    CalculService createCalculService() throws RemoteException;
-}
-
-// 2. Implémentation Fabrique (côté serveur)
-public class CalculFactoryImpl extends UnicastRemoteObject implements CalculFactory {
-    public CalculFactoryImpl() throws RemoteException { super(); }
-
-    @Override
-    public CalculService createCalculService() throws RemoteException {
-        // Crée une nouvelle instance côté SERVEUR et la retourne au client
-        return new CalculServiceImpl();
-    }
-}
-
-// 3. Serveur : enregistre la FABRIQUE (pas le service directement)
-// Naming.rebind("CalculFactory", new CalculFactoryImpl());
-
-// 4. Client :
-// CalculFactory factory = (CalculFactory) Naming.lookup("rmi://host/CalculFactory");
-// CalculService calc = factory.createCalculService(); // instance créée côté serveur!
-// int r = calc.add(1,2); // appel normal`,trap:"La fabrique est la seule façon pour le client de créer des instances multiples côté serveur. Le client obtient une référence (stub) vers l'objet créé."},
-{id:6,ch:"REST",diff:"easy",title:"Concevoir les URIs REST d'une API Livres",context:"Vous concevez une API REST pour gérer des livres et leurs avis.",task:"Donnez les URIs et verbes HTTP corrects pour : lister tous les livres, créer un livre, obtenir le livre #42, modifier complètement le livre #42, supprimer le livre #42, lister les avis du livre #42.",hint:"Noms pluriels pour collections, singulier/ID pour instances.",solution:`// ✅ BONNES PRATIQUES REST - Noms (pas verbes), pluriel pour collections
-
-GET    /books              → Lister tous les livres
-POST   /books              → Créer un nouveau livre
-
-GET    /books/42           → Obtenir le livre #42
-PUT    /books/42           → Modifier COMPLÈTEMENT le livre #42 (idempotent)
-PATCH  /books/42           → Modifier PARTIELLEMENT le livre #42
-DELETE /books/42           → Supprimer le livre #42 (idempotent)
-
-GET    /books/42/reviews   → Lister les avis du livre #42
-POST   /books/42/reviews   → Créer un avis pour le livre #42
-
-// ❌ À ÉVITER
-GET /getBooks              → verbe dans l'URI
-POST /createBook           → verbe dans l'URI
-GET /book?action=delete    → action dans query param`,trap:"Ne jamais mettre de verbes dans l'URI. L'action est exprimée par le verbe HTTP."},
-{id:7,ch:"REST",diff:"med",title:"Analyser idempotence et safety",context:"Un stagiaire pense que toutes les méthodes HTTP qui 'réussissent' sont idempotentes.",task:"Expliquez pour GET, POST, PUT, DELETE : sont-ils idempotents ? Safe ?",hint:"Safe = ne modifie pas. Idempotent = même résultat N fois.",solution:`// ANALYSE COMPLÈTE
-
-// GET : Safe ✅ + Idempotent ✅
-// → Ne modifie rien, retourne toujours la même ressource
-
-// POST : Safe ❌ + Idempotent ❌
-// → POST /books deux fois = DEUX livres créés
-// → Nécessite des contraintes (clés uniques BD) pour éviter les doublons
-// → Exemple problème : double-click sur "Commander" = 2 commandes !
-
-// PUT : Safe ❌ + Idempotent ✅
-// → Modifie la ressource, MAIS envoyer PUT /books/1 {nom:"Java"} 
-//   10 fois → toujours le même résultat final
-
-// DELETE : Safe ❌ + Idempotent ✅
-// → 1er DELETE /books/1 → 204 No Content (supprimé)
-// → 2ème DELETE /books/1 → 204 No Content OU 404 Not Found (les deux OK)
-// → L'état final est identique : la ressource n'existe plus`,trap:"DELETE est idempotent même si le 2ème appel retourne 404. L'état final (ressource absente) est le même — c'est ça l'idempotence."},
-{id:8,ch:"Kafka",diff:"med",title:"Calculer le Quorum Kafka",context:"Vous configurez un cluster Kafka et devez choisir le nombre de brokers.",task:"Calculez le quorum pour N=3,4,5,6,7. Lequel choisir si vous voulez tolérer 2 pannes simultanées ?",hint:"Q=(N/2)+1. Pour tolérer F pannes, il faut N ≥ 2F+1.",solution:`// FORMULE : Q = floor(N/2) + 1
-
-N=3 → Q = 1+1 = 2  (tolère 1 panne)
-N=4 → Q = 2+1 = 3  (tolère 1 panne — même qu'avec 3 !)
-N=5 → Q = 2+1 = 3  (tolère 2 pannes) ← MINIMUM pour 2 pannes
-N=6 → Q = 3+1 = 4  (tolère 2 pannes — même qu'avec 5 !)
-N=7 → Q = 3+1 = 4  (tolère 3 pannes)
-
-// CONCLUSION :
-// Pour tolérer 2 pannes → N=5 (pas 6, inutile d'avoir 1 broker de plus)
-// N impair est TOUJOURS préférable : même tolérance que N+1 avec un broker de moins
-
-// Exemple : N=3, Q=2, B1=leader
-// B2+B3 tombent → B1 seul, Q=2 non atteint → le producteur ne peut PAS écrire
-// (selon config : message critique ou non)`,trap:"N=4 ne tolère PAS plus de pannes que N=3. Choisir N impair est plus économique."},
-{id:9,ch:"Kafka",diff:"hard",title:"Analyser la perte de données dans Kafka",context:"Cluster Kafka : B1=leader partition P0, B2+B3=followers. RF=3.",task:"Décrivez le scénario exact où un message peut être PERDU. Comment l'éviter ?",hint:"Que se passe-t-il si B2 et B3 tombent avant que B1 ait répliqué ?",solution:`// SCÉNARIO DE PERTE :
-// 1. Producteur envoie message M à B1 (leader P0)
-// 2. B2 et B3 tombent en panne AVANT de répliquer M
-// 3. B1 est seul mais Q=2 → selon config, peut encore accepter l'écriture
-// 4. B1 tombe à son tour avant que B2/B3 ne reviennent
-// → Message M PERDU : aucun follower ne l'avait copié
-
-// SOLUTIONS :
-// 1. acks=all (ou acks=-1) : le producteur attend ACK de TOUS les followers
-//    → plus sûr mais latence augmentée
-// 2. min.insync.replicas=2 : au moins 2 replicas doivent avoir confirmé
-// 3. RF élevé : RF=3 minimum en production
-
-// CONCLUSION DU COURS :
-// "Ça dépend de la config (message critique ou non)"
-// Message non critique → tolérer l'écriture sans quorum complet
-// Message critique → acks=all, risque de timeout si followers down`,trap:"Le découplage Kafka ne garantit pas zéro perte. La durabilité dépend de la configuration acks et min.insync.replicas."},
-{id:10,ch:"RPC",diff:"med",title:"Tracer les étapes d'un appel RPC",context:"Un client appelle la procédure distante calculerPrix(produit) sur un serveur.",task:"Listez les 10 étapes du mécanisme RPC par messages dans l'ordre correct.",hint:"Souche client → transport → souche serveur → vraie procédure → retour.",solution:`// LES 10 ÉTAPES DU RPC PAR MESSAGES
-
-1. Client appelle la souche CLIENT (comme un appel local)
-   → La souche récupère les paramètres et les EMBALLE (marshalling) dans un message
-
-2. Souche client demande au service transport LOCAL d'envoyer le message
-
-3. Le message d'appel est transmis sur le RÉSEAU au site serveur
-
-4. Le message d'appel est délivré à la souche SERVEUR
-   → La souche DÉBALLE les paramètres (unmarshalling)
-
-5. La souche serveur réalise l'appel EFFECTIF de la procédure serveur
-
-6. La procédure serveur s'exécute et termine
-   → Renvoie les résultats à la souche serveur
-   → La souche les EMBALLE dans un message de réponse
-
-7. Souche serveur demande au transport d'envoyer le message de RÉPONSE
-
-8. Le message de réponse est transmis sur le réseau au CLIENT
-
-9. Message de réponse délivré à la souche CLIENT
-   → La souche DÉBALLE les paramètres/résultats
-
-10. La souche client transmet le résultat au client
-    → Retour habituel comme pour un appel local`,trap:"L'appel semble local au client mais implique 10 étapes réseau. La transparence est assurée par les souches."},
-{id:11,ch:"RPC",diff:"hard",title:"Analyser les sémantiques de panne RPC",context:"Votre serveur RPC tombe en panne pendant une opération de débit bancaire (non idempotente).",task:"Analysez les sémantiques 'au moins une fois', 'au plus une fois', 'exactement une fois' pour ce cas. Quelle est la bonne ?",hint:"Penser aux conséquences d'un double débit ou d'un débit manquant.",solution:`// CONTEXTE : débiter 100€ du compte X (opération NON idempotente)
-
-// ❌ AU MOINS UNE FOIS :
-// → Client répète l'appel jusqu'au succès
-// → Si le serveur a déjà débité PUIS est tombé avant de répondre
-// → Client répète → DOUBLE DÉBIT !
-// → Inacceptable pour opération non idempotente
-
-// ❌ AU PLUS UNE FOIS :
-// → Évite les doublons (serveur mémorise les IDs de requêtes)
-// → Mais si l'appel n'a pas eu lieu → le débit n'est JAMAIS fait
-// → Client ne sait pas si l'argent a été débité ou non
-
-// ✅ EXACTEMENT UNE FOIS :
-// → Idéal : débit fait exactement une fois
-// → Difficile à atteindre : nécessite journaux, transactions ACID, 2PC
-// → En pratique : combinaison de timeouts + IDs de requête uniques
-//   + transactions BD pour garantir l'idempotence applicative
-
-// SOLUTION PRATIQUE :
-// Rendre l'opération IDEMPOTENTE côté serveur avec un idempotency-key
-// Si même clé reçue deux fois → ignorer le doublon`,trap:"'Au moins une fois' est dangereux pour les opérations non idempotentes. En bancaire, toujours viser 'exactement une fois' avec des IDs de transaction."},
-{id:12,ch:"RPC",diff:"med",title:"Comparer liaison statique et liaison tardive",context:"Vous choisissez une stratégie de liaison pour un service RPC dans un environnement dynamique (serveurs peuvent changer d'IP).",task:"Expliquez pourquoi la liaison statique est inadaptée et quelle sous-forme de liaison tardive choisir.",hint:"Les serveurs peuvent migrer ou changer d'adresse IP.",solution:`// LIAISON STATIQUE (précoce) :
-// → Adresse IP fixée dans le CODE à la compilation
-// → Si le serveur change d'IP → recompiler et redistribuer le client !
-// → INADAPTÉ en environnement dynamique
-
-// LIAISON TARDIVE - 2 options :
-
-// Option A : LIAISON AU PREMIER APPEL
-// → Premier appel : demande l'adresse au serveur de noms
-// → L'adresse est mise en CACHE pour les appels suivants
-// → Plus rapide après le premier appel
-// → ⚠️ Si le serveur migre APRÈS le premier appel → cache périmé !
-
-// Option B : LIAISON À CHAQUE APPEL
-// → Consulte le serveur de noms à CHAQUE appel
-// → Toujours l'adresse à jour
-// → Plus lent (overhead du serveur de noms à chaque fois)
-
-// RECOMMANDATION : Liaison à chaque appel si l'adresse change souvent
-// Ou liaison au premier appel avec un mécanisme d'invalidation du cache`,trap:"La liaison au premier appel peut devenir incorrecte si le serveur migre. Penser à invalider le cache en cas de RemoteException."},
-{id:13,ch:"ADV",diff:"hard",title:"Démontrer le problème de copie-restauration",context:"Un développeur utilise la copie-restauration pour passer des paramètres par adresse en RPC.",task:"Montrez le résultat de double_inc(a, a) avec a=0, avec passage par adresse réel et avec copie-restauration.",hint:"Copie-restauration envoie deux COPIES indépendantes de la même variable.",solution:`// FONCTION : double_inc(x, y) { x++; y++; }
-// APPEL : double_inc(a, a) avec a = 0
-
-// ═══════════════════════════════════════
-// CAS 1 : PASSAGE PAR ADRESSE RÉEL
-// ═══════════════════════════════════════
-// x et y pointent TOUS LES DEUX vers la même case mémoire de 'a'
-// Étape 1 : x++ → *a = 1 (a vaut maintenant 1)
-// Étape 2 : y++ → *a = 2 (a vaut maintenant 2)
-// RÉSULTAT : a = 2 ✅
-
-// ═══════════════════════════════════════
-// CAS 2 : COPIE-RESTAURATION (RPC)
-// ═══════════════════════════════════════
-// Deux COPIES INDÉPENDANTES sont envoyées au serveur :
-// copie1 = 0 (pour x)
-// copie2 = 0 (pour y)
-
-// Exécution sur le serveur :
-// x++ → copie1 = 1
-// y++ → copie2 = 1
-
-// Restauration chez l'appelant :
-// copie1 → a = 1
-// copie2 → a = 1 (écrase copie1 !)
-// RÉSULTAT : a = 1 ❌ (violation de sémantique)
-
-// CONCLUSION : La copie-restauration NE préserve PAS la sémantique
-// du passage par adresse quand le même paramètre est passé deux fois.`,trap:"La copie-restauration est la solution la plus répandue MAIS elle viole la sémantique quand on passe deux fois la même variable."},
-{id:14,ch:"Kafka",diff:"med",title:"Concevoir une architecture Kafka",context:"Une app e-commerce génère des événements de commandes. 3 services consomment ces événements : notification, facturation, stock.",task:"Décrivez l'architecture Kafka : topics, partitions, RF, avantages du découplage vs C/S classique.",hint:"Penser publish/subscribe, découplage producteur/consommateur.",solution:`// ARCHITECTURE KAFKA POUR E-COMMERCE
-
-// Topic : "commandes"
-// Partitions : 3 (une par service consommateur ou plus pour le débit)
-// Replication Factor : 3 (tolérance à 1 panne, Q=2)
-
-// FLUX :
-// [App E-commerce] → Producer → Topic "commandes"
-//                                      ↓ Partition 0
-//                              [Service Notification] ← Consumer 1
-//                                      ↓ Partition 1
-//                              [Service Facturation]  ← Consumer 2
-//                                      ↓ Partition 2
-//                              [Service Stock]        ← Consumer 3
-
-// AVANTAGES vs Client/Serveur classique :
-
-// C/S : App → Notification (couplage fort, doit être disponible)
-//       App → Facturation  (doit être disponible)
-//       App → Stock        (doit être disponible)
-// → Si un service est down → erreur immédiate
-
-// KAFKA : App produit le message → Kafka le stocke
-// → Chaque service consomme INDÉPENDAMMENT à son rythme
-// → Si Notification est down → message attend dans la partition
-// → Offsets permettent de reprendre là où on s'est arrêté
-// → Découplage temporel et logique complet`,trap:"Kafka ne garantit pas l'ordre des messages entre partitions, seulement au sein d'une même partition."},
-{id:15,ch:"REST",diff:"hard",title:"Déboguer un design d'API REST non conforme",context:"Un développeur junior a créé cette API : POST /getUser?id=1, GET /deleteUser/1, POST /updateBook avec body {id:1, titre:'Java'}",task:"Identifiez tous les problèmes et proposez les corrections REST correctes.",hint:"Vérifiez les verbes HTTP utilisés, la présence de verbes dans les URIs.",solution:`// ❌ PROBLÈMES IDENTIFIÉS :
-
-// 1. POST /getUser?id=1
-//    Problème : POST pour une lecture → incorrect (POST = Create)
-//    Problème : verbe 'get' dans l'URI → anti-pattern REST
-//    Problème : paramètre id en query string pour une ressource spécifique
-//    ✅ CORRECTION : GET /users/1
-
-// 2. GET /deleteUser/1
-//    Problème : GET pour une suppression → DANGEREUX (GET est safe !)
-//    Un crawler qui indexe les URLs supprimerait toutes les ressources !
-//    Problème : verbe 'delete' dans l'URI
-//    ✅ CORRECTION : DELETE /users/1
-
-// 3. POST /updateBook {id:1, titre:'Java'}
-//    Problème : POST pour une mise à jour → incorrect (POST = Create)
-//    Problème : verbe 'update' dans l'URI
-//    Problème : l'ID dans le body ET pas dans l'URI → ambiguïté
-//    ✅ CORRECTION : PUT /books/1  body: {titre:'Java'}
-//    (ou PATCH /books/1 si mise à jour partielle)
-
-// RÉSUMÉ DES CORRECTIONS :
-// POST /getUser?id=1      → GET    /users/1
-// GET  /deleteUser/1      → DELETE /users/1
-// POST /updateBook        → PUT    /books/1  (body sans id)`,trap:"Utiliser GET pour des opérations de modification est une faille de sécurité majeure : les navigateurs et proxies peuvent mettre en cache ou précharger des liens GET."},
-{id:16,ch:"Sockets",diff:"med",title:"Serveur TCP Concurrent (Thread)",context:"Vous devez créer un serveur capable d'accepter plusieurs clients en même temps en TCP.",task:"Écrivez la boucle principale d'un serveur TCP sur le port 9000, qui accepte les connexions et lance un nouveau thread ClientHandler pour chaque client.",hint:"Utilisez ServerSocket et sa méthode accept().",solution:`import java.net.ServerSocket;
-import java.net.Socket;
-import java.io.IOException;
-
-public class ServeurConcurrent {
-    public static void main(String[] args) throws IOException {
-        // 1. Création du ServerSocket sur le port 9000
-        ServerSocket srv = new ServerSocket(9000);
-        System.out.println("Serveur en écoute...");
-
-        // 2. Boucle infinie d'acceptation
-        while (true) {
-            // accept() est bloquant jusqu'à connexion d'un client
-            // Il retourne une NOUVELLE socket dédiée
-            Socket clientSocket = srv.accept();
-            
-            // 3. Déléguer le traitement à un Thread (pour être concurrent)
-            new ClientHandler(clientSocket).start();
-        }
-    }
-}
-// ClientHandler étend Thread ou implémente Runnable
-`,trap:"Oublier de créer un Thread bloquera le serveur : il ne pourra traiter qu'un seul client à la fois (mode séquentiel)."},
-];
+const EX=[];
 const CS={
-  RMI:{title:"Java RMI",items:[
-    {k:"Port RMIRegistry",v:"1099 (défaut)"},
-    {k:"Interface distante",v:"extends Remote"},
-    {k:"Exception obligatoire",v:"throws RemoteException"},
-    {k:"Exposition auto",v:"extends UnicastRemoteObject"},
-    {k:"Exposition manuelle",v:"UnicastRemoteObject.exportObject(obj)"},
-    {k:"Enregistrer (remplace)",v:"Naming.rebind(url, obj)"},
-    {k:"Enregistrer (unique)",v:"Naming.bind(url, obj)"},
-    {k:"Récupérer stub",v:"(MonIF) Naming.lookup(url)"},
-    {k:"URL format",v:'rmi://host:port/nom'},
-    {k:"Protocole transport",v:"JRMP (sur TCP/IP)"},
-    {k:"Compilateur stubs",v:"rmic MonObjetDistant"},
-    {k:"Objet local en param",v:"par valeur (Serializable)"},
-    {k:"Objet distant en param",v:"par référence (stub)"},
-    {k:"Formats sérialisation",v:"Binaire (défaut) | XML/JSON"},
-    {k:"Fichier sécurité",v:"java.policy"},
-    {k:"Codebase",v:"java.rmi.server.codebase=URL"},
-    {k:"Lancer avec sécurité",v:"java -Djava.security.policy=java.policy Cls"},
-    {k:"Java 1.2+",v:"Skeleton générique (pas par objet)"},
-    {k:"Limite RMI",v:"Java uniquement → RMI/IIOP pour interop"},
-  ],code:`// Interface\npublic interface MonIF extends Remote {\n    String hello() throws RemoteException;\n}\n// Implémentation\npublic class MonObj extends UnicastRemoteObject implements MonIF {\n    public MonObj() throws RemoteException { super(); }\n    public String hello() throws RemoteException { return "Hello!"; }\n}\n// Serveur\nNaming.rebind("rmi://localhost:1099/MonObj", new MonObj());\n// Client\nMonIF obj = (MonIF) Naming.lookup("rmi://localhost:1099/MonObj");\nSystem.out.println(obj.hello());`},
-  REST:{title:"API REST",items:[
-    {k:"REST = ?",v:"Style d'architecture (pas protocole)"},
-    {k:"Auteur",v:"Roy Fielding, 2000"},
-    {k:"Stateless",v:"Aucune session serveur entre requêtes"},
-    {k:"GET",v:"Retrieve — Safe ✅ — Idempotent ✅"},
-    {k:"POST",v:"Create — Safe ❌ — Idempotent ❌"},
-    {k:"PUT",v:"Update complet — Safe ❌ — Idempotent ✅"},
-    {k:"PATCH",v:"Update partiel — Safe ❌ — Idempotent (variable)"},
-    {k:"DELETE",v:"Suppression — Safe ❌ — Idempotent ✅"},
-    {k:"2xx Succès",v:"200 OK | 201 Created | 204 No Content"},
-    {k:"4xx Client",v:"400 Bad Req | 401 Unauth | 403 Forbidden | 404 Not Found"},
-    {k:"5xx Serveur",v:"500 Internal Server Error"},
-    {k:"URI = ressource",v:"Noms (pas verbes) | Pluriel pour collections"},
-    {k:"Versionning",v:"/v1/books, /v2/books"},
-    {k:"DELETE non-existant",v:"204 No Content OU 404 (les deux OK)"},
-    {k:"Qui gère l'état ?",v:"Le CLIENT (serveur stateless)"},
-    {k:"REST vs SOAP",v:"REST=Ressources/URI, SOAP=Opérations/fonctions"},
-  ],code:`GET    /books         → liste\nPOST   /books         → créer\nGET    /books/{id}    → détail\nPUT    /books/{id}    → modifier (complet)\nDELETE /books/{id}    → supprimer\n\n✅ GET /books/42\n❌ GET /getBook?id=42`},
-  Kafka:{title:"Apache Kafka",items:[
-    {k:"Créé par",v:"LinkedIn, 2010"},
-    {k:"Modèle",v:"Publish/Subscribe (Producteurs → Brokers → Consommateurs)"},
-    {k:"Broker",v:"Serveur Kafka : reçoit, stocke, sert les messages"},
-    {k:"ZooKeeper",v:"Coordination (métadonnées, pannes) — NE transporte PAS"},
-    {k:"KRaft",v:"Remplacement moderne de ZooKeeper (intégré à Kafka)"},
-    {k:"Bootstrap Broker",v:"Point d'entrée initial pour découverte du cluster"},
-    {k:"Quorum Q",v:"Q = (N/2) + 1 | N=3→Q=2 | N=5→Q=3 | N=7→Q=4"},
-    {k:"N préféré",v:"Impair (N=3 et N=4 tolèrent tous les deux 1 panne)"},
-    {k:"Topic",v:"Canal de messages divisé en partitions"},
-    {k:"Partition",v:"Subdivision d'un topic pour lecture parallèle"},
-    {k:"Replication Factor",v:"Nombre de copies d'une partition"},
-    {k:"Leader partition",v:"Broker gérant R/W d'une partition (par partition, pas cluster)"},
-    {k:"Follower",v:"Réplique le leader, envoie ACK, remplace si panne"},
-    {k:"Offset",v:"Position du message dans la partition"},
-    {k:"Rétention défaut",v:"7 jours (configurable par topic)"},
-    {k:"Après consommation",v:"Message NON supprimé (reste jusqu'à rétention)"},
-    {k:"Consumer Lag",v:"Diff entre offset produit et offset consommé"},
-    {k:"Choix partition",v:"Round Robin OU Hash(clé message)"},
-    {k:"Structure message",v:"Timestamp + ID + Payload"},
-    {k:"Découplage",v:"Consommateur lit indépendamment (vs couplage fort C/S)"},
-  ],code:`Producteurs → [Topic: commandes]\n               ├── Partition 0 → [Consumer: Notification]\n               ├── Partition 1 → [Consumer: Facturation]\n               └── Partition 2 → [Consumer: Stock]\n\nQ = (N/2)+1\nRF=3 → 1 leader + 2 followers`},
-  RPC:{title:"RPC (Remote Procedure Call)",items:[
-    {k:"RPC = ?",v:"Appel de Procédure à Distance (sur TCP/UDP)"},
-    {k:"Stub client",v:"Transforme appel local → message réseau (marshalling)"},
-    {k:"Stub serveur",v:"Reconstruit params (unmarshalling) → appelle procédure"},
-    {k:"Marshalling",v:"Emballage des paramètres en message réseau"},
-    {k:"Unmarshalling",v:"Déballage des paramètres depuis le message"},
-    {k:"IDL",v:"Interface Definition Language — langage pivot indépendant"},
-    {k:"IDL contient",v:"Noms procédures, types params, modes (IN/OUT/IN-OUT)"},
-    {k:"Liaison statique",v:"@ fixée à la compilation, rapide, inflexible"},
-    {k:"Liaison tardive",v:"@ résolue à l'exécution via serveur de noms"},
-    {k:"Liaison 1er appel",v:"@ demandée une fois, mise en cache"},
-    {k:"Liaison chaque appel",v:"Consulte serveur de noms à chaque fois"},
-    {k:"Mode synchrone",v:"Client suspendu jusqu'à réponse"},
-    {k:"Mode asynchrone",v:"Client continue immédiatement"},
-    {k:"Séquentiel serveur",v:"FIFO entre traitements"},
-    {k:"Parallèle serveur",v:"Thread par appel — concurrence si données partagées"},
-    {k:"Timeout",v:"Délai de garde pour détecter les pannes"},
-    {k:"Au moins une fois",v:"Répète jusqu'au succès — OK si idempotent"},
-    {k:"Au plus une fois",v:"Évite doublons, pas de garantie"},
-    {k:"Exactement une fois",v:"Idéal, difficile à atteindre"},
-    {k:"Stateless ex.",v:"HTTP, NFS (appels sans lien entre eux)"},
-    {k:"Stateful ex.",v:"Paiement électronique (état de la relation)"},
-    {k:"3 types données",v:"Applicatives | Partagées persistantes | Protocolaires"},
-  ],code:`// Étapes RPC\n1. Client → souche client (marshalling)\n2. Souche client → transport → réseau\n3. Réseau → souche serveur (unmarshalling)\n4. Souche serveur → procédure réelle\n5. Résultat → souche serveur (marshalling)\n6. Réseau → souche client (unmarshalling)\n7. Souche client → client`},
-  ADV:{title:"RPC Avancé — Passage par Adresse",items:[
-    {k:"Problème pointeurs",v:"Adresse locale sans sens sur site distant"},
-    {k:"Solution 1 (répandue)",v:"Interdiction totale des pointeurs"},
-    {k:"Solution 2",v:"Mémoire virtuelle partagée éparse"},
-    {k:"Solution 3",v:"Copie-restauration (copy-restore)"},
-    {k:"Copie-restauration",v:"Copie envoyée → modifiée → restaurée chez l'appelant"},
-    {k:"double_inc(a,a) adresse",v:"a=0 → a=2 (x++ puis y++ sur même case mémoire)"},
-    {k:"double_inc(a,a) copie-restore",v:"a=0 → a=1 (violation sémantique !)"},
-  ],code:`// PROBLÈME : double_inc(x,y){ x++; y++; }\n// APPEL : double_inc(a,a) avec a=0\n\n// Vrai passage par adresse:\n// x=&a, y=&a → x++→a=1, y++→a=2 → FINAL: a=2\n\n// Copie-restauration:\n// copie1=0, copie2=0\n// x++→copie1=1, y++→copie2=1\n// Restaure: a=copie1=1, a=copie2=1\n// FINAL: a=1 ← VIOLATION DE SÉMANTIQUE`},
-  Intro_SR:{title:"Intro aux Syst. Répartis",items:[
-    {k:"Syst. Réparti",v:"Machines autonomes, réseau, vue unique"},
-    {k:"Client/Serveur (Synchrone)",v:"Client bloqué en attente de réponse"},
-    {k:"Com. par messages",v:"Producteur ↔ File d'attente ↔ Consommateur"},
-    {k:"Com. par événements",v:"Asynchrone, anonyme, publish/subscribe"},
-    {k:"Mode Push",v:"Système notifie le consommateur (délivrance implicite)"},
-    {k:"Mode Pull",v:"Consommateur vérifie (réception explicite)"},
-    {k:"Middleware",v:"Couche intermédiaire (masque hétérogénéité)"},
-    {k:"FAP",v:"Format and Protocol (synchro et format des données)"},
-    {k:"Nommage",v:"Annuaire associant nom logique ↔ @IP (ex: DNS)"},
-  ],code:`// Publish / Subscribe\nProducer → Topic "factures" → Consumer 1\n                            → Consumer 2\n(Les producteurs et consommateurs ne se connaissent pas)`},
-  Sockets:{title:"Les Sockets (TCP/UDP)",items:[
-    {k:"TCP",v:"Connecté, fiable, flux d'octets, ordonné"},
-    {k:"UDP",v:"Déconnecté, non fiable, datagrammes, non ordonné"},
-    {k:"Ports (16 bits)",v:"0 à 65535. 0-1023 réservés"},
-    {k:"Port HTTP / FTP",v:"80 / 21"},
-    {k:"Port SSH / Telnet",v:"22 / 23"},
-    {k:"UDP Java",v:"DatagramSocket"},
-    {k:"TCP Client Java",v:"Socket(ServerName, Port)"},
-    {k:"TCP Serveur Java",v:"ServerSocket(Port) puis accept()"},
-    {k:"accept() (TCP)",v:"Bloque, puis retourne NOUVELLE Socket client"},
-    {k:"TCP Concurrent",v:"Créer un THREAD par socket client acceptée"},
-  ],code:`// TCP Serveur Concurrent\nServerSocket srv = new ServerSocket(8080);\nwhile(true) {\n    Socket client = srv.accept(); // Bloquant\n    new ClientThread(client).start(); // Traite en //\n}`},
-};
+LPWAN:{title:"Comparatif LPWAN",items:[
+  {k:"LoRaWAN portée",v:"2 km (urbain) — 15 km (rural)"},
+  {k:"LoRaWAN débit",v:"0.3 à 50 kbps (selon SF)"},
+  {k:"LoRaWAN messages/j",v:"Illimité* (limité duty cycle 1%)"},
+  {k:"LoRaWAN fréquence",v:"868 MHz Europe (ISM libre)"},
+  {k:"LoRaWAN infra",v:"Propre OU partagée (LoRa Alliance)"},
+  {k:"Sigfox portée",v:"3 — 50 km"},
+  {k:"Sigfox débit",v:"100 bps uplink / 600 bps downlink"},
+  {k:"Sigfox messages/j",v:"140 max (12 octets uplink), 4 downlink"},
+  {k:"Sigfox infra",v:"Opérateur UNIQUE, abonnement obligatoire"},
+  {k:"NB-IoT fréquence",v:"Licenciée LTE (opérateur télécom)"},
+  {k:"NB-IoT débit",v:"~200 kbps"},
+  {k:"NB-IoT messages/j",v:"Illimité"},
+  {k:"Duty cycle Europe",v:"Max 1% (868 MHz ISM, réglementaire)"},
+  {k:"Chiffrement LoRaWAN",v:"AES-128 bout en bout"},
+  {k:"Topologie LoRaWAN",v:"Étoile d'étoiles (Star-of-stars)"},
+  {k:"Spreading Factor",v:"SF7 (rapide/court) → SF12 (lent/long)"},
+],code:`LPWAN : LoRaWAN vs Sigfox vs NB-IoT
+Critère    | LoRaWAN        | Sigfox         | NB-IoT
+Portée     | 2-15 km        | 3-50 km        | cellulaire
+Débit max  | ~50 kbps       | 100 bps        | ~200 kbps
+Msg/jour   | illimité*      | 140 max        | illimité
+Fréquence  | libre 868 MHz  | libre 868 MHz  | licenciée
+Opérateur  | non requis     | obligatoire    | obligatoire
+Topologie  | étoile d'étoiles| étoile        | cellulaire`},
 
+Generations:{title:"Générations Réseaux Mobiles",items:[
+  {k:"2G (GSM)",v:"~9.6 kbps | Voix par commutation de circuits | Architecture : BTS→BSC→MSC"},
+  {k:"2.5G (GPRS)",v:"Extension 2G avec commutation de paquets (IP) → acces Internet mobile"},
+  {k:"2.75G (EDGE)",v:"Amélioration GPRS : débit plus élevé (~384 kbps)"},
+  {k:"3G (UMTS)",v:"2 Mbps | Voix circuits + Données paquets | Architecture : NodeB→RNC→Core"},
+  {k:"3.5G (HSDPA)",v:"Amélioration 3G : haut débit downlink (~14 Mbps)"},
+  {k:"4G (LTE)",v:"100-150 Mbps | Tout IP (plus de commutation circuits) | Architecture plate"},
+  {k:"LTE-Advanced",v:"4G+ : jusqu'à 1 Gbps théorique"},
+  {k:"5G (NR)",v:"Gbps | <1 ms latence | Architecture SBA | mMTC + URLLC + eMBB"},
+  {k:"2G: antenne",v:"BTS (Base Transceiver Station)"},
+  {k:"2G: contrôle",v:"BSC (Base Station Controller)"},
+  {k:"2G: commutateur",v:"MSC (Mobile Switching Center)"},
+  {k:"3G: antenne",v:"NodeB"},
+  {k:"3G: contrôle",v:"RNC (Radio Network Controller)"},
+  {k:"3G: données",v:"SGSN + GGSN"},
+  {k:"4G: antenne",v:"eNodeB (= NodeB + RNC fusionnés)"},
+  {k:"4G: cœur",v:"EPC : MME + SGW + PGW + HSS"},
+  {k:"5G: antenne",v:"gNodeB"},
+  {k:"5G: cœur",v:"5GC : AMF + UPF + SMF"},
+],code:`Architecture par génération :
+2G : MS → BTS → BSC → MSC → (HLR/VLR/AUC/EIR)
+3G : UE → NodeB → RNC → MSC(CS) / SGSN-GGSN(PS)
+4G : UE → eNodeB → EPC(MME, SGW, PGW, HSS)
+5G : UE → gNodeB → 5GC(AMF, UPF, SMF)`},
+
+Protocoles:{title:"Protocoles IoT",items:[
+  {k:"MQTT modèle",v:"Publish/Subscribe via Broker"},
+  {k:"MQTT transport",v:"TCP | Port 1883 / 8883 (TLS)"},
+  {k:"MQTT overhead",v:"Très faible (headers minimes) — bien plus léger que HTTP"},
+  {k:"MQTT QoS 0",v:"At most once (fire-and-forget)"},
+  {k:"MQTT QoS 1",v:"At least once (peut dupliquer)"},
+  {k:"MQTT QoS 2",v:"Exactly once (garanti)"},
+  {k:"HTTP modèle",v:"Request/Response (client-serveur)"},
+  {k:"HTTP ports",v:"80 (HTTP) | 443 (HTTPS)"},
+  {k:"CoAP",v:"HTTP allégé sur UDP, RESTful, IoT contraint, appareils limites"},
+  {k:"WebSocket",v:"Bidirectionnel temps réel sur HTTP, idéal dashboards IoT"},
+  {k:"MQTT vs HTTP IoT",v:"MQTT idéal (push, léger, asynchrone) | HTTP pour API web"},
+],code:`Brokers MQTT populaires : Mosquitto, HiveMQ
+Topic exemple : maison/salon/temperature
+Connexion MQTT : persistante (pas de reconnexion par message)
+CoAP : UDP → moins fiable mais plus léger que TCP`},
+
+ACCITR:{title:"Composants IoT (ACCITR)",items:[
+  {k:"A — Authentification",v:"Identité unique pour chaque objet"},
+  {k:"C — Capteurs",v:"Perception : mesure grandeurs physiques"},
+  {k:"C — Connexion",v:"Objets communiquent entre eux"},
+  {k:"I — Intégration",v:"Compatibilité entre systèmes différents"},
+  {k:"T — Traitement",v:"Stockage et analyse des données"},
+  {k:"R — Réseaux",v:"Transport du monde réel vers numérique"},
+  {k:"Capteur",v:"Mesure → signal électrique → numérisation"},
+  {k:"Actionneur",v:"Signal électrique → action physique"},
+  {k:"Types capteurs",v:"États (porte), Comptage (battements), Mesure (temp)"},
+  {k:"Plateformes propri.",v:"AWS IoT Core, Azure IoT Hub, Google Cloud IoT"},
+  {k:"Plateformes open",v:"ThingsBoard, Node-RED, Mosquitto, Home Assistant"},
+],code:`A-C-C-I-T-R : mnémonique EXAM obligatoire
+Flux IoT : Capteur → Réseau → Traitement → Actionneur`},
+
+ArbreDecision:{title:"Arbre de Décision — Choix Réseau",items:[
+  {k:"Haut débit + vidéo + secteur",v:"WiFi / 4G / 5G"},
+  {k:"Domotique courte portée",v:"Zigbee / Z-Wave / BLE"},
+  {k:"Identification proximité",v:"NFC / RFID"},
+  {k:"Champ agricole / batterie longue durée",v:"LoRaWAN / Sigfox"},
+  {k:"Tracking national / roaming",v:"NB-IoT / 4G / 5G"},
+  {k:"Prototypage WiFi+BT rapide",v:"ESP32"},
+  {k:"Prototypage simple local",v:"Arduino + shield"},
+  {k:"Produit industriel haute perf",v:"STM32"},
+  {k:"Critère portée",v:"Proche → WiFi/Zigbee | Loin → LoRa/Sigfox/NB-IoT"},
+  {k:"Critère consommation",v:"Batterie → LPWAN | Secteur → WiFi/4G"},
+  {k:"Critère débit",v:"Petit msg → LPWAN | Gros data → WiFi/4G/5G"},
+  {k:"Critère coût infra",v:"Libre → LoRaWAN | Opérateur → NB-IoT/Sigfox"},
+],code:`Critères de choix réseau IoT :
+1. Portée     2. Débit    3. Consommation
+4. Coût       5. Mobilité  6. Sécurité
+7. Densité    8. Temps réel (latence)`},
+
+Glossaire:{title:"Glossaire Acronymes Clés",items:[
+  {k:"IoT",v:"Internet of Things"},
+  {k:"M2M",v:"Machine to Machine"},
+  {k:"LPWAN",v:"Low Power Wide Area Network"},
+  {k:"CSS",v:"Chirp Spread Spectrum (modulation LoRa)"},
+  {k:"ADR",v:"Adaptive Data Rate (LoRaWAN)"},
+  {k:"SF",v:"Spreading Factor (LoRa, SF7-SF12)"},
+  {k:"UNB",v:"Ultra Narrow Band (Sigfox)"},
+  {k:"QoS",v:"Quality of Service"},
+  {k:"BLE",v:"Bluetooth Low Energy"},
+  {k:"RFID",v:"Radio Frequency Identification"},
+  {k:"BTS",v:"Base Transceiver Station (antenne 2G)"},
+  {k:"BSC",v:"Base Station Controller (contrôle 2G)"},
+  {k:"MSC",v:"Mobile Switching Center (commutateur)"},
+  {k:"HLR",v:"Home Location Register (abonnés permanents)"},
+  {k:"VLR",v:"Visitor Location Register (abonnés itinérants)"},
+  {k:"RNC",v:"Radio Network Controller (contrôle 3G)"},
+  {k:"eNodeB",v:"Evolved NodeB = NodeB+RNC fusionné (4G)"},
+  {k:"EPC",v:"Evolved Packet Core (cœur 4G, tout IP)"},
+  {k:"MME",v:"Mobility Management Entity (4G)"},
+  {k:"gNodeB",v:"Next Generation NodeB (5G)"},
+  {k:"mMTC",v:"massive Machine Type Communications (5G IoT)"},
+  {k:"URLLC",v:"Ultra-Reliable Low-Latency Communications (5G)"},
+  {k:"eMBB",v:"enhanced Mobile Broadband (5G)"},
+  {k:"MEC",v:"Multi-access Edge Computing"},
+  {k:"SBA",v:"Service-Based Architecture (5G Core)"},
+],code:""},
+
+ExamTips:{title:"🎯 Stratégie d'Examen — 10 Types de Questions",items:[
+  {k:"Q1: Définir l'IoT",v:"→ 3 éléments : 1) Extension d'Internet aux objets physiques 2) Collecte/transmission/traitement de données 3) Sans intervention humaine directe"},
+  {k:"Q2: Différence X vs Y",v:"→ Toujours 3 axes : Portée, Débit, Consommation. Pour protocoles : modèle (Pub/Sub vs Req/Resp), overhead, connexion."},
+  {k:"Q3: Composants IoT",v:"→ ACCITR : Authentification · Capteurs · Connexion · Intégration · Traitement · Réseaux. Mémoriser l'ordre."},
+  {k:"Q4: Pourquoi LoRaWAN pour agriculture?",v:"→ Longue portée (km de champ), faible consommation (batterie années), petits messages (temp/humidité suffisent), pas d'abonnement opérateur."},
+  {k:"Q5: Architecture GSM/3G/4G/5G",v:"→ Mémo : 2G: BTS→BSC→MSC | 3G: NodeB→RNC→Core | 4G: eNodeB→EPC(MME,SGW,PGW) | 5G: gNodeB→5GC(AMF,UPF,SMF)"},
+  {k:"Q6: Apport 5G à l'IoT",v:"→ mMTC (milliards d'objets), URLLC (latence <1ms, critique), eMBB (haut débit), Network Slicing, MEC (Edge Computing)."},
+  {k:"Q7: Caractéristiques LPWAN",v:"→ Longue portée + faible consommation + faible débit + faible coût. Non adapté : vidéo, streaming, temps réel strict."},
+  {k:"Q8: MQTT vs HTTP",v:"→ MQTT: Pub/Sub, léger, persistant, push asynchrone, idéal IoT. HTTP: Req/Resp, stateless, synchrone, API web."},
+  {k:"Q9: Classes LoRaWAN",v:"→ A=plus économe (2 fenêtres après envoi), obligatoire. B=beacons programmés (Smart City). C=réception continue (industrie, + énergie)."},
+  {k:"Q10: Choisir le bon réseau",v:"→ Matrice : Portée? + Débit? + Batterie? + Opérateur? + Coût? Court+batterie→Zigbee/BLE, Long+batterie→LoRa/Sigfox, Long+opérateur→NB-IoT/4G/5G"},
+],code:`MNÉMONIQUES EXAM :
+ACCITR = 6 composants IoT
+BTS→BSC→MSC = 2G architecture
+NodeB→RNC→Core = 3G
+eNodeB→EPC = 4G (tout IP, flat)
+gNodeB→5GC = 5G (SBA)
+mMTC / URLLC / eMBB = 3 usages 5G
+QoS 0=perd, 1=duplique, 2=exact
+LoRa=PHY, LoRaWAN=réseau`},
+};
 const TRAPS=[
-{cat:"Confusion fréquente",sev:3,ch:"REST",wrong:"REST est un protocole comme SOAP",right:"REST est un STYLE D'ARCHITECTURE. Pas de protocole imposé, pas de format, pas de standard.",why:"SOAP est un protocole WS-* standardisé. REST est une approche architecturale inspirée du Web.",rule:"Roy Fielding (2000) : REST = 'Representational State Transfer', un style, pas un protocole."},
-{cat:"Erreur classique",sev:3,ch:"RMI",wrong:"Naming.lookup() retourne directement l'interface distante, pas de cast nécessaire",right:"lookup() retourne Object. Un cast explicite vers l'interface est OBLIGATOIRE.",why:"Java pré-generics : l'API retourne Object pour la compatibilité. Le cast est nécessaire pour utiliser les méthodes.",rule:"MonIF obj = (MonIF) Naming.lookup('rmi://host/nom'); // cast TOUJOURS nécessaire"},
-{cat:"Exception importante",sev:3,ch:"RMI",wrong:"Seule la méthode principale doit déclarer RemoteException",right:"TOUTES les méthodes de l'interface distante doivent déclarer throws RemoteException.",why:"Tout appel distant peut échouer pour des raisons réseau ou serveur indépendantes de la logique métier.",rule:"Interface extends Remote → CHAQUE méthode → throws RemoteException, sans exception."},
-{cat:"Confusion fréquente",sev:3,ch:"RMI",wrong:"bind() et rebind() font la même chose",right:"bind() échoue (AlreadyBoundException) si le nom existe. rebind() remplace toujours.",why:"Distinction importante pour la gestion des redémarrages serveur.",rule:"En développement : toujours rebind(). En production : bind() + gestion d'erreur explicite."},
-{cat:"Erreur classique",sev:2,ch:"RMI",wrong:"Un objet RMI est automatiquement exposé sans rien faire de spécial",right:"Sans étendre UnicastRemoteObject, l'objet est LOCAL. Il faut soit étendre URO, soit appeler exportObject() manuellement.",why:"L'exposition est le mécanisme qui rend l'objet accessible depuis des JVMs distantes.",rule:"extends UnicastRemoteObject → exposition auto. Sinon : UnicastRemoteObject.exportObject(obj, 0)."},
-{cat:"Confusion fréquente",sev:3,ch:"RMI",wrong:"Objet local passé en param RMI → passage par référence",right:"Objet LOCAL → passage par VALEUR (copie sérialisée, doit implémenter Serializable). Objet DISTANT → passage par référence (stub).",why:"La distinction local/non-local détermine le mécanisme de passage.",rule:"Local + Serializable = copie | Non-local = stub (référence distante)."},
-{cat:"Erreur classique",sev:3,ch:"RMI",wrong:"Depuis Java 1.2, il n'y a plus de skeleton du tout",right:"Les skeletons INDIVIDUELS ont été supprimés. Un skeleton générique PARTAGÉ a été introduit pour tous les objets.",why:"Optimisation pour réduire le nombre de classes générées.",rule:"Avant Java 1.2 : rmic générait stub + skeleton. Après : rmic génère stub + skeleton générique unique."},
-{cat:"Confusion fréquente",sev:3,ch:"Kafka",wrong:"ZooKeeper transporte les messages Kafka entre producteurs et consommateurs",right:"ZooKeeper NE transporte AUCUN message. Il coordonne uniquement les brokers (métadonnées, détection pannes).",why:"ZooKeeper est un service de coordination, pas un broker de messages.",rule:"Messages : Producteur → Broker → Consommateur. ZooKeeper = en dehors de ce flux, uniquement coordination."},
-{cat:"Erreur classique",sev:3,ch:"Kafka",wrong:"Kafka supprime les messages après consommation",right:"Les messages consommés EXISTENT TOUJOURS dans la partition jusqu'à l'expiration de la rétention (7 jours par défaut).",why:"C'est un différenciateur clé de Kafka vs queues classiques (RabbitMQ). L'offset permet de relire.",rule:"Message consommé ≠ message supprimé. L'offset avance, le message reste."},
-{cat:"Confusion fréquente",sev:3,ch:"Kafka",wrong:"Le Leader dans Kafka est unique pour tout le cluster",right:"Le Leader est défini PAR PARTITION. Un broker peut être leader de plusieurs partitions et follower d'autres.",why:"La granularité est la partition, pas le cluster. Permet une meilleure distribution de charge.",rule:"Broker B1 peut être leader de P0, P2 et follower de P1, P3 simultanément."},
-{cat:"Erreur classique",sev:2,ch:"Kafka",wrong:"N=4 brokers tolère plus de pannes que N=3",right:"N=3 et N=4 tolèrent tous les deux exactement 1 panne simultanée (Q=2 et Q=3 respectivement).",why:"Q=(N/2)+1. N=4→Q=3. Pour 1 panne on a besoin de Q=2 donc max pannes = N-Q = 4-3=1. Même qu'avec N=3.",rule:"Choisir N impair : N=3 pour 1 panne, N=5 pour 2 pannes, N=7 pour 3 pannes."},
-{cat:"Confusion fréquente",sev:3,ch:"REST",wrong:"GET est idempotent mais pas safe ; POST est safe mais pas idempotent",right:"GET est SAFE ET idempotent. POST n'est NI safe NI idempotent.",why:"Safe = ne modifie pas. Idempotent = N appels = même résultat. GET ne modifie rien.",rule:"GET : safe✅ idempotent✅ | PUT : safe❌ idempotent✅ | POST : safe❌ idempotent❌ | DELETE : safe❌ idempotent✅"},
-{cat:"Exception importante",sev:3,ch:"REST",wrong:"DELETE doit toujours retourner 404 si la ressource n'existe pas",right:"DELETE est idempotent. Retourner 204 NO CONTENT ou 404 sont tous les deux valides.",why:"L'idempotence signifie que l'état final est identique (ressource absente). Peu importe le code retourné.",rule:"1er DELETE → 204. 2ème DELETE → 204 ou 404 (au choix du serveur). Les deux sont corrects."},
-{cat:"Erreur classique",sev:3,ch:"REST",wrong:"Il faut utiliser des verbes dans les URIs pour clarifier l'action",right:"Les URIs doivent utiliser des NOMS (ressources). L'action est exprimée par le verbe HTTP.",why:"Anti-pattern REST : /getUser, /createBook, /deleteProduct. L'URI = ressource, la méthode HTTP = action.",rule:"✅ GET /users/1  ❌ GET /getUser?id=1  ✅ DELETE /books/5  ❌ GET /deleteBook/5"},
-{cat:"Confusion fréquente",sev:2,ch:"RPC",wrong:"Marshalling et Unmarshalling sont synonymes",right:"Marshalling = emballage (encodage des params en message réseau). Unmarshalling = déballage (décodage du message en params).",why:"Deux opérations inverses réalisées par les stubs côté client et serveur respectivement.",rule:"Client stub : marshalling avant envoi. Serveur stub : unmarshalling à la réception."},
-{cat:"Erreur classique",sev:3,ch:"RPC",wrong:"'Au moins une fois' est la meilleure sémantique RPC",right:"'Exactement une fois' est l'idéal. 'Au moins une fois' est dangereux pour les opérations non idempotentes.",why:"Répéter un débit bancaire = double débit. 'Au moins une fois' n'est acceptable que pour les opérations idempotentes.",rule:"Opération idempotente → 'au moins une fois' OK. Non idempotente → viser 'exactement une fois'."},
-{cat:"Cas limite",sev:3,ch:"ADV",wrong:"La copie-restauration préserve toujours la sémantique du passage par adresse",right:"La copie-restauration VIOLE la sémantique quand le même argument est passé deux fois (ex: f(a,a)).",why:"Deux copies indépendantes sont créées. La dernière restauration écrase les précédentes.",rule:"double_inc(a,a) avec a=0 : par adresse→a=2, copie-restore→a=1. Résultats différents !"},
-{cat:"Exception importante",sev:2,ch:"RPC",wrong:"La liaison statique est toujours préférable car plus rapide",right:"La liaison statique est rapide mais pas flexible. Si le serveur change d'adresse, recompilation requise.",why:"Environnements dynamiques (cloud, microservices) nécessitent une liaison tardive.",rule:"Liaison statique → @ fixée compilation. Liaison tardive → @ résolue exécution via serveur de noms."},
-{cat:"Erreur classique",sev:3,ch:"Sockets",wrong:"TCP utilise des datagrammes et UDP des flux d'octets.",right:"TCP utilise des FLUX D'OCTETS (byte streams) et UDP des DATAGRAMMES.",why:"TCP assure l'ordre et la fiabilité via un flux continu. UDP envoie des paquets isolés (datagrammes).",rule:"TCP = Flux (fiable, connecté) | UDP = Datagrammes (rapide, sans garantie)."},
-{cat:"Confusion fréquente",sev:3,ch:"Sockets",wrong:"ServerSocket est utilisé pour envoyer des données aux clients.",right:"ServerSocket ne sert qu'à ÉCOUTER (attendre des connexions). La communication se fait sur la NOUVELLE Socket retournée par accept().",why:"ServerSocket accepte la connexion puis délègue l'échange à un socket standard dédié.",rule:"ServerSocket srv; Socket client = srv.accept(); // On communique avec 'client', pas 'srv'."},
-{cat:"Erreur classique",sev:2,ch:"Intro_SR",wrong:"Un Middleware remplace le système d'exploitation.",right:"Un Middleware S'APPUIE sur le SE. Il se place entre le SE et l'application.",why:"Il ajoute des services réseau de haut niveau et masque la complexité, mais utilise toujours le SE pour l'accès aux ressources.",rule:"Couches : App → Middleware → SE → Matériel."},
-{cat:"Confusion fréquente",sev:3,ch:"Intro_SR",wrong:"Dans un modèle Pub/Sub, le producteur cible un consommateur précis.",right:"C'est un modèle ANONYME. Le producteur publie dans un Topic, il ignore qui (ou combien) sont les consommateurs.",why:"Le but est le découplage total entre émission et réception.",rule:"Producteur ↔ Topic ↔ Consommateur(s). Pas de lien direct."},
-{cat:"Erreur classique",sev:3,ch:"Sockets",wrong:"En UDP, le client doit définir explicitement son port de communication.",right:"En UDP, seul le SERVEUR attache son socket à un port précis. Le port du client est généré automatiquement par le système.",why:"Le serveur doit être trouvé à une adresse connue, le client utilise un port éphémère.",rule:"Serveur UDP → DatagramSocket(port_fixe) | Client UDP → DatagramSocket()"},
-{cat:"Erreur classique",sev:3,ch:"Sockets",wrong:"En UDP, si le client meurt, le serveur est immédiatement notifié.",right:"En UDP, il n'y a PAS de connexion. Si un processus meurt, l'autre n'en sait absolument rien.",why:"C'est un mode déconnecté. Contrairement à TCP qui a un protocole de maintien de connexion, UDP envoie des datagrammes 'à l'aveugle'.",rule:"UDP = déconnecté = aucune notification de mort du processus distant."},
-{cat:"Confusion fréquente",sev:2,ch:"Sockets",wrong:"Le client et le serveur TCP s'implémentent avec la même classe Socket en Java.",right:"En Java, le serveur utilise ServerSocket (pour écouter) et le client utilise Socket (pour se connecter).",why:"Les rôles sont asymétriques dans l'établissement de la connexion TCP.",rule:"Serveur TCP : ServerSocket. Client TCP : Socket."},
-{cat:"Erreur classique",sev:3,ch:"RPC",wrong:"On peut passer des données par pointeur à travers le réseau en RPC.",right:"Le passage par VALEUR est le SEUL mode réel de transmission de données sur le réseau.",why:"Les adresses mémoires (pointeurs) n'ont de sens que sur la machine locale. Les solutions existantes (copie-restauration) ne sont que des simulations par valeur.",rule:"Réseau = toujours transmission par valeur. Pointeurs = simulation ou interdiction."},
-{cat:"Confusion fréquente",sev:2,ch:"REST",wrong:"Les headers 'Content-Type' et 'Accept' ont exactement le même rôle.",right:"'Content-Type' décrit le corps que j'ENVOIE. 'Accept' décrit ce que je VEUX RECEVOIR en retour.",why:"Si j'envoie un formulaire XML mais que je veux une réponse JSON, Content-Type=xml et Accept=json.",rule:"Content-Type = Voici ce que je te donne. Accept = Voici ce que j'attends de toi."},
-{cat:"Exception importante",sev:3,ch:"RMI",wrong:"L'interface d'un objet Fabrique doit étendre UnicastRemoteObject.",right:"L'INTERFACE étend 'Remote'. C'est L'IMPLÉMENTATION (la classe) qui étend 'UnicastRemoteObject'.",why:"Confusion classique entre l'interface distante (contrat) et l'implémentation serveur (code qui s'exécute et s'expose).",rule:"Interface -> extends Remote. Classe -> extends UnicastRemoteObject implements Interface."}
+{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"LoRa et LoRaWAN sont la même chose",right:"LoRa = modulation radio PHYSIQUE (propriétaire Semtech). LoRaWAN = protocole RÉSEAU (LoRa Alliance). LoRaWAN S'APPUIE sur LoRa.",why:"LoRa définit comment le signal est transmis (CSS). LoRaWAN définit comment le réseau fonctionne (authentification, classes, ADR...).",rule:"LoRa = le signal radio. LoRaWAN = le protocole réseau par-dessus."},
+{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"La Classe C LoRaWAN consomme le moins d'énergie car elle est 'complète'",right:"La Classe A est la PLUS économe (2 fenêtres courtes après envoi, dort le reste du temps). Classe C consomme le PLUS (réception quasi-continue).",why:"Classe A = minimum obligatoire pour TOUS les appareils LoRaWAN. Elle dort pratiquement tout le temps.",rule:"Classe A = moins de conso | Classe B = milieu | Classe C = plus de conso"},
+{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"Un SF élevé (SF12) est toujours préférable car il augmente la portée",right:"SF12 = grande portée MAIS débit très faible + temps d'émission long → consomme plus d'énergie et réduit la capacité réseau.",why:"Il faut choisir le SF minimum permettant d'atteindre la destination. L'ADR fait ce choix automatiquement.",rule:"SF élevé → portée↑ MAIS débit↓ + temps_émission↑ + conso↑. Utiliser SF minimum suffisant."},
+{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Le Duty Cycle 1% (868 MHz) est une limitation technique du matériel",right:"Le Duty Cycle de 1% est une CONTRAINTE RÉGLEMENTAIRE européenne (ETSI), pas une limitation technologique.",why:"La réglementation limite l'utilisation des bandes ISM libres pour éviter la saturation du spectre partagé.",rule:"Duty cycle = réglementaire (ETSI Europe), pas technologique."},
+{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"Sigfox et LoRaWAN sont équivalents : on peut déployer son propre réseau Sigfox",right:"Sigfox est un réseau opéré par UN seul opérateur (abonnement obligatoire). LoRaWAN peut être déployé en réseau PRIVÉ sans opérateur.",why:"Sigfox = modèle opérateur fermé (comme un opérateur télécom). LoRaWAN = standard ouvert, réseau propre possible.",rule:"Sigfox → opérateur unique, abonnement. LoRaWAN → réseau privé possible, standard ouvert."},
+{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Zigbee utilise une topologie en étoile comme LoRaWAN",right:"Zigbee utilise un réseau MAILLÉ (mesh) où chaque nœud alimenté peut servir de routeur. LoRaWAN utilise une étoile d'étoiles.",why:"Le mesh Zigbee permet d'étendre la portée grâce aux relais entre objets. LoRaWAN ne permet pas ce relayage inter-capteurs.",rule:"Zigbee = mesh. LoRaWAN = star-of-stars. NE PAS inverser."},
+{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"NB-IoT utilise les fréquences libres ISM comme LoRa",right:"NB-IoT utilise des fréquences LICENCIÉES LTE (opérateur télécom obligatoire). LoRaWAN et Sigfox utilisent les bandes ISM libres.",why:"C'est un critère différenciateur clé. NB-IoT = réseau cellulaire, opérateur requis, fréquences payantes.",rule:"LoRaWAN/Sigfox → ISM libre 868 MHz. NB-IoT → fréquences licenciées LTE."},
+{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"eNodeB (4G) est juste l'équivalent du NodeB (3G)",right:"eNodeB = NodeB + RNC FUSIONNÉS. Il intègre les fonctions de contrôle radio (RNC) en plus de l'antenne. Architecture plate (flat).",why:"En 4G, on supprime la couche RNC → architecture plus plate et plus efficace (moins de latence).",rule:"3G : NodeB + RNC séparés. 4G : eNodeB = NodeB+RNC fusionnés → flat architecture."},
+{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"En 4G, la voix utilise encore la commutation de circuits",right:"La 4G est TOUT IP. La voix passe par VoLTE (Voice over LTE), en commutation de paquets IP. Plus de circuit switching.",why:"L'EPC (Evolved Packet Core) est un cœur réseau entièrement IP. La 2G et 3G utilisaient la commutation de circuits pour la voix.",rule:"4G = Tout IP (voix = VoLTE). 2G/3G = circuits pour voix + paquets pour données."},
+{cat:"Erreur classique",sev:3,ch:"Protocoles",wrong:"MQTT utilise UDP pour sa légèreté",right:"MQTT fonctionne sur TCP (fiable, connexion persistante). C'est CoAP qui utilise UDP.",why:"MQTT est conçu pour des connexions persistantes et fiables via TCP. La légèreté de MQTT vient de ses petits headers, pas de l'UDP.",rule:"MQTT → TCP (ports 1883/8883). CoAP → UDP. NE PAS confondre."},
+{cat:"Confusion fréquente",sev:3,ch:"Protocoles",wrong:"MQTT QoS 0 garantit la livraison au moins une fois",right:"QoS 0 = 'at most once' = fire-and-forget. AUCUNE garantie. Le message peut être perdu.",why:"QoS 1 = at least once (peut dupliquer). QoS 2 = exactly once (garanti). QoS 0 est le niveau MINIMUM sans garantie.",rule:"QoS 0 = peut perdre. QoS 1 = au moins une fois. QoS 2 = exactement une fois."},
+{cat:"Erreur classique",sev:2,ch:"Protocoles",wrong:"Le Broker MQTT est le publisher qui distribue les messages",right:"Le Broker MQTT est un SERVEUR INTERMÉDIAIRE qui reçoit des publishers et distribue aux subscribers. Il ne publie pas lui-même.",why:"Confusion sur les rôles : Publisher = produit, Subscriber = consomme, Broker = redistribue. Le découplage est l'avantage clé.",rule:"Publisher → Broker ← Subscriber. Le Broker est l'intermédiaire, pas l'émetteur."},
+{cat:"Confusion fréquente",sev:3,ch:"Hardware",wrong:"Arduino et Raspberry Pi sont tous les deux des microcontrôleurs",right:"Arduino = microcontrôleur (exécute une seule boucle, pas d'OS). Raspberry Pi = microprocesseur avec OS Linux complet (RAM, stockage, multitâche).",why:"La distinction est fondamentale : Arduino pour contrôle temps-réel simple, RPi pour traitement complexe avec OS.",rule:"Arduino = microcontrôleur (C/C++, loop). RPi = microprocesseur (Linux, Python, multitâche)."},
+{cat:"Erreur classique",sev:2,ch:"Hardware",wrong:"La transmission radio est moins consommatrice que le traitement CPU dans l'IoT",right:"La TRANSMISSION RADIO est la principale source de consommation dans l'IoT. Le CPU consomme bien moins.",why:"Les modules radio transmettent à ~40-50 mA, en veille <10 µA. D'où l'importance du deep sleep et du duty cycle.",rule:"Consommation IoT : Tx Radio (40-50 mA) >> CPU >> Capteurs. Deep sleep = <10 µA."},
+{cat:"Confusion fréquente",sev:2,ch:"Reseaux",wrong:"La 5G remplace complètement NB-IoT et LoRaWAN pour l'IoT",right:"Non : NB-IoT et LoRaWAN restent pertinents pour l'IoT LPWAN (batterie longue durée, faible coût). La 5G cible l'IoT massif/critique (mMTC, URLLC) mais est plus coûteuse.",why:"Chaque technologie a son créneau. LoRaWAN/NB-IoT = capteurs batterie longue durée. 5G = IoT critique + haute densité.",rule:"5G complète (pas remplace) LoRaWAN/NB-IoT. Choix selon portée, conso, coût."},
+{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Le MSC en 2G gère les antennes radio directement",right:"Le MSC est le commutateur CENTRAL (logique). C'est la BTS qui est l'antenne, et le BSC qui contrôle les BTS.",why:"Hiérarchie 2G : BTS (antenne) → BSC (contrôle BTS) → MSC (commutation appels, mobilité).",rule:"BTS = antenne. BSC = contrôle BTS. MSC = commutateur central 2G."},
+{cat:"Confusion fréquente",sev:2,ch:"Archi",wrong:"Edge Computing et Cloud Computing sont la même chose",right:"Edge = traitement LOCAL près du capteur (faible latence, offline possible). Cloud = traitement CENTRALISÉ à distance (puissance, historique, IA).",why:"Le Edge computing réduit la latence et la bande passante nécessaire en traitant localement.",rule:"Edge = local, rapide, confidentiel. Cloud = centralisé, puissant, dépendant du réseau."},
+{cat:"Exception importante",sev:3,ch:"Reseaux",wrong:"LoRaWAN supporte bien la communication en temps réel strict",right:"LoRaWAN N'est PAS adapté au temps réel strict : duty cycle 1%, débit faible (kbps), latence de secondes.",why:"Les contraintes réglementaires et le faible débit rendent LoRaWAN inadapté pour la commande temps-réel.",rule:"LoRaWAN = données périodiques + petits messages. Temps réel → 4G/5G/WiFi."},
+{cat:"Erreur classique",sev:2,ch:"Protocoles",wrong:"Une plateforme IoT propriétaire est toujours supérieure à une open source",right:"Les plateformes open source (ThingsBoard, Node-RED) sont souvent plus flexibles et gratuites. Les propriétaires offrent support et SLA mais sont payantes.",why:"Le choix dépend des besoins : budget, support, personnalisation, données sensibles.",rule:"Open source = flexible, gratuit, auto-hébergé. Propriétaire = support, SLA, coût."},
+{cat:"Cas limite",sev:2,ch:"Reseaux",wrong:"Sigfox permet une communication bidirectionnelle équivalente à LoRaWAN",right:"Sigfox est très limité en downlink : seulement 4 messages DOWNLINK par jour max (vs uplink 140/jour). La bidirectionnalité est quasi-nulle.",why:"La modulation UNB de Sigfox est optimisée pour l'uplink massif. Le downlink est une fonctionnalité secondaire très limitée.",rule:"Sigfox downlink : 4 msg/jour max. LoRaWAN : bidirectionnel (limité par duty cycle mais bien meilleur)."},
+{cat:"Erreur de cas pratique",sev:3,ch:"Archi",wrong:"Choisir le WiFi pour des capteurs agricoles en plein champ car 'tout le monde a le WiFi'",right:"WiFi = portée ~100-200m et forte consommation. Pour un champ de plusieurs km², il faudrait des dizaines de routeurs. LoRaWAN couvre le même champ avec 1-2 Gateways.",why:"Le piège : confondre disponibilité domestique du WiFi avec adaptabilité IoT terrain. Le bon critère est portée + autonomie batterie, pas la familiarité.",rule:"Toujours raisonner en termes de portée, consommation, débit nécessaire. Pas de 'choix évident'."},
+{cat:"Erreur de cas pratique",sev:3,ch:"Protocoles",wrong:"Utiliser HTTP/REST pour des capteurs IoT qui envoient en temps réel",right:"HTTP = requête/réponse synchrone. Le capteur doit interroger le serveur (polling) ou le serveur ne peut pas pousser de données. MQTT est asynchrone et fait du push automatiquement.",why:"HTTP est conçu pour le web classique. Pour IoT temps réel, le modèle Pub/Sub MQTT est naturellement adapté.",rule:"Données temps réel + push → MQTT. API web, requête ponctuelle → HTTP/REST."},
+{cat:"Erreur de cas pratique",sev:2,ch:"Archi",wrong:"Choisir la 5G pour tous les cas IoT car 'c'est le futur'",right:"5G est coûteuse, énergivore, et surdimensionnée pour des capteurs IoT simples. LoRaWAN ou NB-IoT sont souvent plus adaptés pour les déploiements batterie longue durée.",why:"La 5G vise mMTC/URLLC/eMBB. Elle n'est pas optimisée pour les capteurs à batterie qui envoient 10 octets/heure.",rule:"Choisir selon le besoin réel. 5G = IoT critique + haute densité. LPWAN = capteurs batterie longue durée."},
+{cat:"Erreur de cas pratique",sev:3,ch:"Reseaux",wrong:"Penser que LoRaWAN et Sigfox sont interchangeables",right:"LoRaWAN = réseau privé possible, messages illimités (sous duty cycle), standard ouvert. Sigfox = opérateur unique, 140 msg/jour max, abonnement obligatoire.",why:"Le modèle économique est fondamentalement différent. Sigfox est plus simple à déployer mais très contraint. LoRaWAN est plus flexible mais demande une infrastructure.",rule:"Sigfox = clé en main mais limité. LoRaWAN = flexible mais à déployer."},
+{cat:"Erreur de cas pratique",sev:2,ch:"Archi",wrong:"Considérer que Edge et Cloud Computing sont en opposition",right:"Edge et Cloud sont COMPLÉMENTAIRES. Edge traite localement ce qui est urgent/confidentiel. Cloud reçoit les données agrégées pour analyse historique et IA.",why:"Une architecture IoT mature utilise les deux : Edge pour réactivité, Cloud pour puissance et historique.",rule:"Edge + Cloud = architecture optimale. Pas l'un OU l'autre, mais les deux ensemble selon les besoins."}
 ];
 
 /* === STATE === */
@@ -876,22 +552,20 @@ const ST={
   search:'',
   streak:0,
   lastActive:'',
-  load(){try{const s=localStorage.getItem('sd_state');if(s){const d=JSON.parse(s);this.qcm.answers=d.qa||{};this.qcm.bookmarks=d.bk||{};this.fc.states=d.fs||{};this.ex.completed=d.ec||{};this.streak=d.str||0;this.lastActive=d.la||'';}}catch(e){}},
-  save(){try{localStorage.setItem('sd_state',JSON.stringify({qa:this.qcm.answers,bk:this.qcm.bookmarks,fs:this.fc.states,ec:this.ex.completed,str:this.streak,la:this.lastActive}))}catch(e){}}
+  load(){try{const s=localStorage.getItem('iot_state');if(s){const d=JSON.parse(s);this.qcm.answers=d.qa||{};this.qcm.bookmarks=d.bk||{};this.fc.states=d.fs||{};this.ex.completed=d.ec||{};this.streak=d.str||0;this.lastActive=d.la||'';}}catch(e){}},
+  save(){try{localStorage.setItem('iot_state',JSON.stringify({qa:this.qcm.answers,bk:this.qcm.bookmarks,fs:this.fc.states,ec:this.ex.completed,str:this.streak,la:this.lastActive}))}catch(e){}}
 };
 ST.load();
-// In-memory store for exercise textarea drafts (not persisted, session only)
-const EX_DRAFTS={};
 
 function updateStreak(){
-  const today=new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
+  const today=new Date().toLocaleDateString('en-CA');
   if(!ST.lastActive){
     ST.streak=1;ST.lastActive=today;ST.save();
   }else if(ST.lastActive!==today){
     const last=new Date(ST.lastActive);
     const now=new Date(today);
     const diffDays=Math.floor((now-last)/(1000*60*60*24));
-    if(diffDays===1){ST.streak++;}else if(diffDays>1){ST.streak=1;} // Reset if missed a day
+    if(diffDays===1){ST.streak++;}else if(diffDays>1){ST.streak=1;}
     ST.lastActive=today;ST.save();
   }
   document.getElementById('streak-val').textContent=ST.streak;
@@ -913,7 +587,6 @@ function initTabs(){
       document.getElementById('tab-'+b.dataset.tab).classList.add('active');
       if(b.dataset.tab==='qcm') renderQCM();
       if(b.dataset.tab==='flashcards') renderFC();
-      if(b.dataset.tab==='exercises') renderEX();
       if(b.dataset.tab==='cheatsheet') renderCS();
       if(b.dataset.tab==='traps') renderTraps();
     });
@@ -928,7 +601,10 @@ window.addEventListener('scroll',()=>{
 /* === HELPERS === */
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function chTag(ch){const m={RMI:'tag-rmi',REST:'tag-rest',Kafka:'tag-kafka',RPC:'tag-rpc',ADV:'tag-adv',Intro_SR:'tag-intro',Sockets:'tag-sockets'};return `<span class="tag ${m[ch]||'tag-rmi'}">${esc(ch)}</span>`;}
+function chTag(ch){
+  const m={Intro:'tag-rmi',Hardware:'tag-rest',Reseaux:'tag-kafka',Protocoles:'tag-rpc',Archi:'tag-adv'};
+  return `<span class="tag ${m[ch]||'tag-rmi'}">${esc(ch)}</span>`;
+}
 function diffTag(d){const m={easy:'tag-easy',med:'tag-med',hard:'tag-hard'};const l={easy:'Facile',med:'Moyen',hard:'Difficile'};return `<span class="tag ${m[d]}">${l[d]}</span>`;}
 function hlSearch(txt){if(!ST.search||!txt)return esc(txt);const re=new RegExp('('+ST.search.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return esc(txt).replace(re,'<span class="hl">$1</span>');}
 function openModal(title,html){document.getElementById('modal-title').textContent=title;document.getElementById('modal-body').innerHTML=html;document.getElementById('modal-ov').classList.add('open');}
@@ -940,7 +616,6 @@ function showToast(msg){
   el.textContent=msg;el.classList.add('show');
   clearTimeout(_tstTO);_tstTO=setTimeout(()=>el.classList.remove('show'),2500);
 }
-
 
 /* === QCM ENGINE === */
 function getFilteredQ(){
@@ -957,12 +632,11 @@ function getFilteredQ(){
 function renderQCM(){
   const el=document.getElementById('tab-qcm');
   const total=Q.length;
-  // Only count boolean entries (not the _sel shadow entries)
   const answeredIds=Object.keys(ST.qcm.answers).filter(k=>!k.endsWith('_sel'));
   const answered=answeredIds.length;
   const correct=answeredIds.filter(k=>ST.qcm.answers[k]===true).length;
   const wrong=answeredIds.filter(k=>ST.qcm.answers[k]===false).length;
-  const chapters=['all','RMI','REST','Kafka','RPC','ADV'];
+  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
   let pool=ST.qcm.shuffled.length?ST.qcm.shuffled:Q;
   if(!ST.qcm.shuffled.length){ST.qcm.shuffled=shuffle(Q);pool=ST.qcm.shuffled;}
   const fp=getFilteredQ();
@@ -1055,7 +729,7 @@ function showResults(){
 /* === FLASHCARD ENGINE === */
 function renderFC(){
   const el=document.getElementById('tab-flashcards');
-  const chapters=['all','RMI','REST','Kafka','RPC','ADV'];
+  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
   let pool=FC.filter(f=>ST.fc.chapter==='all'||f.ch===ST.fc.chapter);
   if(ST.search){
     const s=ST.search.toLowerCase();
@@ -1063,7 +737,6 @@ function renderFC(){
   }
   if(!ST.fc.shuffled.length||ST.fc.shuffled[0]&&!pool.find(f=>f.id===ST.fc.shuffled[0].id))ST.fc.shuffled=shuffle(pool);
   let finalPool=ST.search?pool:ST.fc.shuffled.filter(f=>ST.fc.chapter==='all'||f.ch===ST.fc.chapter);
-  // Spaced repetition: sort by mastery state (rev first, ok last), stable within groups
   const _srPriority={rev:0,none:1,med:2,ok:3};
   if(!ST.search){
     finalPool=[...finalPool].sort((a,b)=>{
@@ -1081,11 +754,9 @@ function renderFC(){
   const f=finalPool[i];
   const st=ST.fc.states[f.id]||'none';
   const mastered=Object.values(ST.fc.states).filter(v=>v==='ok').length;
-  // State badge for the card face
   const stateLabel={rev:'❌ À revoir',med:'∼ Moyen',ok:'✅ Maîtrisée',none:'🆕 Nouvelle'}[st];
   const stateColor={rev:'var(--err)',med:'var(--warn)',ok:'var(--ok)',none:'var(--txt2)'}[st];
   const stateBorder={rev:'var(--err)',med:'var(--warn)',ok:'var(--ok)',none:'var(--border)'}[st];
-  // Spaced rep queue info
   const revCount=finalPool.filter(f=>ST.fc.states[f.id]==='rev').length;
   const srHint=revCount>0?`⚠️ ${revCount} carte${revCount>1?'s':''} à revoir en tête de file`:'✅ Aucune carte à revoir';
   el.innerHTML=`
@@ -1134,76 +805,14 @@ function setFCh(c){ST.fc.chapter=c;ST.fc.idx=0;ST.fc.shuffled=[];renderFC();}
 function shuffleFC(){ST.fc.shuffled=[];ST.fc.idx=0;renderFC();}
 function setFCSt(id,s){ST.fc.states[id]=s;ST.save();updateStreak();renderFC();}
 
-/* === EXERCISES ENGINE === */
-function renderEX(){
-  const el=document.getElementById('tab-exercises');
-  const chapters=['all','RMI','REST','Kafka','RPC','ADV'];
-  const done=Object.keys(ST.ex.completed).length;
-  window._exCh=window._exCh||'all';
-  let filtered=EX.filter(e=>window._exCh==='all'||e.ch===window._exCh);
-  if(ST.search){
-    const s=ST.search.toLowerCase();
-    filtered=filtered.filter(e=>e.title.toLowerCase().includes(s)||e.task.toLowerCase().includes(s)||e.context.toLowerCase().includes(s)||e.solution.toLowerCase().includes(s));
-  }
-  let html=`<div class="dash" style="margin-bottom:16px">
-    <div class="stat"><div class="v">${EX.length}</div><div class="l">Exercices</div></div>
-    <div class="stat"><div class="v" style="color:var(--ok)">${done}</div><div class="l">Complétés</div></div>
-  </div>
-  <div class="filter-bar">${chapters.map(c=>`<button class="f-btn${window._exCh===c?' on':''}" onclick="window._exCh='${c}';renderEX()">${c==='all'?'Tous':c}</button>`).join('')}</div>`;
-  filtered.forEach(ex=>{
-    const isDone=ST.ex.completed[ex.id];
-    html+=`<div class="card" id="ex-${ex.id}">
-      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-        <div><span style="font-size:16px;font-weight:700">${hlSearch(ex.title)}</span></div>
-        <div style="display:flex;gap:6px">${chTag(ex.ch)} ${diffTag(ex.diff)} ${isDone?'<span class="tag tag-easy">✅ Fait</span>':''}</div>
-      </div>
-      <div style="font-size:13px;color:var(--txt2);margin-bottom:8px"><i>${hlSearch(ex.context)}</i></div>
-      <div class="ex-problem"><b>📋 Tâche :</b> ${hlSearch(ex.task)}</div>
-      <textarea class="code-area" id="ta-${ex.id}" placeholder="Écrivez votre réponse ici…"></textarea>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px" id="ex-btns-${ex.id}">
-        <button class="coll-btn" id="hint-btn-${ex.id}" onclick="toggleHint(${ex.id})"><span class="arr" id="hint-arr-${ex.id}">▶</span> 💡 Indice</button>
-        <button class="coll-btn" id="sol-btn-${ex.id}" onclick="toggleSol(${ex.id})"><span class="arr" id="sol-arr-${ex.id}">▶</span> 📖 Solution</button>
-        <button class="btn btn-ok" onclick="markDone(${ex.id})" style="margin-left:auto">${isDone?'✅ Complété':'Marquer fait'}</button>
-      </div>
-      <div class="collapsible" id="hint-${ex.id}"><div style="padding:10px;margin-top:8px;background:rgba(245,158,11,.08);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;font-size:13px">💡 ${hlSearch(ex.hint)}</div></div>
-      <div class="collapsible" id="sol-${ex.id}"><pre style="margin-top:8px">${esc(ex.solution)}</pre>
-      ${ex.trap?`<div style="margin-top:8px;padding:9px;background:rgba(239,68,68,.08);border-left:3px solid var(--err);border-radius:0 6px 6px 0;font-size:13px">⚠️ <b>Piège :</b> ${hlSearch(ex.trap)}</div>`:''}
-      </div>
-    </div>`;
-  });
-  // ① Save any typed content before wiping the DOM
-  document.querySelectorAll('#tab-exercises textarea[id^="ta-"]').forEach(ta=>{
-    EX_DRAFTS[ta.id]=ta.value;
-  });
-  el.innerHTML=html;
-  // ② Restore drafts into newly rendered textareas
-  Object.entries(EX_DRAFTS).forEach(([taId,val])=>{
-    const ta=document.getElementById(taId);
-    if(ta&&val) ta.value=val;
-  });
-}
-function toggleHint(id){
-  const el=document.getElementById('hint-'+id);
-  const btn=document.getElementById('hint-btn-'+id);
-  const arr=document.getElementById('hint-arr-'+id);
-  el.classList.toggle('open');
-  btn.classList.toggle('open');
-  if(arr) arr.style.transform=el.classList.contains('open')?'rotate(90deg)':'';
-}
-function toggleSol(id){
-  const el=document.getElementById('sol-'+id);
-  const btn=document.getElementById('sol-btn-'+id);
-  const arr=document.getElementById('sol-arr-'+id);
-  el.classList.toggle('open');
-  btn.classList.toggle('open');
-  if(arr) arr.style.transform=el.classList.contains('open')?'rotate(90deg)':'';
-}
-function markDone(id){ST.ex.completed[id]=!ST.ex.completed[id];ST.save();if(ST.ex.completed[id])updateStreak();renderEX();}
-
 /* === CHEATSHEET ENGINE === */
 function renderCS(){
   const el=document.getElementById('tab-cheatsheet');
   const keys=Object.keys(CS);
+  if(!keys.length){
+    el.innerHTML=`<div class="empty"><span class="empty-icon">📜</span><div class="empty-title">Aucun Cheat Sheet</div><div class="empty-sub">Les fiches de révision seront ajoutées bientôt.</div></div>`;
+    return;
+  }
   const idx=`<div class="jump-idx">${keys.map(k=>`<button class="j-link" onclick="document.getElementById('cs-${k}').scrollIntoView({behavior:'smooth'})">${CS[k].title}</button>`).join('')}</div>`;
   let html=idx+'<div class="cheat-grid">';
   keys.forEach(k=>{
@@ -1227,8 +836,12 @@ function copyCS(k){const c=CS[k];const txt=c.items.map(i=>i.k+': '+i.v).join('\n
 /* === TRAPS ENGINE === */
 function renderTraps(){
   const el=document.getElementById('tab-traps');
+  if(!TRAPS.length){
+    el.innerHTML=`<div class="empty"><span class="empty-icon">🪤</span><div class="empty-title">Aucun piège</div><div class="empty-sub">Les pièges d'examen seront ajoutés bientôt.</div></div>`;
+    return;
+  }
   const cats=['all','Confusion fréquente','Erreur classique','Exception importante','Cas limite'];
-  const chapters=['all','RMI','REST','Kafka','RPC','ADV'];
+  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
   const activeCat=window._trapCat||'all';
   const activeCh=window._trapCh||'all';
   let filtered=TRAPS.filter(t=>(activeCat==='all'||t.cat===activeCat)&&(activeCh==='all'||t.ch===activeCh));
@@ -1266,7 +879,6 @@ function triggerActiveTabRender(){
   const tab=active.dataset.tab;
   if(tab==='qcm') renderQCM();
   else if(tab==='flashcards') renderFC();
-  else if(tab==='exercises') renderEX();
   else if(tab==='cheatsheet') renderCS();
   else if(tab==='traps') renderTraps();
 }
@@ -1277,29 +889,19 @@ document.getElementById('search-box').addEventListener('input',e=>{
 
 /* === KEYBOARD SHORTCUTS === */
 document.addEventListener('keydown',e=>{
-  // Never hijack typing in inputs/textareas
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
-
-  // Esc → close modal
   if(e.key==='Escape'){closeModal();return;}
-
-  // Ctrl/Cmd+K → focus search
   if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();document.getElementById('search-box').focus();return;}
-
   const tab=document.querySelector('.tab-btn.active')?.dataset.tab;
-
-  /* ── QCM shortcuts ── */
   if(tab==='qcm'){
     if(e.key==='ArrowLeft'){e.preventDefault();prevQ();return;}
     if(e.key==='ArrowRight'){e.preventDefault();nextQ();return;}
-    // B = toggle bookmark on current question
     if(e.key==='b'||e.key==='B'){
       const fp=getFilteredQ();
       const q=fp[Math.min(ST.qcm.idx,fp.length-1)];
       if(q) toggleBk(q.id);
       return;
     }
-    // 1-4 = select answer option
     if(['1','2','3','4'].includes(e.key)){
       const fp=getFilteredQ();
       const q=fp[Math.min(ST.qcm.idx,fp.length-1)];
@@ -1310,13 +912,10 @@ document.addEventListener('keydown',e=>{
       return;
     }
   }
-
-  /* ── Flashcard shortcuts ── */
   if(tab==='flashcards'){
     if(e.key===' '){e.preventDefault();flipFC();return;}
     if(e.key==='ArrowLeft'){e.preventDefault();prevFC();return;}
     if(e.key==='ArrowRight'){e.preventDefault();nextFC();return;}
-    // 1/2/3 = rate current card
     if(['1','2','3'].includes(e.key)){
       const pool=FC.filter(f=>ST.fc.chapter==='all'||f.ch===ST.fc.chapter);
       const f=pool[Math.min(ST.fc.idx,pool.length-1)];
@@ -1357,14 +956,93 @@ function showShortcuts(){
   </table>`);
 }
 
+/* === QURAN PLAYER === */
+const SURAHS = ["Al-Fatihah","Al-Baqarah","Ali 'Imran","An-Nisa","Al-Ma'idah","Al-An'am","Al-A'raf","Al-Anfal","At-Tawbah","Yunus","Hud","Yusuf","Ar-Ra'd","Ibrahim","Al-Hijr","An-Nahl","Al-Isra","Al-Kahf","Maryam","Ta-Ha","Al-Anbiya","Al-Hajj","Al-Mu'minun","An-Nur","Al-Furqan","Ash-Shu'ara","An-Naml","Al-Qasas","Al-'Ankabut","Ar-Rum","Luqman","As-Sajdah","Al-Ahzab","Saba","Fatir","Ya-Sin","As-Saffat","Sad","Az-Zumar","Ghafir","Fussilat","Ash-Shura","Az-Zukhruf","Ad-Dukhan","Al-Jathiyah","Al-Ahqaf","Muhammad","Al-Fath","Al-Hujurat","Qaf","Ad-Dhariyat","At-Tur","An-Najm","Al-Qamar","Ar-Rahman","Al-Waqi'ah","Al-Hadid","Al-Mujadila","Al-Hashr","Al-Mumtahanah","As-Saff","Al-Jumu'ah","Al-Munafiqun","At-Taghabun","At-Talaq","At-Tahrim","Al-Mulk","Al-Qalam","Al-Haqqah","Al-Ma'arij","Nuh","Al-Jinn","Al-Muzzammil","Al-Muddaththir","Al-Qiyamah","Al-Insan","Al-Mursalat","An-Naba","An-Nazi'at","'Abasa","At-Takwir","Al-Infitar","Al-Mutaffifin","Al-Inshiqaq","Al-Buruj","At-Tariq","Al-A'la","Al-Ghashiyah","Al-Fajr","Al-Balad","Ash-Shams","Al-Lail","Ad-Duha","Ash-Sharh","At-Tin","Al-'Alaq","Al-Qadr","Al-Bayyinah","Az-Zalzalah","Al-'Adiyat","Al-Qari'ah","At-Takathur","Al-'Asr","Al-Humazah","Al-Fil","Quraish","Al-Ma'un","Al-Kawthar","Al-Kafirun","An-Nasr","Al-Masad","Al-Ikhlas","Al-Falaq","An-Nas"];
+function initQuran(){
+  const sel=document.getElementById('quran-surah');
+  if(!sel) return;
+  SURAHS.forEach((s,i)=>{
+    const opt=document.createElement('option');
+    opt.value=String(i+1).padStart(3,'0');
+    opt.textContent=`${String(i+1).padStart(3,'0')} - ${s}`;
+    sel.appendChild(opt);
+  });
+  const aud=document.getElementById('quran-audio');
+  const btnP=document.getElementById('quran-play');
+  const btnPa=document.getElementById('quran-pause');
+  const icon=document.getElementById('quran-icon');
+  const prog=document.getElementById('quran-progress');
+  const volSl=document.getElementById('quran-vol');
+  const btnMute=document.getElementById('quran-mute');
+  
+  aud.volume = volSl.value;
+  let cur='';
+  
+  function playQ(){
+    if(cur!==sel.value){cur=sel.value;aud.src=`https://server7.mp3quran.net/basit/${cur}.mp3`;}
+    aud.play();
+    btnP.style.display='none';
+    btnPa.style.display='flex';
+    icon.classList.add('playing');
+  }
+  
+  function pauseQ(){
+    aud.pause();
+    btnPa.style.display='none';
+    btnP.style.display='flex';
+    icon.classList.remove('playing');
+  }
+  
+  btnP.addEventListener('click',playQ);
+  btnPa.addEventListener('click',pauseQ);
+  sel.addEventListener('change',()=>{if(!aud.paused) playQ();});
+  
+  aud.addEventListener('ended',()=>{
+    if(sel.selectedIndex<sel.options.length-1){sel.selectedIndex++;playQ();}else{pauseQ();}
+  });
+  
+  aud.addEventListener('error', ()=>{
+    pauseQ(); console.error("Erreur audio");
+  });
+  
+  aud.addEventListener('timeupdate', ()=>{
+    if(aud.duration){
+      prog.style.width = ((aud.currentTime / aud.duration) * 100) + '%';
+    }
+  });
+  
+  function updateVolIcon() {
+    if(aud.volume === 0) btnMute.textContent = '🔇';
+    else if(aud.volume < 0.5) btnMute.textContent = '🔉';
+    else btnMute.textContent = '🔊';
+  }
+  
+  volSl.addEventListener('input', (e)=>{
+    aud.volume = e.target.value;
+    updateVolIcon();
+  });
+  
+  let lastVol = 0.2;
+  btnMute.addEventListener('click', ()=>{
+    if(aud.volume > 0) {
+      lastVol = aud.volume;
+      aud.volume = 0;
+      volSl.value = 0;
+    } else {
+      aud.volume = lastVol || 0.2;
+      volSl.value = aud.volume;
+    }
+    updateVolIcon();
+  });
+}
+
 /* === INIT === */
 window.onload=()=>{
   initTabs();
   renderQCM();
-  // Init streak display on load
+  initQuran();
   document.getElementById('streak-val').textContent=ST.streak;
 };
-
 </script>
 </body>
 </html>
