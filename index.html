@@ -3,23 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IoT VIP Pro — Révision Interactive</title>
-<meta name="description" content="Plateforme de révision interactive : IoT, LoRa, Sigfox, MQTT, 5G">
+<title>T-SQL VIP Pro — Révision Interactive</title>
+<meta name="description" content="Plateforme de révision interactive : T-SQL, Index, Vues, Triggers, Transactions">
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-08BE8H3FYV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-08BE8H3FYV');
-</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#09090b;--panel:#18181b;--border:rgba(255,255,255,0.06);
-  --accent:#8b5cf6;--accent2:#c4b5fd;
+  --accent:#3b82f6;--accent2:#93c5fd;
   --ok:#10b981;--warn:#f59e0b;--err:#ef4444;
   --txt:#fafafa;--txt2:#b5b5c3;
   --font:'Sora',system-ui,sans-serif;
@@ -27,17 +18,17 @@
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:var(--font);font-size:15px;line-height:1.6;min-height:100vh;position:relative;z-index:0}
-body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at top,rgba(139,92,246,.06) 0%,transparent 50%);z-index:-1;pointer-events:none}
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at top,rgba(59,130,246,.06) 0%,transparent 50%);z-index:-1;pointer-events:none}
 ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:10px}
-::-webkit-scrollbar-thumb:hover{background:rgba(139,92,246,0.5)}
+::-webkit-scrollbar-thumb:hover{background:rgba(59,130,246,0.5)}
 *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
 #scroll-prog{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:9999;transition:width .1s;pointer-events:none}
 nav{position:sticky;top:0;z-index:1000;background:rgba(9,9,11,0.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center}
 .nav-brand{padding:0 16px;font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;border-right:1px solid var(--border);letter-spacing:.5px;height:48px;display:flex;align-items:center}
 .nav-tabs{display:flex;flex:1;overflow-x:auto}
 .tab-btn{padding:0 14px;height:48px;background:none;border:none;border-bottom:2px solid transparent;color:var(--txt2);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:500;white-space:nowrap;transition:all .2s}
-.tab-btn:hover{color:var(--txt);background:rgba(139,92,246,.07)}
+.tab-btn:hover{color:var(--txt);background:rgba(59,130,246,.07)}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 .nav-right{display:flex;align-items:center;gap:6px;padding:0 8px;border-left:1px solid var(--border)}
 #search-box{background:var(--bg);border:1px solid var(--border);color:var(--txt);padding:7px 10px;border-radius:6px;font-family:var(--font);font-size:13px;width:150px;transition:border .2s}
@@ -67,21 +58,21 @@ main{max-width:1180px;margin:0 auto;padding:24px 16px}
 .tag-intro{background:rgba(236,72,153,.15);color:#f472b6}
 .tag-sockets{background:rgba(6,182,212,.15);color:#22d3ee}
 .btn{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;transition:all .2s;text-decoration:none}
-.btn-p{background:#8b5cf6;color:#fff;box-shadow:inset 0 1px 1px rgba(255,255,255,0.2),0 2px 8px rgba(139,92,246,0.2)}.btn-p:hover{background:#7c3aed;box-shadow:inset 0 1px 1px rgba(255,255,255,0.2),0 4px 14px rgba(139,92,246,0.4);transform:translateY(-1px)}
+.btn-p{background:var(--accent);color:#fff;box-shadow:inset 0 1px 1px rgba(255,255,255,0.2),0 2px 8px rgba(59,130,246,0.2)}.btn-p:hover{background:#2563eb;box-shadow:inset 0 1px 1px rgba(255,255,255,0.2),0 4px 14px rgba(59,130,246,0.4);transform:translateY(-1px)}
 .btn-s{background:var(--panel);border:1px solid var(--border);color:var(--txt2)}.btn-s:hover{border-color:var(--accent);color:var(--txt)}
 .btn-ok{background:rgba(34,197,94,.15);border:1px solid var(--ok);color:var(--ok)}
 .btn-err{background:rgba(239,68,68,.15);border:1px solid var(--err);color:var(--err)}
 .btn-warn{background:rgba(245,158,11,.15);border:1px solid var(--warn);color:var(--warn)}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:14px;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:all .3s ease}
-.card:hover{border-color:rgba(139,92,246,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);transform:translateY(-2px)}
+.card:hover{border-color:rgba(59,130,246,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);transform:translateY(-2px)}
 .filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .f-btn{padding:5px 13px;border-radius:20px;border:1px solid var(--border);background:none;color:var(--txt2);cursor:pointer;font-size:12px;font-weight:600;transition:all .2s}
 .f-btn:hover,.f-btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .hl{background:rgba(245,158,11,.3);color:var(--warn);border-radius:2px;padding:0 2px}
 pre,code{font-family:var(--mono)}
 pre{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;overflow-x:auto;font-size:13px;line-height:1.6;white-space:pre}
-code{background:rgba(139,92,246,.12);padding:1px 5px;border-radius:3px;color:var(--accent2);font-size:13px}
-.kw{color:#c084fc;font-weight:600}.str{color:#86efac}.cmt{color:#6b7280;font-style:italic}.num{color:#fb923c}.cls{color:#fde68a}
+code{background:rgba(59,130,246,.12);padding:1px 5px;border-radius:3px;color:var(--accent2);font-size:13px}
+.kw{color:#60a5fa;font-weight:600}.str{color:#86efac}.cmt{color:#6b7280;font-style:italic}.num{color:#fb923c}.cls{color:#fde68a}
 .opt-btn{width:100%;text-align:left;padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt);cursor:pointer;font-family:var(--font);font-size:14px;transition:all .2s;display:flex;gap:10px;align-items:flex-start;margin-bottom:7px}
 .opt-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent2)}
 .opt-btn:disabled{cursor:default}
@@ -92,13 +83,13 @@ code{background:rgba(139,92,246,.12);padding:1px 5px;border-radius:3px;color:var
 .opt-badge{font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:auto;flex-shrink:0;white-space:nowrap}
 .opt-badge.ok{background:rgba(34,197,94,.2);color:var(--ok)}
 .opt-badge.bad{background:rgba(239,68,68,.2);color:var(--err)}
-.expl{margin-top:12px;padding:12px;background:rgba(139,92,246,.08);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:13px;color:var(--txt2);display:none}
+.expl{margin-top:12px;padding:12px;background:rgba(59,130,246,.08);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;font-size:13px;color:var(--txt2);display:none}
 .expl.show{display:block}
 .trap-note{margin-top:8px;padding:9px;background:rgba(245,158,11,.08);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;font-size:12px;color:var(--warn);display:none}
 .trap-note.show{display:block}
 .q-nav{display:flex;flex-wrap:wrap;gap:5px;margin:14px 0}
 .qn-btn{width:32px;height:32px;border-radius:5px;border:1px solid var(--border);background:var(--bg);color:var(--txt2);cursor:pointer;font-size:12px;font-weight:700;transition:all .2s}
-.qn-btn.cur{border-color:var(--accent);background:rgba(139,92,246,.2);color:var(--accent)}
+.qn-btn.cur{border-color:var(--accent);background:rgba(59,130,246,.2);color:var(--accent)}
 .qn-btn.ans{border-color:var(--ok);background:rgba(34,197,94,.15);color:var(--ok)}
 .qn-btn.bad{border-color:var(--err);background:rgba(239,68,68,.15);color:var(--err)}
 .qn-btn.skip{border-color:var(--warn);background:rgba(245,158,11,.15);color:var(--warn)}
@@ -132,16 +123,26 @@ code{background:rgba(139,92,246,.12);padding:1px 5px;border-radius:3px;color:var
 .ci-v{font-family:var(--mono);font-size:12px;color:var(--txt);text-align:right}
 .ci-v.ac{color:var(--accent2)}
 .cs{font-family:var(--mono);font-size:12px;padding:8px;background:var(--bg);border-radius:4px;border:1px solid var(--border);margin-top:6px;overflow-x:auto;white-space:pre;display:block}
-.trap-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:12px;border-left:4px solid var(--err)}
-.trap-card.w{border-left-color:var(--warn)}
-.trap-card.i{border-left-color:var(--accent)}
-.tc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap;gap:6px}
-.tc-cat{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
-.severity{display:flex;gap:3px;align-items:center}
-.s-dot{width:7px;height:7px;border-radius:50%}
-.tw .lbl{font-size:11px;color:var(--err);font-weight:700;text-transform:uppercase;margin-bottom:3px}
-.tc .lbl{font-size:11px;color:var(--ok);font-weight:700;text-transform:uppercase;margin-bottom:3px}
-.tc-rule{margin-top:8px;padding:9px;background:rgba(139,92,246,.08);border-radius:5px;font-size:13px;border-left:2px solid var(--accent)}
+
+/* Exercices Styles */
+textarea.code-area{width:100%;min-height:110px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt);font-family:var(--mono);font-size:13px;padding:10px;resize:vertical;transition:border .2s}
+textarea.code-area:focus{outline:none;border-color:var(--accent)}
+.exo-card{background:var(--panel);border:1px solid var(--border);border-radius:8px;margin-bottom:14px;overflow:hidden;transition:all .3s ease;}
+.exo-card:hover{border-color:rgba(59,130,246,.3);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+.exo-header{padding:10px 14px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.exo-num{font-size:11px;font-family:var(--mono);color:var(--txt2);text-transform:uppercase;letter-spacing:0.1em}
+.exo-title{font-size:14px;font-weight:700;color:var(--accent2)}
+.exo-body{padding:14px}
+.exo-desc{font-size:13px;color:var(--txt);line-height:1.6;margin-bottom:10px}
+.exo-schema{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px;font-family:var(--mono);font-size:12px;color:var(--txt2);margin-bottom:10px;white-space:pre;overflow-x:auto}
+.exo-task{background:rgba(245,158,11,.08);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;padding:8px 10px;font-size:13px;color:var(--warn);margin-bottom:10px}
+.solution-box{display:none;margin-top:10px;background:var(--bg);border:1px solid var(--ok);border-radius:6px;overflow:hidden}
+.solution-box.show{display:block}
+.solution-header{padding:6px 10px;background:rgba(34,197,94,.15);font-size:11px;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:0.1em}
+.solution-code{padding:10px;font-family:var(--mono);font-size:12px;color:var(--txt2);white-space:pre;overflow-x:auto}
+.solution-note{padding:8px 10px;background:var(--panel);border-top:1px solid var(--border);font-size:12px;color:var(--txt2);line-height:1.5}
+.exo-actions{display:flex;gap:8px;margin-top:10px}
+
 .collapsible{overflow:hidden;max-height:0;transition:max-height .4s ease}
 .collapsible.open{max-height:3000px}
 .coll-btn{display:flex;align-items:center;gap:7px;padding:8px 13px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt2);cursor:pointer;font-family:var(--font);font-size:13px;font-weight:600;transition:all .2s;margin-top:9px;width:auto}
@@ -150,14 +151,11 @@ code{background:rgba(139,92,246,.12);padding:1px 5px;border-radius:3px;color:var
 .coll-btn.open .arr{transform:rotate(90deg)}
 .jump-idx{display:flex;gap:6px;flex-wrap:wrap;padding:10px;background:var(--panel);border:1px solid var(--border);border-radius:7px;margin-bottom:18px}
 .j-link{color:var(--accent2);font-size:12px;cursor:pointer;padding:2px 7px;border-radius:4px;transition:background .2s;background:none;border:none;font-family:var(--font)}
-.j-link:hover{background:rgba(139,92,246,.15)}
+.j-link:hover{background:rgba(59,130,246,.15)}
 .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;display:none;place-items:center}
 .modal-ov.open{display:grid}
 .modal{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:26px;max-width:620px;width:90%;max-height:88vh;overflow-y:auto}
 .modal-title{font-size:17px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-textarea.code-area{width:100%;min-height:110px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt);font-family:var(--mono);font-size:13px;padding:10px;resize:vertical;transition:border .2s}
-textarea.code-area:focus{outline:none;border-color:var(--accent)}
-.ex-problem{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:12px;margin:10px 0;font-size:14px}
 .r-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:16px 0}
 .r-card{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:14px;text-align:center}
 .r-card .big{font-size:34px;font-weight:800}
@@ -165,20 +163,20 @@ textarea.code-area:focus{outline:none;border-color:var(--accent)}
 .hamburger{display:none;background:none;border:none;color:var(--txt);font-size:22px;cursor:pointer;padding:0 14px;height:48px}
 .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:950;display:none;backdrop-filter:blur(2px)}
 .sidebar-overlay.open{display:block}
-@media(max-width:850px){nav{flex-wrap:wrap;padding:4px 0}.hamburger{display:block}.nav-brand{border-right:none;padding-left:0;flex:1}.nav-right{width:100%;border-left:none;border-top:1px solid var(--border);padding:8px 16px;justify-content:space-between;margin-top:4px;flex-wrap:wrap;gap:8px}.kbd-btn{display:none}.nav-tabs{position:fixed;top:0;left:-260px;width:260px;height:100vh;background:var(--panel);border-right:1px solid var(--border);border-top:none;flex-direction:column;z-index:1000;transition:left .3s cubic-bezier(.4,0,.2,1);padding-top:20px;overflow-y:auto;align-items:stretch}.nav-tabs.open{left:0}.tab-btn{width:100%;text-align:left;border-bottom:none;border-left:3px solid transparent;padding:15px 20px;height:auto;font-size:14px}.tab-btn.active{border-bottom:none;border-left-color:var(--accent);background:rgba(139,92,246,.07)}.flashcard{height:240px}.fc-txt{font-size:13px}main{padding:14px 10px}#search-box{flex:1;max-width:none;order:3;margin-left:0}#streak-counter{order:1}#session-clock{order:2}.qn-btn{width:38px;height:38px;font-size:14px}.f-btn{padding:8px 16px;font-size:13px}.btn{min-height:40px}.yd-credit{display:none}.toast{bottom:90px}}
+@media(max-width:850px){nav{flex-wrap:wrap;padding:4px 0}.hamburger{display:block}.nav-brand{border-right:none;padding-left:0;flex:1}.nav-right{width:100%;border-left:none;border-top:1px solid var(--border);padding:8px 16px;justify-content:space-between;margin-top:4px;flex-wrap:wrap;gap:8px}.kbd-btn{display:none}.nav-tabs{position:fixed;top:0;left:-260px;width:260px;height:100vh;background:var(--panel);border-right:1px solid var(--border);border-top:none;flex-direction:column;z-index:1000;transition:left .3s cubic-bezier(.4,0,.2,1);padding-top:20px;overflow-y:auto;align-items:stretch}.nav-tabs.open{left:0}.tab-btn{width:100%;text-align:left;border-bottom:none;border-left:3px solid transparent;padding:15px 20px;height:auto;font-size:14px}.tab-btn.active{border-bottom:none;border-left-color:var(--accent);background:rgba(59,130,246,.07)}.flashcard{height:240px}.fc-txt{font-size:13px}main{padding:14px 10px}#search-box{flex:1;max-width:none;order:3;margin-left:0}#streak-counter{order:1}#session-clock{order:2}.qn-btn{width:38px;height:38px;font-size:14px}.f-btn{padding:8px 16px;font-size:13px}.btn{min-height:40px}.yd-credit{display:none}.toast{bottom:90px}}
 @media print{nav,#scroll-prog,.f-btn,.filter-bar,.btn,.fc-status,.q-nav,.coll-btn,textarea{display:none!important}body{background:#fff;color:#000}.cc{break-inside:avoid;border:1px solid #ccc}.cc-h{background:#f3f4f6}pre,.cs,code{background:#f9fafb;border:1px solid #ddd}}
-.empty{text-align:center;padding:60px 24px;background:rgba(139,92,246,.03);border:1px solid rgba(139,92,246,.1);border-radius:16px;margin-top:16px;animation:fi .22s ease}
+.empty{text-align:center;padding:60px 24px;background:rgba(59,130,246,.03);border:1px solid rgba(59,130,246,.1);border-radius:16px;margin-top:16px;animation:fi .22s ease}
 .empty-icon{font-size:48px;display:block;margin-bottom:16px;line-height:1;opacity:0.8}
 .empty-title{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:8px}
 .empty-sub{font-size:13px;color:var(--txt2);line-height:1.6}
 #session-clock{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--txt2);padding:4px 9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;white-space:nowrap;letter-spacing:.5px}
-#session-clock.active{color:var(--accent);border-color:rgba(139,92,246,.4)}
+#session-clock.active{color:var(--accent);border-color:rgba(59,130,246,.4)}
 .kbd-btn{padding:5px 9px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--txt2);cursor:pointer;font-size:14px;line-height:1;transition:all .2s}
 .kbd-btn:hover{border-color:var(--accent);color:var(--accent)}
 .toast{position:fixed;bottom:80px;right:24px;background:var(--ok);color:#fff;padding:12px 20px;border-radius:8px;font-weight:600;font-size:13px;box-shadow:0 10px 25px rgba(0,0,0,.5);transform:translateY(100px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);z-index:9999;pointer-events:none}
 .toast.show{transform:translateY(0);opacity:1}
-.yd-credit{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;background:rgba(24,24,27,.8);backdrop-filter:blur(12px);border:1px solid rgba(139,92,246,.2);border-radius:30px;padding:8px 14px;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);overflow:hidden;z-index:900;box-shadow:0 4px 20px rgba(0,0,0,.4)}
-.yd-credit:hover{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.5);box-shadow:0 4px 20px rgba(139,92,246,.2);padding-right:20px}
+.yd-credit{position:fixed;bottom:24px;right:24px;display:flex;align-items:center;background:rgba(24,24,27,.8);backdrop-filter:blur(12px);border:1px solid rgba(59,130,246,.2);border-radius:30px;padding:8px 14px;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1);overflow:hidden;z-index:900;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.yd-credit:hover{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.5);box-shadow:0 4px 20px rgba(59,130,246,.2);padding-right:20px}
 .yd-monogram{font-family:var(--font);font-weight:700;font-size:12px;color:var(--accent);letter-spacing:1px}
 .yd-full{font-family:var(--font);font-size:12px;color:var(--accent2);white-space:nowrap;max-width:0;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);overflow:hidden}
 .yd-credit:hover .yd-full{max-width:200px;opacity:1;margin-left:10px}
@@ -190,22 +188,42 @@ textarea.code-area:focus{outline:none;border-color:var(--accent)}
 .kb-table td:last-child{text-align:right;white-space:nowrap}
 kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);border-bottom-width:2px;border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:11px;color:var(--txt2)}
 
+@keyframes pulseGlow {
+  0% { transform: scale(0.95); box-shadow: 0 0 30px rgba(59,130,246,0.4); }
+  100% { transform: scale(1.05); box-shadow: 0 0 70px rgba(139,92,246,0.8); }
+}
+@keyframes slideUpEntrance {
+  0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+body.loaded nav { animation: slideUpEntrance 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s forwards; }
+body.loaded main { animation: slideUpEntrance 0.8s cubic-bezier(0.16,1,0.3,1) 0.25s forwards; }
+nav, main { opacity: 0; }
 </style>
 </head>
 <body>
+<div id="app-splash" style="position:fixed; inset:0; background:#0b0f19; z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); backdrop-filter:blur(20px);">
+  <div class="splash-logo" style="width:90px; height:90px; border-radius:24px; background:linear-gradient(135deg, #3b82f6, #8b5cf6); display:flex; align-items:center; justify-content:center; box-shadow:0 0 50px rgba(59,130,246,0.6); animation:pulseGlow 1.5s infinite alternate; margin-bottom:24px;">
+    <span style="font-size:46px; filter:drop-shadow(0 2px 8px rgba(0,0,0,0.4))">⚡</span>
+  </div>
+  <h1 style="font-size:26px; font-weight:800; color:#fff; margin-bottom:8px; letter-spacing:1px; text-shadow:0 0 20px rgba(255,255,255,0.3)">T-SQL VIP Revision Engine</h1>
+  <p style="font-size:14px; color:var(--txt2); margin-bottom:32px; font-family:var(--mono);">Initialisation du noyau interactif...</p>
+  <div style="width:240px; height:4px; background:rgba(255,255,255,0.1); border-radius:4px; overflow:hidden;">
+    <div id="splash-prog" style="width:0%; height:100%; background:linear-gradient(90deg, #3b82f6, #06b6d4, #10b981); transition:width 1s cubic-bezier(0.4,0,0.2,1);"></div>
+  </div>
+</div>
 <div id="scroll-prog"></div>
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 <nav>
   <button class="hamburger" onclick="toggleSidebar()">☰</button>
-  <div class="nav-brand">⚡ IoT VIP Pro</div>
+  <div class="nav-brand">⚡ T-SQL VIP Pro</div>
   <div class="nav-tabs">
     <button class="tab-btn active" data-tab="qcm">① QCM</button>
     <button class="tab-btn" data-tab="flashcards">② Flashcards</button>
     <button class="tab-btn" data-tab="cheatsheet">③ Cheat Sheet</button>
-    <button class="tab-btn" data-tab="traps">④ Pièges d'exam</button>
+    <button class="tab-btn" data-tab="exercices">④ Exercices Code</button>
   </div>
   <div class="nav-right" style="gap:8px">
-
     <div id="streak-counter" title="Série de révision (jours consécutifs)" style="font-size:13px;font-weight:700;color:var(--warn);display:flex;align-items:center;gap:4px">
       <span style="font-size:16px">🔥</span> <span id="streak-val">0</span>
     </div>
@@ -218,7 +236,7 @@ kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);bor
   <div id="tab-qcm" class="tab-panel active"></div>
   <div id="tab-flashcards" class="tab-panel"></div>
   <div id="tab-cheatsheet" class="tab-panel"></div>
-  <div id="tab-traps" class="tab-panel"></div>
+  <div id="tab-exercices" class="tab-panel"></div>
 </main>
 <div id="toast" class="toast"></div>
 <div class="yd-credit">
@@ -227,305 +245,119 @@ kbd{display:inline-block;background:var(--bg);border:1px solid var(--border);bor
 </div>
 <div class="modal-ov" id="modal-ov"><div class="modal" id="modal-box"><div class="modal-title" id="modal-title"></div><div id="modal-body"></div><div style="margin-top:16px;text-align:right"><button class="btn btn-s" onclick="closeModal()">Fermer</button></div></div></div>
 <script>
-/* === DATA === */
-const Q=[
-{id:1,ch:"Intro",diff:"easy",q:"Qu'est-ce que l'IoT ?",opts:["Extension d'Internet aux objets physiques : collecter/agir sans intervention humaine","Un réseau social","Un protocole de routage","Une base de données Cloud"],ans:0,expl:"L'IoT étend Internet au monde physique : les objets collectent des données, communiquent et agissent de manière autonome.",trap:""},
-{id:2,ch:"Intro",diff:"med",q:"Relation entre M2M et IoT ?",opts:["Identiques","IoT = M2M + Services intelligents + Objets connectés. IoT est le sur-ensemble.","M2M remplace l'IoT","M2M = WiFi uniquement"],ans:1,expl:"M2M désigne la communication basique entre machines. L'IoT y ajoute l'intelligence, les services cloud et l'intégration applicative.",trap:"M2M est inclus dans IoT, pas son synonyme."},
-{id:3,ch:"Intro",diff:"easy",q:"Quels sont les 6 composants essentiels d'un système IoT (Mnémo : ACCITR) ?",opts:["Authentification, Capteurs, Connexion, Intégration, Traitement, Réseaux","Alimentation, Câbles, Cloud, Internet, TCP, Routeurs","Application, Contrôle, Code, IA, Temps-réel, Radio","Antennes, Capteurs, Condensateurs, Interrupteurs, Transistors, Résistances"],ans:0,expl:"ACCITR : Authentification, Capteurs, Connexion, Intégration, Traitement, Réseaux.",trap:""},
-{id:4,ch:"Intro",diff:"easy",q:"Quel est le rôle d'un actionneur dans un système IoT ?",opts:["Mesurer la température","Permettre au système d'agir sur le monde physique","Fournir l'énergie à la batterie","Connecter l'objet au WiFi"],ans:1,expl:"Un actionneur transforme un signal électrique en une action physique (allumer une lumière, ouvrir une vanne, etc.).",trap:"Ne pas confondre capteur (mesure le monde réel) et actionneur (agit sur le monde réel)."},
-{id:5,ch:"Hardware",diff:"easy",q:"Parmi ces cartes, laquelle possède le Wi-Fi et le Bluetooth intégrés nativement ?",opts:["Arduino Uno","ESP32","STM32 (modèle de base)","BeagleBone"],ans:1,expl:"L'ESP32 intègre nativement Wi-Fi (802.11 b/g/n) et Bluetooth (4.2/BLE), ce qui le rend idéal pour l'IoT.",trap:"Arduino Uno nécessite un shield (module externe) pour le Wi-Fi/Bluetooth."},
-{id:6,ch:"Hardware",diff:"med",q:"Dans l'IoT, quelle est la source principale de consommation d'énergie d'un capteur ?",opts:["Le traitement local (CPU)","La transmission radio","Le capteur lui-même","La mémoire Flash"],ans:1,expl:"La transmission radio (envoyer et recevoir des ondes) est l'opération la plus énergivore.",trap:"Le CPU consomme beaucoup moins que la puce radio."},
-{id:7,ch:"Hardware",diff:"med",q:"Quel mécanisme permet aux objets IoT sur batterie de durer plusieurs années ?",opts:["Le Duty Cycle (dormir la plupart du temps)","Augmenter la fréquence du processeur","Utiliser uniquement le Wi-Fi","Supprimer la mémoire RAM"],ans:0,expl:"Le Duty Cycle (cycle de service) : l'objet est en mode 'deep sleep' (sommeil profond, <10 µA) 99% du temps et ne se réveille que pour mesurer et transmettre.",trap:""},
-{id:8,ch:"Reseaux",diff:"easy",q:"Quelle technologie utiliser pour une très longue portée et une faible consommation, mais un faible débit ?",opts:["Wi-Fi","LPWAN (ex: LoRa, Sigfox)","5G","Bluetooth (BLE)"],ans:1,expl:"Les LPWAN (Low Power Wide Area Network) sont conçus spécifiquement pour longue portée, faible consommation et faible débit.",trap:""},
-{id:9,ch:"Reseaux",diff:"med",q:"Laquelle de ces affirmations sur LoRa et LoRaWAN est correcte ?",opts:["LoRa est la couche réseau, LoRaWAN est la modulation radio","LoRa = modulation physique (PHY), LoRaWAN = protocole réseau (MAC)","LoRa est payant, LoRaWAN est gratuit","Ce sont deux protocoles concurrents différents"],ans:1,expl:"LoRa est la technologie radio (couche physique propriétaire Semtech). LoRaWAN est le protocole réseau ouvert défini par la LoRa Alliance.",trap:"Piège classique : inverser les rôles de LoRa et LoRaWAN."},
-{id:10,ch:"Reseaux",diff:"hard",q:"Quelle est la topologie d'un réseau LoRaWAN ?",opts:["Maillée (Mesh)","Anneau (Ring)","Étoile d'étoiles (Star-of-stars)","Bus"],ans:2,expl:"Topologie étoile d'étoiles : les capteurs communiquent avec les Gateways, qui eux communiquent avec le Network Server.",trap:"Contrairement à Zigbee qui est maillé (Mesh), LoRaWAN ne permet pas aux capteurs de relayer les messages des autres."},
-{id:11,ch:"Reseaux",diff:"med",q:"Dans LoRaWAN, quelle classe de service offre la plus faible consommation d'énergie ?",opts:["Classe A","Classe B","Classe C","Classe D"],ans:0,expl:"Classe A : l'objet écoute brièvement (2 fenêtres) juste après avoir émis. C'est le mode par défaut et le plus économe.",trap:"Classe C écoute en continu (forte consommation). Classe B s'ouvre à des moments programmés (beacons)."},
-{id:12,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le Spreading Factor (SF) dans LoRa ?",opts:["Le niveau de batterie de l'objet","Le niveau de sécurité du chiffrement","Le facteur d'étalement : un SF élevé augmente la portée mais réduit le débit","Le nombre d'antennes du Gateway"],ans:2,expl:"Un SF plus grand (ex: SF12) permet d'envoyer le signal plus loin (meilleure résistance au bruit), mais le temps d'émission est plus long (débit plus faible).",trap:""},
-{id:13,ch:"Reseaux",diff:"med",q:"Quelle est la principale contrainte réglementaire sur les fréquences libres (ISM) utilisées par LoRaWAN/Sigfox en Europe (868 MHz) ?",opts:["Interdit aux entreprises","Le Duty Cycle : un objet ne peut émettre que 1% du temps max","Obligation de chiffrer en RSA","Limite de 10 objets par Gateway"],ans:1,expl:"Le Duty Cycle (rapport cyclique) limite le temps de parole sur ces bandes libres à 1% pour éviter la saturation du spectre.",trap:"Ce n'est pas une limitation technologique, mais réglementaire."},
-{id:14,ch:"Reseaux",diff:"easy",q:"Quelle est la caractéristique du réseau Sigfox ?",opts:["C'est un réseau WiFi longue portée","C'est un réseau propriétaire géré par un opérateur unique (modèle abonnement) avec des messages très limités","C'est un standard ouvert que tout le monde peut déployer","Il permet de faire du streaming vidéo"],ans:1,expl:"Sigfox est un réseau opéré (il faut payer un abonnement à l'opérateur Sigfox). Il limite à 140 messages de 12 octets par jour (uplink).",trap:"Contrairement à LoRaWAN où on peut déployer son propre réseau privé gratuitement."},
-{id:15,ch:"Reseaux",diff:"easy",q:"Qu'est-ce que le NB-IoT ?",opts:["Un réseau LPWAN basé sur les infrastructures cellulaires (télécom) existantes","Une version longue portée du Bluetooth","Un protocole de routage pour le WiFi","Un réseau par satellite"],ans:0,expl:"NB-IoT (NarrowBand IoT) est un standard LPWAN de la 3GPP qui utilise les fréquences licenciées des opérateurs télécom (LTE/4G).",trap:""},
-{id:16,ch:"Reseaux",diff:"med",q:"Quel élément de l'architecture 2G (GSM) représente l'antenne ?",opts:["BSC","MSC","BTS (Base Transceiver Station)","HLR"],ans:2,expl:"La BTS est la station de base qui gère l'interface radio avec le téléphone mobile.",trap:"Le BSC contrôle plusieurs BTS. Le MSC est le commutateur central."},
-{id:17,ch:"Reseaux",diff:"hard",q:"En 4G (LTE), comment s'appelle le réseau cœur et quelle est sa particularité ?",opts:["MSC, orienté circuit","EPC (Evolved Packet Core), entièrement IP (tout paquet)","SGSN, orienté ATM","5GC, basé sur les services"],ans:1,expl:"Le cœur de réseau 4G est l'EPC. Sa particularité est d'être 'Tout IP', il n'y a plus de commutation de circuit (même pour la voix : VoLTE).",trap:""},
-{id:18,ch:"Reseaux",diff:"med",q:"Quelles sont les 3 grandes avancées de la 5G pour l'IoT ?",opts:["mMTC, URLLC, eMBB","HTTP, MQTT, CoAP","LoRa, Sigfox, NB-IoT","FDMA, TDMA, CDMA"],ans:0,expl:"mMTC (massive IoT), URLLC (Ultra-faible latence et haute fiabilité), eMBB (Très haut débit mobile).",trap:""},
-{id:19,ch:"Reseaux",diff:"hard",q:"Qu'est-ce que le 'Network Slicing' en 5G ?",opts:["Couper les câbles réseau physiques","Partitionner virtuellement un même réseau physique pour offrir des QoS différentes selon l'usage","Augmenter la taille des paquets IP","Partager le mot de passe WiFi"],ans:1,expl:"Le découpage en tranches (Network Slicing) permet de créer des réseaux logiques indépendants sur la même infrastructure physique (ex: un slice ultra-fiable pour la santé, un slice IoT massif, etc.).",trap:""},
-{id:20,ch:"Reseaux",diff:"med",q:"Innovation clé de la 4G LTE par rapport à la 3G ?",opts:["4G est plus lente","Architecture plate (eNodeB = NodeB+RNC fusionnés) + cœur Tout IP (EPC)","4G utilise encore les circuits","4G sans cœur réseau"],ans:1,expl:"4G : eNodeB intègre NodeB+RNC → architecture plate. EPC entièrement IP. Plus de commutation de circuit, même pour la voix (VoLTE).",trap:"En 3G : NodeB et RNC séparés. En 4G : fusionnés dans eNodeB."},
-{id:21,ch:"Protocoles",diff:"easy",q:"Dans l'architecture MQTT, comment les producteurs et consommateurs communiquent-ils ?",opts:["Directement par IP","Via un intermédiaire central appelé Broker","Par diffusion (broadcast) WiFi","En utilisant le DNS"],ans:1,expl:"MQTT utilise un Broker centralisé. Les producteurs publient sur le Broker, les consommateurs s'y abonnent. Ils ne se connaissent pas (découplage total).",trap:""},
-{id:22,ch:"Protocoles",diff:"easy",q:"Comment sont organisées les données dans MQTT ?",opts:["Par adresses IP","Par URL REST","Par Topics hiérarchiques (ex: maison/salon/temp)","Par numéros de port"],ans:2,expl:"MQTT utilise le concept de 'Topic'. Le Publisher publie sur un Topic précis, et le Subscriber s'abonne à ce même Topic.",trap:""},
-{id:23,ch:"Protocoles",diff:"med",q:"Que signifie la Qualité de Service (QoS) niveau 0 dans MQTT ?",opts:["At least once (au moins une fois)","Exactly once (exactement une fois)","At most once (au plus une fois, fire-and-forget)","Aucune donnée n'est envoyée"],ans:2,expl:"QoS 0 : Le message est envoyé sans garantie de réception (pas d'accusé de réception). C'est le plus rapide mais on peut perdre des messages.",trap:"QoS 1 = Au moins une fois. QoS 2 = Exactement une fois."},
-{id:24,ch:"Protocoles",diff:"med",q:"Comparé à HTTP, pourquoi MQTT est-il plus adapté à l'IoT ?",opts:["Il utilise des requêtes synchrones","Il a un overhead (entête) beaucoup plus faible et permet le Push (asynchrone)","Il est plus sécurisé par défaut","Il n'utilise pas TCP"],ans:1,expl:"MQTT a des entêtes très petits (overhead faible), maintient une connexion persistante, et permet au Broker de 'pousser' (Push) la donnée aux clients instantanément.",trap:"MQTT utilise TCP, comme HTTP."},
-{id:25,ch:"Archi",diff:"easy",q:"Quelle est l'architecture classique en 4 couches d'un système IoT ?",opts:["Perception, Réseau, Service/Middleware, Application","Physique, Liaison, Réseau, Transport","Capteur, Routeur, Switch, Serveur","Edge, Fog, Cloud, Web"],ans:0,expl:"Couche 1 Perception (Capteurs), Couche 2 Réseau (Transport), Couche 3 Service (Middleware/Traitement), Couche 4 Application (Utilisateur).",trap:""},
-{id:26,ch:"Archi",diff:"med",q:"Qu'est-ce que le Edge Computing dans l'IoT ?",opts:["Tout envoyer au Cloud pour traitement","Traiter la donnée localement (sur ou près du capteur) pour réduire la latence et la bande passante","Une nouvelle norme WiFi","Un service de stockage en ligne"],ans:1,expl:"Le Edge Computing consiste à déplacer la puissance de calcul 'au bord' du réseau, au plus près de la source des données.",trap:""},
-{id:27,ch:"Intro",diff:"med",q:"L'identification RFID fonctionne avec :",opts:["Des puces GPS","Des tags (étiquettes) qui répondent aux ondes radio d'un lecteur","Des lasers optiques","Des signaux sonores"],ans:1,expl:"La RFID (Radio Frequency Identification) identifie un objet à distance grâce à un tag qui capte l'onde radio du lecteur et renvoie son identifiant.",trap:""},
-{id:28,ch:"Hardware",diff:"hard",q:"Quelle est la différence entre une carte Arduino Uno et un Raspberry Pi ?",opts:["L'Arduino a plus de RAM","Le Raspberry Pi est un microprocesseur avec un OS complet, l'Arduino est un microcontrôleur simple","Il n'y a pas de différence, ce sont deux microcontrôleurs","L'Arduino consomme beaucoup plus"],ans:1,expl:"Un Raspberry Pi exécute un OS (Linux) et possède beaucoup de RAM/CPU. Un Arduino est un microcontrôleur qui exécute une seule boucle de code C/C++, sans OS.",trap:""},
-{id:29,ch:"Reseaux",diff:"med",q:"Quel réseau sans fil est particulièrement adapté pour de la domotique grâce à son réseau maillé (mesh) ?",opts:["WiFi","LoRaWAN","Zigbee","5G"],ans:2,expl:"Zigbee est conçu pour la courte portée et utilise un réseau maillé où chaque objet (alimenté sur secteur) peut servir de relais (routeur) pour étendre la portée du réseau.",trap:"LoRaWAN est étoile d'étoiles, pas maillé."},
-{id:30,ch:"Intro",diff:"easy",q:"Qu'est-ce qu'une 'Gateway' (Passerelle) dans l'IoT ?",opts:["Une antenne 5G","Un appareil qui fait le pont entre le réseau local/capteurs (ex: LoRa) et Internet (IP)","Un capteur de température","Une base de données Cloud"],ans:1,expl:"La Gateway traduit les protocoles (ex: reçoit du signal radio LoRa et l'envoie sur Internet en Ethernet/4G vers le serveur).",trap:""},
-{id:31,ch:"Hardware",diff:"med",q:"Quelle est la consommation typique d'un module ESP32 en Deep Sleep ?",opts:["40-50 mA","10-15 mA","Moins de 10 µA","500 mA"],ans:2,expl:"En Deep Sleep, l'ESP32 consomme moins de 10 µA (microampères). C'est ce mode qui permet aux objets IoT de fonctionner des années sur batterie.",trap:"Ne pas confondre µA (microampères, veille) et mA (milliampères, transmission)."},
-{id:32,ch:"Hardware",diff:"med",q:"Pour un projet IoT industriel (haute fiabilité, longue durée de vie), quelle famille de carte est la plus recommandée ?",opts:["Arduino Uno : le plus simple","STM32 : ARM Cortex-M, robustesse industrielle, excellente gestion d'énergie","Raspberry Pi : Linux complet","ESP8266 : WiFi basique"],ans:1,expl:"STM32 est la référence pour l'industrie : performance élevée, modes d'économie d'énergie avancés (Stop/Standby), robustesse, et certains modèles intègrent LoRa nativement.",trap:""},
-{id:33,ch:"Hardware",diff:"med",q:"Quelle est la principale limite de l'Arduino Uno pour les projets IoT connectés ?",opts:["Il est trop puissant pour l'IoT","Il est trop cher","Il n'a aucune connectivité réseau native (WiFi/Bluetooth) : il faut des modules externes","Il ne peut pas lire de capteurs"],ans:2,expl:"L'Arduino Uno est idéal pour le prototypage et l'apprentissage, mais il nécessite des shields (modules externes) pour toute connectivité réseau. Contrairement à l'ESP32 qui l'intègre nativement.",trap:""},
-{id:34,ch:"Hardware",diff:"med",q:"Quel est l'avantage principal de l'ESP32 par rapport à l'Arduino Uno pour l'IoT ?",opts:["L'Arduino est plus rapide","L'ESP32 intègre Wi-Fi et Bluetooth nativement","L'Arduino consomme moins","L'ESP32 a plus de pins GPIO"],ans:1,expl:"L'avantage majeur de l'ESP32 est son Wi-Fi 802.11 b/g/n ET Bluetooth 4.2/BLE intégrés nativement, sans module externe.",trap:""},
-{id:35,ch:"Reseaux",diff:"easy",q:"Quelle fréquence radio est utilisée par LoRaWAN en Europe ?",opts:["2.4 GHz","5 GHz","868 MHz","1800 MHz"],ans:2,expl:"En Europe, LoRaWAN utilise la bande 868 MHz (bande ISM libre). Aux USA : 915 MHz.",trap:"2.4 GHz = WiFi/Zigbee/BLE. 1800 MHz = 2G/4G (licencié)."},
-{id:36,ch:"Reseaux",diff:"hard",q:"Dans l'architecture LoRaWAN, quelle entité supprime les doublons de messages reçus par plusieurs Gateways ?",opts:["L'Application Server","Le capteur lui-même","Le Network Server","La Gateway principale"],ans:2,expl:"Le Network Server reçoit les messages de toutes les Gateways, déduplique (un capteur peut être reçu par plusieurs gateways), gère l'ADR et achemine vers l'Application Server.",trap:""},
-{id:37,ch:"Reseaux",diff:"med",q:"Qu'est-ce que l'ADR (Adaptive Data Rate) dans LoRaWAN ?",opts:["Un système d'alerte","Mécanisme qui ajuste automatiquement le SF pour optimiser débit et consommation","Un type d'adressage IP","Un protocole de sécurité"],ans:1,expl:"L'ADR permet au Network Server d'ajuster automatiquement le Spreading Factor des capteurs selon la qualité du signal. Optimise débit et durée de vie batterie.",trap:""},
-{id:38,ch:"Reseaux",diff:"easy",q:"Quelle est la différence LoRaWAN vs NB-IoT sur l'infrastructure ?",opts:["LoRaWAN nécessite abonnement","LoRaWAN : fréquences ISM libres, réseau privé possible. NB-IoT : fréquences licenciées, opérateur télécom obligatoire.","Infrastructure identique","NB-IoT uniquement en Europe"],ans:1,expl:"LoRaWAN : 868 MHz libre (ISM), pas d'abonnement, réseau privé déployable. NB-IoT : sur réseau cellulaire LTE, opérateur requis, fréquences payantes.",trap:""},
-{id:39,ch:"Reseaux",diff:"easy",q:"Contrainte principale du réseau Sigfox ?",opts:["Uniquement en intérieur","Opérateur unique (abonnement) + max 140 messages/jour de 12 octets","Plus cher que 5G","Ne supporte pas IoT"],ans:1,expl:"Sigfox = opérateur unique (abonnement obligatoire) + limite stricte 140 msg uplink/jour, 12 octets max. Idéal alertes rares, tracking simple.",trap:"LoRaWAN : réseau privé possible sans abonnement."},
-{id:40,ch:"Reseaux",diff:"easy",q:"Meilleur choix pour wearables et capteurs médicaux portables ?",opts:["LoRaWAN","Sigfox","Bluetooth BLE : faible conso, portée chambre, communication directe avec smartphone","5G mmWave"],ans:2,expl:"BLE = batterie des semaines, portée 10-100m suffisante, communication directe avec tablettes/smartphones. Standard médical courant pour wearables.",trap:""},
-{id:41,ch:"Protocoles",diff:"easy",q:"Architecture du protocole MQTT ?",opts:["Client-Serveur comme HTTP","Publish/Subscribe via Broker central : publishers et subscribers découplés","Peer-to-peer direct","Maître-esclave"],ans:1,expl:"MQTT = Pub/Sub. Publisher envoie au Broker sur un Topic. Subscribers abonnés reçoivent automatiquement. Découplage total entre émetteur et récepteur.",trap:""},
-{id:42,ch:"Protocoles",diff:"med",q:"Les 3 niveaux QoS MQTT et leurs garanties ?",opts:["Bas/Moyen/Haut","QoS 0: au plus une fois (peut perdre). QoS 1: au moins une fois (peut dupliquer). QoS 2: exactement une fois (garanti).","Lent/Normal/Rapide","Non chiffré/Chiffré/Double chiffrement"],ans:1,expl:"QoS 0 = fire and forget (données non critiques). QoS 1 = garanti mais doublon possible (alertes). QoS 2 = garanti unique (transactions critiques).",trap:"QoS 0 n'est PAS 'au moins une fois'. C'est 'au plus une fois'."},
-{id:43,ch:"Protocoles",diff:"med",q:"Quel protocole IoT utilise UDP (pas TCP) pour être encore plus léger ?",opts:["MQTT","HTTP","AMQP","CoAP"],ans:3,expl:"CoAP (Constrained Application Protocol) = HTTP allégé sur UDP. Idéal objets très contraints (peu de mémoire). Supporte REST (GET/POST/PUT/DELETE).",trap:"MQTT utilise TCP. CoAP utilise UDP. Ne pas confondre."},
-{id:44,ch:"Reseaux",diff:"med",q:"Quelle règle résume le compromis portée/débit/consommation IoT ?",opts:["Plus de débit = plus de portée","Débit faible → portée grande → consommation faible : principe des LPWAN","Débit et portée sont indépendants","Plus de débit = moins de consommation"],ans:1,expl:"Règle d'or IoT : réduire le débit augmente la portée et réduit la consommation. C'est le fondement des LPWAN. SF élevé dans LoRa illustre ce principe.",trap:""},
-{id:45,ch:"Archi",diff:"hard",q:"[CAS] 50 capteurs d'humidité sur 5 km² de champs, batterie longue durée. Quelle technologie ?",opts:["WiFi : haut débit","5G : couverture nationale","LoRaWAN : longue portée, faible conso, petits messages, pas d'abonnement opérateur","Bluetooth : communication directe"],ans:2,expl:"LoRaWAN : portée 2-15 km, batterie des années, petits messages (temp/humidité), réseau privé sans abonnement. Cas d'usage parfait agriculture IoT.",trap:"WiFi consomme trop. BT trop court. 5G coûteux et inutile pour de petits messages."},
-{id:46,ch:"Reseaux",diff:"med",q:"Dans le contexte 5G IoT, que signifie URLLC ?",opts:["Universal Radio Link Layer Control","Ultra-Reliable Low-Latency Communications","Ultra Range Long Life Communications","Unified Radio Link and Latency Control"],ans:1,expl:"URLLC = Ultra-Reliable Low-Latency Communications. Cible les applications critiques : chirurgie à distance, véhicules autonomes, industrie 4.0. Latence <1 ms, fiabilité 99.9999%.",trap:""},
-{id:47,ch:"Reseaux",diff:"easy",q:"Quelle est la latence approximative d'un réseau 4G LTE ?",opts:["1 ms","500 ms","30-50 ms","1 seconde"],ans:2,expl:"La 4G LTE offre une latence de ~30-50 ms. La 3G était ~100 ms. La 5G vise <1 ms.",trap:""},
-{id:48,ch:"Reseaux",diff:"med",q:"Dans l'architecture 2G GSM, quelle est la différence entre HLR et VLR ?",opts:["Ils ont le même rôle","HLR = base de données permanente des abonnés. VLR = copie temporaire pour les abonnés en déplacement.","VLR stocke les données permanentes","HLR gère les antennes radio"],ans:1,expl:"HLR (Home Location Register) = profil permanent de l'abonné chez son opérateur. VLR (Visitor Location Register) = copie temporaire créée quand l'abonné entre dans une nouvelle zone.",trap:"HLR = permanent. VLR = temporaire (itinérance)."},
-{id:49,ch:"Reseaux",diff:"med",q:"Quelle est la principale différence entre la commutation de circuits et la commutation de paquets ?",opts:["La commutation de circuits est plus rapide","La commutation de circuits réserve un canal dédié (voix 2G), la commutation de paquets partage la bande passante (IP)","La commutation de paquets ne peut pas transporter la voix","Elles sont identiques"],ans:1,expl:"Commutation de circuits (2G voix) : canal dédié réservé pendant toute la communication. Commutation de paquets (GPRS, 4G) : données fragmentées en paquets, bande passante partagée.",trap:""},
-{id:50,ch:"Protocoles",diff:"med",q:"Quand est-il préférable d'utiliser HTTP plutôt que MQTT dans un projet IoT ?",opts:["Jamais, MQTT est toujours meilleur","Pour les API REST, dashboards web et intégrations avec des services web existants","Pour les capteurs sur batterie en terrain isolé","Pour réduire la consommation d'énergie"],ans:1,expl:"HTTP/REST est naturel pour les API web, les dashboards et les intégrations avec systèmes tiers. MQTT est optimal pour les capteurs temps réel. Les deux sont complémentaires.",trap:""},
-{id:51,ch:"Protocoles",diff:"easy",q:"Qu'est-ce qu'un Broker MQTT et citez un exemple ?",opts:["Un capteur IoT qui publie des données","Un serveur intermédiaire qui reçoit les publications et les redistribue aux abonnés. Ex: Mosquitto, HiveMQ","Un protocole de routage IP","Un type de Topic MQTT"],ans:1,expl:"Le Broker est le cœur du modèle Pub/Sub MQTT. Il reçoit les messages des Publishers et les redirige vers tous les Subscribers du même Topic. Mosquitto (open source) et HiveMQ sont les plus courants.",trap:"Le Broker ne publie pas lui-même, il redistribue."},
-{id:52,ch:"Reseaux",diff:"med",q:"[CAS] Une ville installe 200 capteurs de qualité d'air. Quelle combinaison réseau + protocole est optimale ?",opts:["WiFi + HTTP : familier et simple","LoRaWAN + MQTT : longue portée batterie, données push vers dashboard","Bluetooth + CoAP : faible consommation","5G + WebSocket : ultra-rapide"],ans:1,expl:"LoRaWAN couvre toute la ville (km) avec des capteurs sur batterie (années). MQTT achemine les données vers le dashboard via Broker (push temps réel). Combo classique Smart City.",trap:"WiFi : consomme trop, portée insuffisante. 5G : surdimensionné et coûteux pour de petits messages périodiques."},
-{id:53,ch:"Protocoles",diff:"easy",q:"Dans MQTT, qu'est-ce qu'un 'Topic' ?",opts:["Un message d'erreur","Un canal hiérarchique de publication/abonnement (ex: maison/salon/temp)","Le nom du Broker","Un niveau de QoS"],ans:1,expl:"Un Topic est le canal logique hiérarchique sur lequel un Publisher envoie et auquel des Subscribers s'abonnent. Ex: 'ferme/champ1/humidite'.",trap:""},
-{id:54,ch:"Protocoles",diff:"med",q:"Quelle est la différence entre QoS 0, QoS 1 et QoS 2 en MQTT en termes de cas d'usage ?",opts:["Ils sont identiques, juste des niveaux de vitesse","QoS 0 : données non critiques fréquentes. QoS 1 : alertes (perte intolérable). QoS 2 : transactions uniques critiques.","QoS 2 est toujours recommandé","QoS 0 garantit la livraison"],ans:1,expl:"Choisir le bon QoS selon le besoin : température périodique → QoS 0. Alerte incendie → QoS 1. Commande de paiement → QoS 2. Utiliser QoS 2 partout est un anti-pattern (surcharge réseau).",trap:"QoS 0 ne garantit PAS la livraison."},
-{id:55,ch:"Archi",diff:"med",q:"Dans l'architecture IoT 4 couches, quelle est la fonction de la couche 'Service/Middleware' ?",opts:["Détecter les données physiques","Transporter les données sur le réseau","Traiter, stocker et analyser les données","Afficher les données à l'utilisateur"],ans:2,expl:"La couche Service/Middleware (couche 3) assure le traitement, le stockage et l'analyse des données. Elle fait le lien entre le réseau et l'application.",trap:""},
-{id:56,ch:"Archi",diff:"med",q:"Qu'est-ce que le 'Fog Computing' dans l'IoT ?",opts:["Un service Cloud AWS","Un intermédiaire entre Edge et Cloud : traitement dans les gateways intelligentes","Un protocole de communication","Un type de capteur météo"],ans:1,expl:"Le Fog Computing est une couche intermédiaire entre l'Edge (local) et le Cloud (centralisé). Les gateways intelligentes effectuent un prétraitement avant d'envoyer au cloud.",trap:""},
-{id:57,ch:"Archi",diff:"easy",q:"Quelle est la définition d'une plateforme IoT ?",opts:["Un réseau LPWAN","Un middleware qui permet de connecter, gérer, traiter et visualiser les données des objets connectés","Un type de capteur","Un protocole de communication"],ans:1,expl:"Une plateforme IoT est un middleware intermédiaire entre les capteurs/actionneurs et les applications utilisateurs. Elle assure : gestion dispositifs, collecte, analytics, dashboard, sécurité.",trap:""},
-{id:58,ch:"Archi",diff:"easy",q:"Laquelle est une plateforme IoT Open Source ?",opts:["AWS IoT Core","Azure IoT Hub","ThingsBoard","Google Cloud IoT"],ans:2,expl:"ThingsBoard est une plateforme IoT open source permettant la collecte, visualisation et gestion des données IoT. Node-RED, Mosquitto et Home Assistant sont aussi open source.",trap:"AWS IoT Core, Azure IoT Hub et Google Cloud IoT sont propriétaires (payants)."},
-{id:59,ch:"Archi",diff:"med",q:"Quels sont les défis majeurs de l'IoT ?",opts:["Sécurité, interopérabilité, consommation, scalabilité, vie privée","Uniquement la consommation d'énergie","Uniquement la sécurité réseau","Uniquement le coût des capteurs"],ans:0,expl:"Les défis IoT sont multiples : sécurité (attaques), interopérabilité (hétérogénéité), consommation (batterie), scalabilité (milliards d'objets), vie privée, standardisation, Big Data.",trap:""},
-{id:60,ch:"Intro",diff:"easy",q:"Quel domaine d'application IoT utilise des capteurs pour surveiller la qualité de l'air ?",opts:["Domotique","Ville intelligente (Smart City)","Commerce","Agriculture"],ans:1,expl:"La ville intelligente (Smart City) utilise des capteurs IoT pour surveiller la pollution, l'éclairage, les déchets, le trafic. Ex: capteurs PM2.5, NO2 connectés via LoRaWAN.",trap:""},
-{id:61,ch:"Intro",diff:"easy",q:"Pour surveiller les conditions météo sur un champ agricole avec des capteurs sur batterie, quelle technologie est recommandée ?",opts:["WiFi","Bluetooth","LoRaWAN","5G"],ans:2,expl:"LoRaWAN est idéal : longue portée (plusieurs km de champ), très faible consommation (capteurs sur batterie des années), faible débit suffisant (température, humidité), pas d'abonnement opérateur.",trap:"WiFi consomme trop. Bluetooth a une portée trop courte. 5G est trop coûteux."},
-{id:62,ch:"Reseaux",diff:"easy",q:"Quelle technologie courte portée est la plus adaptée pour des wearables (montres, bracelets connectés) ?",opts:["LoRaWAN","WiFi","Bluetooth BLE","Sigfox"],ans:2,expl:"BLE (Bluetooth Low Energy) est idéal pour les wearables : faible consommation, portée ~10-100m, communication avec smartphone, autonomie de mois.",trap:""},
-{id:63,ch:"Reseaux",diff:"med",q:"Comment évoluent les débits et la latence des générations mobiles de la 2G à la 5G ?",opts:["Les débits et latences n'ont pas évolué","2G: kbps/500ms → 3G: Mbps/100ms → 4G: 100Mbps/30ms → 5G: Gbps/<1ms","La 5G est plus lente que la 4G","Les latences sont identiques pour toutes les générations"],ans:1,expl:"Chaque génération multiplie le débit par ~100 et divise la latence par ~10. 5G cible <1ms pour les applications critiques (URLLC).",trap:""},
-{id:64,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le Massive MIMO dans la 5G et quel est son avantage pour l'IoT ?",opts:["Un protocole de sécurité","Des centaines d'antennes qui permettent de desservir simultanémément de nombreux appareils (IoT massif)","Un type de batterie","Un algorithme de routage"],ans:1,expl:"Massive MIMO (Multiple Input Multiple Output) utilise des dizaines/centaines d'antennes pour multiplier la capacité. Crucial pour mMTC : connecter des milliers d'objets IoT dans une même zone.",trap:""},
-{id:65,ch:"Reseaux",diff:"easy",q:"Qu'est-ce que le Beamforming en 5G et pourquoi est-il utile pour l'IoT ?",opts:["Un protocole de sécurité","Une technique de routage IP","Diriger le signal radio vers un appareil spécifique pour améliorer la portée et réduire les interférences","Un mode d'économie d'énergie"],ans:2,expl:"Le Beamforming dirige le signal 5G précisément vers l'utilisateur au lieu de le diffuser. En IoT massif (mMTC), cela permet de desservir plus d'appareils dans la même zone sans interférences.",trap:""},
-{id:66,ch:"Protocoles",diff:"hard",q:"Un capteur IoT envoie des données de température toutes les heures. MQTT QoS 0 ou 1 est recommandé ?",opts:["QoS 2, pour ne jamais perdre de données","QoS 0, les données non critiques et fréquentes tolèrent la perte","QoS 1 car la température est critique","HTTP car c'est plus fiable"],ans:1,expl:"Pour des données non critiques envoyées fréquemment (température/heure), QoS 0 est suffisant. Une mesure perdue sera compensée par la suivante. QoS 2 surchargerait inutilement le réseau.",trap:""},
-{id:67,ch:"Archi",diff:"med",q:"Dans le flux de données IoT, quelle étape vient après la collecte par les capteurs ?",opts:["L'affichage à l'utilisateur","L'action sur les actionneurs","La transmission via le réseau","Le traitement en cloud"],ans:2,expl:"Le flux IoT classique : 1.Collecte (capteurs) → 2.Transmission (réseau) → 3.Traitement (cloud/edge) → 4.Action (actionneurs) → 5.Feedback (utilisateur).",trap:""},
-{id:68,ch:"Reseaux",diff:"med",q:"Qu'est-ce que le GPRS (2.5G) par rapport au GSM (2G) ?",opts:["Une version plus lente du GSM","L'extension du GSM pour les données IP par commutation de paquets","Un réseau 3G UMTS","Un protocole WiFi longue portée"],ans:1,expl:"GPRS (General Packet Radio Service) est une extension du GSM qui ajoute la commutation de paquets pour accéder à Internet. Débit : 14.4 à 115.2 kbps.",trap:""},
-{id:69,ch:"Reseaux",diff:"med",q:"Comment l'architecture du cœur réseau évolue-t-elle de la 3G à la 4G ?",opts:["Aucun changement","3G : NodeB + RNC séparés + cœur mixte voix/données. 4G : eNodeB = NodeB+RNC fusionnés + EPC Tout IP","4G utilise encore la commutation de circuits pour la voix","3G est plus rapide que 4G"],ans:1,expl:"En 4G, le RNC disparaît et ses fonctions sont intégrées dans l'eNodeB (architecture plate). Le cœur EPC est entièrement IP : la voix passe par VoLTE, plus par des circuits.",trap:""},
-{id:70,ch:"Intro",diff:"med",q:"Quelle caractéristique distingue un 'terminal intelligent' des autres catégories d'objets connectés ?",opts:["Il communique par RFID uniquement","Il inclut un traitement informatique intégré (microprocesseur/microcontrôleur)","Il ne peut pas communiquer par réseau","Il est exclusivement utilisé en industrie"],ans:1,expl:"Un terminal intelligent (ex: ESP32, Arduino) intègre un processeur pour traitement local, contrairement à un simple tag RFID (identification) ou un objet M2M basique.",trap:""},
-{id:71,ch:"Reseaux",diff:"med",q:"Quelle est la portée typique de WiFi en intérieur ?",opts:["10 km","2 km","~200m","50 km"],ans:2,expl:"Le WiFi a une portée d'environ 100-200m en intérieur. C'est une technologie courte portée, contrairement aux LPWAN (km).",trap:""},
-{id:72,ch:"Hardware",diff:"med",q:"Dans quel cas pratique choisit-on l'Arduino Uno plutôt que l'ESP32 ?",opts:["Pour un projet IoT connecté en WiFi","Pour le prototypage rapide local sans besoin réseau, apprentissage débutant, ou contrôle de moteur simple","Pour un déploiement industriel","Pour un projet LoRa avec batterie"],ans:1,expl:"Arduino = facilité maximale, code C simple, pas d'OS. Idéal apprentissage et prototypes sans connectivité. Dès qu'on a besoin de WiFi/BT, l'ESP32 est préférable (équivalent prix, plus puissant).",trap:""},
-{id:73,ch:"Archi",diff:"easy",q:"Citez 3 domaines d'application de l'IoT.",opts:["Réseaux sociaux, jeux vidéo, streaming","Smart City, e-Santé, Agriculture intelligente","DNS, HTTP, FTP","TCP, UDP, IP"],ans:1,expl:"IoT : Smart City (trafic, éclairage), e-Santé (monitoring patient, télémédecine), Agriculture (capteurs champs, irrigation auto), Industrie 4.0, Domotique, Logistique.",trap:""},
-{id:74,ch:"Reseaux",diff:"med",q:"Quel critère est le PLUS important pour choisir LoRaWAN plutôt que WiFi dans un déploiement IoT en plein air ?",opts:["Le débit élevé","La portée longue distance et la faible consommation sur batterie","La vitesse de connexion instantanée","Le nombre d'objets connectés simultanément"],ans:1,expl:"LoRaWAN est choisi pour sa longue portée (km) et sa très faible consommation permettant des années de fonctionnement sur batterie, impossible avec WiFi.",trap:""},
-{id:75,ch:"Protocoles",diff:"hard",q:"Quel est l'avantage de WebSocket par rapport à HTTP classique pour l'IoT temps réel ?",opts:["WebSocket est plus sécurisé","WebSocket maintient une connexion persistante bidirectionnelle permettant le Push du serveur vers le client","WebSocket utilise moins de bande passante","WebSocket fonctionne sans Internet"],ans:1,expl:"WebSocket établit une connexion persistante et bidirectionnelle : le serveur peut envoyer des données au client sans que celui-ci ne les demande (Push). Idéal pour les dashboards temps réel.",trap:"HTTP classique est stateless : le client doit constamment faire des requêtes (polling) pour avoir les nouvelles données."}
+/* === DATA === */ // v2: upgraded QCMs + multi-select + full MD coverage
+const Q = [
+  {id:1, ch:'Index', diff:'hard', q:'Un index CLUSTERED est créé automatiquement sur une table. Quelle en est la cause la plus probable ?', opts:['La table contient plus de 1000 lignes','Une PRIMARY KEY a été définie','Un UNIQUE CONSTRAINT a été ajouté','La table est un heap'], ans:1, expl:'SQL Server crée automatiquement un index CLUSTERED quand une PRIMARY KEY est définie. Sans PK, la table reste un heap.', trap:''},
+  {id:2, ch:'Index', diff:'hard', q:'Fragmentation à 25%. Quelle action choisir ?', opts:['REBUILD — plus sûr','REORGANIZE — adapté à ce niveau','Aucune action nécessaire','DROP et recréer l\'index'], ans:1, expl:'< 30% → REORGANIZE (online, léger, agit sur les feuilles). > 30% → REBUILD (complet, peut bloquer la table).', trap:''},
+  {id:3, ch:'Index', diff:'hard', q:'Colonnes dans INCLUDE d\'un index couvrant : lesquelles sont VRAIES ? (plusieurs réponses)', opts:['Elles sont triées dans l\'index','Stockées uniquement dans les feuilles','Évitent le lookup vers la table','Elles font partie de la clé de l\'index'], ans:[1,2], multi:true, expl:'INCLUDE : stockées dans les feuilles SEULEMENT, non triées, non clés. Cela évite le Key Lookup vers la table de base.', trap:''},
+  {id:4, ch:'Index', diff:'hard', q:'Table AVEC clustered index. Que stocke le pointeur d\'un index Non-Clustered ?', opts:['L\'adresse physique RID','La clé clusterisée','L\'ID de la page de données','Le numéro de ligne dans la page'], ans:1, expl:'Sur une table avec clustered index : le Non-Clustered stocke la clé clusterisée. Sur un heap : il stocke l\'adresse physique (RID).', trap:''},
+  {id:5, ch:'Index', diff:'hard', q:'Un Page Split se produit. Quelle est la conséquence directe ?', opts:['L\'index est supprimé puis recréé','Les données sont déplacées vers une nouvelle page et la fragmentation augmente','La table est verrouillée définitivement','SQL Server choisit un Full Scan automatiquement'], ans:1, expl:'Page Split : page pleine → SQL crée une nouvelle page et déplace des données → augmente la fragmentation externe.', trap:''},
+  {id:6, ch:'Index', diff:'med', q:'Taille d\'une page de stockage SQL Server ?', opts:['4 Ko','16 Ko','8 Ko','64 Ko'], ans:2, expl:'Une page SQL Server = 8 Ko. C\'est l\'unité atomique de lecture/écriture sur le disque.', trap:''},
+  {id:7, ch:'Index', diff:'hard', q:'Lequel décrit "Fragmentation Externe" (Externally Fragmented) ?', opts:['Pages vides dans l\'index','Ordre logique des données ≠ ordre physique sur disque','Index avec trop de colonnes INCLUDE','Fillfactor réglé à 100%'], ans:1, expl:'Externe = ordre logique ≠ ordre physique → SQL doit sauter entre pages non contiguës → lenteur. Interne = espaces vides dans les pages.', trap:''},
+  {id:8, ch:'Index', diff:'hard', q:'REORGANIZE vs REBUILD — lesquels sont corrects ? (plusieurs réponses)', opts:['REORGANIZE est multi-thread','REBUILD peut changer le Fillfactor','REORGANIZE est online (pas de blocage)','REBUILD agit seulement sur les feuilles'], ans:[1,2], multi:true, expl:'REBUILD : multi-thread, change le fillfactor, peut bloquer. REORGANIZE : 1 thread, online, garde le fillfactor, agit sur les feuilles.', trap:''},
+  {id:9, ch:'Vues', diff:'hard', q:'WITH SCHEMABINDING sur une vue : quel est l\'effet sur la table sous-jacente ?', opts:['La table devient en lecture seule','La structure de la table ne peut plus être modifiée tant que la vue existe','La table est automatiquement sauvegardée','Les INSERT sur la table sont bloqués'], ans:1, expl:'SCHEMABINDING lie la vue au schéma des tables. ALTER TABLE ou DROP TABLE sur les tables référencées sera refusé tant que la vue existe.', trap:''},
+  {id:10, ch:'Vues', diff:'hard', q:'Lors de l\'exécution de SELECT col FROM t WHERE x=1 GROUP BY col ORDER BY col, dans quel ordre SQL Server traite-t-il les clauses ?', opts:['WHERE → GROUP BY → SELECT → ORDER BY','FROM → WHERE → GROUP BY → SELECT → ORDER BY','SELECT → FROM → WHERE → GROUP BY','GROUP BY → WHERE → SELECT → FROM'], ans:1, expl:'FROM → (JOIN) → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → TOP. Le FROM est TOUJOURS en premier.', trap:''},
+  {id:11, ch:'Vues', diff:'hard', q:'Quelles conditions permettent un INSERT direct sur une vue ? (plusieurs réponses)', opts:['Vue basée sur une seule table','Pas de colonnes calculées','Vue contient un GROUP BY','Chaque colonne de la vue mappe exactement une colonne de base'], ans:[0,1,3], multi:true, expl:'INSERT sur vue : 1 seule table, pas de colonnes calculées/DISTINCT/GROUP BY, mapping 1-1 entre colonnes de la vue et colonnes de la table.', trap:''},
+  {id:12, ch:'Vues', diff:'hard', q:'WITH CHECK OPTION est défini. Un INSERT sur la vue est exécuté avec une valeur violant le WHERE. Que se passe-t-il ?', opts:['L\'INSERT réussit mais la ligne n\'est pas visible via la vue','L\'INSERT échoue avec une erreur','La vue est automatiquement mise à jour','La ligne est insérée dans une table temporaire'], ans:1, expl:'WITH CHECK OPTION : toute opération DML violant la clause WHERE de la vue est REJETÉE avec erreur. La ligne n\'est pas insérée.', trap:''},
+  {id:13, ch:'Vues', diff:'hard', q:'Vue indexée créée avec WITH SCHEMABINDING. Quelles sont ses contraintes ? (plusieurs réponses)', opts:['Pas de DISTINCT','Pas de GROUP BY','Pas de UNION','Pas de jointures entre tables'], ans:[0,1,2], multi:true, expl:'Vue indexée interdit : DISTINCT, GROUP BY, UNION. Les jointures sont AUTORISÉES tant que SCHEMABINDING est utilisé.', trap:'Un piège classique : les jointures sont permises dans les vues indexées !'},
+  {id:14, ch:'Vues', diff:'hard', q:'Quelle syntaxe T-SQL empêche un utilisateur de supprimer des lignes via une vue ?', opts:['ALTER VIEW SET READONLY','DENY DELETE ON Vue_Nom TO User_Name','WITH CHECK OPTION','DROP PERMISSION DELETE ON vue'], ans:1, expl:'DENY DELETE ON Vue_Nom TO User_Name révoque la permission de suppression sur la vue pour cet utilisateur.', trap:''},
+  {id:15, ch:'Triggers', diff:'hard', q:'INSTEAD OF vs AFTER : lequel est VRAI ?', opts:['AFTER remplace l\'opération DML','INSTEAD OF s\'exécute après l\'opération','AFTER s\'exécute après, INSTEAD OF remplace l\'opération','Ils sont identiques, juste différents noms'], ans:2, expl:'AFTER : s\'exécute APRÈS que la modification soit faite. INSTEAD OF : SQL Server exécute le trigger AU LIEU de l\'opération DML originale.', trap:''},
+  {id:16, ch:'Triggers', diff:'hard', q:'Trigger AFTER UPDATE sur Employes. Quelle table contient les valeurs AVANT modification ?', opts:['INSERTED','UPDATED','DELETED','OLD'], ans:2, expl:'UPDATE → INSERTED = nouvelles valeurs, DELETED = anciennes valeurs. Il n\'y a pas de table UPDATED ou OLD en T-SQL.', trap:''},
+  {id:17, ch:'Triggers', diff:'hard', q:'EVENTDATA() dans un trigger DDL. Quel est le type de retour ?', opts:['NVARCHAR(MAX)','VARCHAR(4000)','XML','JSON'], ans:2, expl:'EVENTDATA() retourne un type XML avec la structure EVENT_INSTANCE contenant EventType, ObjectName, PostTime, LoginName.', trap:''},
+  {id:18, ch:'Triggers', diff:'hard', q:'RAISERROR sévérité 15 dans un trigger AFTER INSERT. L\'INSERT a-t-il été appliqué ?', opts:['Non — rollback automatique','Oui — sévérité < 19, l\'action reste','Oui mais la transaction est suspendue','Non — tout trigger AFTER annule l\'action'], ans:1, expl:'Sévérité < 19 dans un trigger AFTER : l\'opération DML reste validée. Seule une sévérité ≥ 19 déclenche un rollback automatique.', trap:''},
+  {id:19, ch:'Triggers', diff:'hard', q:'Quels événements peuvent déclencher un trigger DDL ? (plusieurs réponses)', opts:['INSERT INTO une table','CREATE_TABLE','DROP_TABLE','ALTER_TABLE'], ans:[1,2,3], multi:true, expl:'Les triggers DDL réagissent aux événements de STRUCTURE : CREATE_TABLE, ALTER_TABLE, DROP_TABLE. INSERT/UPDATE/DELETE sont des événements DML.', trap:''},
+  {id:20, ch:'Triggers', diff:'hard', q:'Un trigger AFTER INSERT sur Salles fait INSERT INTO Salles. Que se passe-t-il ?', opts:['Rien — SQL Server ignore la récursion','Boucle récursive jusqu\'à la limite (32 niveaux) puis erreur','L\'INSERT interne est ignoré silencieusement','Erreur de compilation immédiate'], ans:1, expl:'Trigger récursif : le trigger se déclenche à nouveau à chaque INSERT interne. SQL Server limite à 32 niveaux de récursion puis lève une erreur fatale.', trap:'C\'est exactement le bug dans la Question 5 de l\'examen Gestion des Salles !'},
+  {id:21, ch:'Transactions', diff:'hard', q:'ACID — laquelle de ces propriétés garantit que T1 ne voit pas les modifications non-commitées de T2 ?', opts:['Atomicité','Durabilité','Cohérence','Isolation'], ans:3, expl:'Isolation : chaque transaction s\'exécute indépendamment. T1 ne voit pas les données modifiées par T2 tant que T2 n\'a pas commité.', trap:''},
+  {id:22, ch:'Transactions', diff:'hard', q:'Sans SET XACT_ABORT ON, une erreur NON-fatale survient à la ligne 3 d\'une transaction. Que se passe-t-il ?', opts:['Rollback de toute la transaction','Seule la ligne 3 est annulée, le reste continue','Commit automatique des lignes 1-2','La transaction est suspendue jusqu\'à COMMIT manuel'], ans:1, expl:'Sans XACT_ABORT ON : l\'erreur est logguée, MAIS l\'exécution CONTINUE aux lignes suivantes → risque d\'état incohérent. Seule une erreur fatale cause un rollback.', trap:''},
+  {id:23, ch:'Transactions', diff:'hard', q:'Deadlock. SQL Server tue la victime. Quel code d\'erreur la victime reçoit-elle ?', opts:['1205','8152','2601','50000'], ans:0, expl:'Erreur 1205 = deadlock victim. La transaction tuée reçoit cette erreur et doit être réessayée par l\'application.', trap:''},
+  {id:24, ch:'Transactions', diff:'hard', q:'ROLLBACK TRANSACTION NomSave après un SAVE TRANSACTION NomSave. Que se passe-t-il ?', opts:['Toute la transaction est annulée','Seules les opérations depuis le savepoint sont annulées','La transaction est commitée jusqu\'au savepoint','Le savepoint est supprimé sans annulation'], ans:1, expl:'ROLLBACK TRANSACTION NomSave revient UNIQUEMENT au point de sauvegarde. Les opérations précédentes au savepoint restent dans la transaction.', trap:''},
+  {id:25, ch:'Transactions', diff:'hard', q:'Quelles propriétés ACID sont garanties si SET XACT_ABORT ON est actif ? (plusieurs réponses)', opts:['Atomicité — rollback total dès erreur','Cohérence — contraintes toujours respectées','Isolation — visibilité des données contrôlée','Durabilité — commit persiste après panne'], ans:[0,1], multi:true, expl:'XACT_ABORT ON renforce l\'Atomicité (rollback total) et aide la Cohérence (pas de données partielles). Isolation et Durabilité sont gérées différemment.', trap:''},
+  {id:26, ch:'Transactions', diff:'hard', q:'SET DEADLOCK_PRIORITY LOW est défini pour Trans1. Un deadlock survient. Que se passe-t-il ?', opts:['Trans1 attend indéfiniment','Trans1 est choisie comme victime en priorité','Trans2 est toujours tuée','Le deadlock est résolu automatiquement sans victime'], ans:1, expl:'DEADLOCK_PRIORITY LOW indique à SQL Server de préférer tuer cette transaction comme victime. LOW < NORMAL < HIGH.', trap:''},
+  {id:27, ch:'Statistiques', diff:'hard', q:'Stats auto déclenchées lors d\'un SELECT. Quel % de lignes modifiées le déclenche ?', opts:['10%','30%','20%','50%'], ans:2, expl:'SQL Server met à jour les statistiques automatiquement quand 20% des lignes d\'une table ont été modifiées (INSERT/UPDATE/DELETE).', trap:''},
+  {id:28, ch:'Statistiques', diff:'hard', q:'Requête retournant 60% des lignes d\'une table avec un index Non-Clustered disponible. Que choisit l\'optimiseur ?', opts:['Index Seek sur le Non-Clustered','Index Scan + Key Lookup','Full Table Scan (heap scan)','Création d\'un nouvel index temporaire'], ans:2, expl:'Si > 50% des lignes sont retournées, le coût d\'un index + lookup dépasse celui d\'un full scan. L\'optimiseur choisit le full scan.', trap:''},
+  {id:29, ch:'Statistiques', diff:'hard', q:'Différences entre FULLSCAN et SAMPLE N PERCENT pour UPDATE STATISTICS ? (plusieurs réponses)', opts:['FULLSCAN est 100% précis','SAMPLE est plus rapide','FULLSCAN utilise l\'extrapolation','SAMPLE est moins précis sur les valeurs rares'], ans:[0,1,3], multi:true, expl:'FULLSCAN = lit toutes les lignes, précis à 100%, lent. SAMPLE = lit N% aléatoire, rapide, extrapolation → moins précis sur les valeurs peu fréquentes.', trap:''},
+  {id:30, ch:'Statistiques', diff:'hard', q:'Index créé mais requêtes restent lentes. Laquelle N\'est PAS une cause probable ?', opts:['Stats obsolètes','Mauvaise colonne indexée','Trop d\'index sur la même table','Données recherchées > 50% de la table'], ans:2, expl:'Trop d\'index ralentit les INSERT/UPDATE/DELETE mais pas les SELECT. Les causes de SELECT lent malgré index : stats obsolètes, mauvaise colonne, > 50% données.', trap:''},
+  {id:31, ch:'T-SQL', diff:'hard', q:'DECLARE @x INT; SET @x = 5; GO; SELECT @x. Résultat ?', opts:['5','NULL','Erreur — variable inconnue après GO','0'], ans:2, expl:'GO sépare les batches. Une variable déclarée AVANT GO n\'est PAS reconnue APRÈS GO. Chaque batch a son propre contexte.', trap:''},
+  {id:32, ch:'T-SQL', diff:'hard', q:'Curseur Forward-Only. Quelle instruction FETCH est valide ?', opts:['FETCH PRIOR','FETCH FIRST','FETCH NEXT','FETCH LAST'], ans:2, expl:'Curseur Forward-Only (défaut) : seul FETCH NEXT est disponible. Pour FETCH PRIOR/FIRST/LAST, il faut déclarer CURSOR SCROLL FOR.', trap:''},
+  {id:33, ch:'T-SQL', diff:'hard', q:'CLOSE vs DEALLOCATE sur un curseur — lesquels sont VRAIS ? (plusieurs réponses)', opts:['CLOSE libère définitivement la mémoire','DEALLOCATE libère la structure du curseur','CLOSE conserve la structure mais ferme le curseur','On peut OPEN après CLOSE'], ans:[1,2,3], multi:true, expl:'CLOSE = ferme le curseur mais garde la structure (on peut le rouvrir avec OPEN). DEALLOCATE = libère totalement la mémoire. Toujours faire les deux.', trap:''},
+  {id:34, ch:'T-SQL', diff:'hard', q:'SELECT dbo.maFonction(5) vs EXEC dbo.maFonction 5. Lequel est correct pour une fonction scalaire ?', opts:['EXEC dbo.maFonction 5','SELECT dbo.maFonction(5)','Les deux sont équivalents','dbo. est optionnel pour les fonctions système'], ans:1, expl:'Les fonctions scalaires utilisateur s\'appellent avec SELECT dbo.nomFonction(). EXEC est réservé aux procédures stockées. dbo. est OBLIGATOIRE.', trap:''},
+  {id:35, ch:'T-SQL', diff:'hard', q:'GO 5 est exécuté. Combien de fois le batch précédent s\'exécute ?', opts:['1 fois','6 fois','5 fois','GO ne répète pas'], ans:2, expl:'GO N répète le batch N fois. GO 5 = 5 exécutions du batch précédent. GO seul = 1 séparateur de batch sans répétition.', trap:''},
+  {id:36, ch:'T-SQL', diff:'hard', q:'Fonction Table-Valued Inline vs Multi-Statement — lesquelles sont VRAIES ? (plusieurs réponses)', opts:['Inline = RETURNS TABLE, pas de BEGIN/END','Multi-Statement = RETURNS @var TABLE(...)','Inline est plus rapide (inline dans la requête)','Les deux peuvent modifier des données'], ans:[0,1,2], multi:true, expl:'Inline : RETURNS TABLE, corps = RETURN(SELECT...), optimisé. Multi-Statement : RETURNS @t TABLE(...), BEGIN/END, plusieurs instructions. Aucune ne peut modifier les données.', trap:''},
+  {id:37, ch:'T-SQL', diff:'hard', q:'@@FETCH_STATUS = -1 dans une boucle curseur signifie :', opts:['Succès — ligne récupérée','La ligne est manquante (supprimée)','Fin du curseur — plus de lignes','Le curseur n\'est pas ouvert'], ans:2, expl:'@@FETCH_STATUS : 0 = succès, -1 = fin du curseur (plus de lignes), -2 = ligne manquante/supprimée. La boucle WHILE doit continuer SEULEMENT si = 0.', trap:''},
+  {id:38, ch:'T-SQL', diff:'hard', q:'Procédure stockée. Quelles sont les 3 façons de retourner une valeur ? (plusieurs réponses)', opts:['Paramètre OUTPUT','RETURN (valeur entière de statut)','SELECT (jeu de résultats)','THROW'], ans:[0,1,2], multi:true, expl:'OUTPUT : paramètre en sortie (tout type). RETURN : entier de statut seulement. SELECT : retourne un resultset. THROW sert à lever des erreurs, pas à retourner des valeurs.', trap:''},
+  {id:39, ch:'Index', diff:'hard', q:'Un index Non-Clustered ralentit certaines opérations. Lesquelles ? (plusieurs réponses)', opts:['SELECT sur la colonne indexée','INSERT dans la table','UPDATE de la colonne indexée','DELETE d\'une ligne de la table'], ans:[1,2,3], multi:true, expl:'Chaque index Non-Clustered doit être maintenu à chaque INSERT/UPDATE/DELETE → overhead. SELECT sur colonne indexée est au contraire ACCÉLÉRÉ.', trap:''},
+  {id:40, ch:'Transactions', diff:'hard', q:'Dans ACID, "Cohérence" signifie :', opts:['La transaction ne peut pas être interrompue','T1 ne voit pas les données de T2 non-commitées','Les contraintes d\'intégrité sont respectées avant ET après la transaction','Les modifications persistent après un crash'], ans:2, expl:'Cohérence = les données passent d\'un état valide à un autre. FK, CHECK, UNIQUE etc. sont respectées. Ce n\'est pas l\'isolation (Isolation) ni la persistance (Durabilité).', trap:''},
+  {id:41, ch:'T-SQL', diff:'hard', q:'CASE en T-SQL : forme "recherchée" (searched) vs forme "simple". Quelle est la différence ?', opts:['La forme simple compare des expressions, la recherchée évalue des conditions booléennes','Elles sont identiques, juste une syntaxe différente','La forme recherchée ne peut pas utiliser ELSE','La forme simple autorise les sous-requêtes'], ans:0, expl:'Simple : CASE expr WHEN val. Recherchée : CASE WHEN condition THEN. La forme recherchée est plus flexible (BETWEEN, IS NULL, comparaisons complexes).', trap:''},
+  {id:42, ch:'T-SQL', diff:'hard', q:'Quelle est la différence entre VARCHAR(n) et NVARCHAR(n) ?', opts:['VARCHAR est Unicode, NVARCHAR ne l\'est pas','NVARCHAR stocke des caractères Unicode (2 octets/char), VARCHAR stocke en ASCII (1 octet/char)','Il n\'y a aucune différence','VARCHAR est plus lent'], ans:1, expl:'NVARCHAR = Unicode (arabe, asiatique, caractères spéciaux), 2 octets par caractère. VARCHAR = non-Unicode, 1 octet. NVARCHAR(100) = max 100 caractères Unicode.', trap:''},
+  {id:43, ch:'Statistiques', diff:'hard', q:'WITH RECOMPILE dans une procédure stockée. Quand l\'utiliser ?', opts:['Pour accélérer toujours les requêtes','Quand les données ont beaucoup changé et le plan d\'exécution est devenu obsolète','Pour désactiver les statistiques','Pour forcer un index spécifique'], ans:1, expl:'WITH RECOMPILE force SQL Server à recalculer le plan d\'exécution à chaque appel. Utile quand les données changent souvent et que le plan mis en cache n\'est plus optimal.', trap:''},
+  {id:44, ch:'Statistiques', diff:'hard', q:'Index Hint : SELECT * FROM EMP WITH(INDEX(idx_dept)). Quel est l\'effet ?', opts:['Force SQL Server à ignorer cet index','Force SQL Server à utiliser uniquement cet index pour cette requête','Recrée l\'index idx_dept','Met à jour les statistiques de idx_dept'], ans:1, expl:'WITH(INDEX(nom_index)) est un hint qui force l\'optimiseur à utiliser CET index spécifique, même si l\'optimiseur aurait choisi un plan différent.', trap:''},
+  {id:45, ch:'Index', diff:'hard', q:'Qu\'est-ce qu\'un "Heap" en SQL Server ?', opts:['Un index clustered sans clé primaire','Une table sans aucun index clustered, lignes stockées sans ordre','Un type de fragmentation interne','Une structure B-Tree sans nœuds intermédiaires'], ans:1, expl:'Heap = table SANS index clustered. Les lignes sont insérées sans ordre dans des pages. Recherche = Table Scan complet. Insertion rapide, recherche lente.', trap:''}
 ];
-const FC=[
-{id:101,ch:"Intro",front:"IoT (définition)",back:"Extension d'Internet aux objets physiques : collecte, transmission, traitement de données SANS intervention humaine directe.",code:""},
-{id:102,ch:"Intro",front:"M2M vs IoT",back:"M2M = communication machine-machine basique. IoT = M2M + Services intelligents + Objets connectés. IoT est le sur-ensemble.",code:""},
-{id:103,ch:"Intro",front:"Mnémo ACCITR (6 composants IoT)",back:"Authentification · Capteurs · Connexion · Intégration · Traitement · Réseaux",code:"A-C-C-I-T-R\nChaque objet : identité unique → mesure → réseau → compatibilité → analyse → transport"},
-{id:104,ch:"Intro",front:"Capteur vs Actionneur",back:"Capteur : mesure le monde physique → signal électrique (ex: thermomètre).\nActionneur : reçoit un signal → agit sur le monde (ex: allumer une pompe).",code:""},
-{id:105,ch:"Intro",front:"RFID",back:"Radio Frequency Identification : identifie un objet à distance via un tag passif qui répond aux ondes d'un lecteur. Pas de batterie requise.\nUsages : inventaire, badge d'accès, logistique.",code:""},
-{id:106,ch:"Intro",front:"NFC vs RFID",back:"NFC (Near Field Communication) = version RFID très courte distance (0-20 cm), bidirectionnelle.\nUsages : paiement sans contact, partage de fichiers, tags intelligents.\nRFID = portail inventaire, badge. NFC = mobile personnel.",code:""},
-{id:107,ch:"Hardware",front:"ESP32 — points clés",back:"Wi-Fi + Bluetooth (BLE) intégrés nativement.\nTrès faible conso en Deep Sleep (<10 µA).\nPuissant, dual-core 32-bit.\nPrix abordable (~$3-8).\nIdéal : domotique, MQTT, tout projet IoT connecté.",code:""},
-{id:108,ch:"Hardware",front:"Arduino Uno — points clés",back:"Microcontrôleur 8-bit simple. Aucune connectivité réseau native (WiFi/BT) : modules externes requis.\nFaible RAM. Idéal : apprentissage, prototypage local, contrôle de composants.",code:""},
-{id:109,ch:"Hardware",front:"STM32 — points clés",back:"Microcontrôleur ARM 32-bit haute performance. Excellente gestion d'énergie (modes veille profonde). Robustesse industrielle. Certains modèles intègrent LoRa ou WiFi nativement.\nIdéal : produits industriels, IoT à longue durée de vie.",code:""},
-{id:110,ch:"Hardware",front:"Comparatif : Arduino vs ESP32 vs STM32",back:"Arduino : facilité max, faibles perfs, pas WiFi natif.\nESP32 : WiFi+BT natif, haute perf, faible coût.\nSTM32 : meilleure perf, industriel, STM32WL a LoRa.",code:""},
-{id:111,ch:"Hardware",front:"Deep Sleep & Duty Cycle IoT",back:"Deep Sleep : ~10 µA (microampères). L'objet dort, se réveille périodiquement pour mesurer + transmettre. Duty Cycle = % du temps actif. Ex: 1% actif → batterie dure des années.",code:"Tx LoRa : ~40-50 mA\nRx : ~10-15 mA\nSleep : <10 µA"},
-{id:112,ch:"Reseaux",front:"LPWAN — définition et avantages",back:"Low Power Wide Area Network. Longue portée (km) + Très faible consommation + Faible débit + Faible coût. Exemples : LoRaWAN, Sigfox, NB-IoT.",code:"Non adapté : vidéo, streaming, temps-réel strict"},
-{id:113,ch:"Reseaux",front:"LoRa vs LoRaWAN",back:"LoRa = modulation radio (couche PHYSIQUE) propriétaire Semtech. Utilise CSS (Chirp Spread Spectrum).\nLoRaWAN = protocole RÉSEAU (couche MAC) standardisé LoRa Alliance. S'appuie sur LoRa.",code:"LoRa = le signal radio\nLoRaWAN = le protocole réseau"},
-{id:114,ch:"Reseaux",front:"LoRaWAN — chiffres clés",back:"Portée : 2 km (urbain) — 15 km (rural)\nFréquence : 868 MHz Europe (libre ISM)\nDébit : 0.3 à 50 kbps (selon SF)\nChiffrement : AES-128\nDuty Cycle réglementaire : max 1%\nTopologie : étoile d'étoiles",code:""},
-{id:115,ch:"Reseaux",front:"LoRaWAN — Classes A, B, C",back:"Classe A : 2 fenêtres courtes après envoi → MINIMUM obligatoire, consommation la plus FAIBLE.\nClasse B : fenêtres programmées par beacons → Smart City.\nClasse C : réception quasi-continue → Industrie, consommation ÉLEVÉE.",code:""},
-{id:116,ch:"Reseaux",front:"Spreading Factor (SF) LoRa",back:"SF7 → SF12. SF élevé = portée plus grande MAIS débit plus faible + temps d'émission plus long.\nSF7 : rapide, courte portée. SF12 : lent, très longue portée.",code:"SF↑ → portée↑ → débit↓ → temps_émission↑"},
-{id:117,ch:"Reseaux",front:"ADR (Adaptive Data Rate) LoRaWAN",back:"LoRaWAN ajuste automatiquement le SF (et donc le débit) selon la qualité du signal reçu par le Network Server. Optimise : consommation et capacité réseau.",code:""},
-{id:118,ch:"Reseaux",front:"Sigfox — caractéristiques clés",back:"Réseau propriétaire opéré (abonnement obligatoire). UNB (Ultra Narrow Band). 100 bps uplink. Portée 3-50 km. Limite : 140 msg/jour (12 octets max) uplink, 4 downlink.",code:"Vs LoRaWAN : opérateur unique vs réseau propre possible"},
-{id:119,ch:"Reseaux",front:"NB-IoT",back:"NarrowBand IoT — standard 3GPP sur fréquences LICENCIÉES LTE. Opérateur télécom requis. ~200 kbps. Pas de limite de messages. Bonne couverture indoor.",code:""},
-{id:120,ch:"Reseaux",front:"Zigbee",back:"Courte portée (~100m). Très faible consommation. Topologie MAILLÉE (mesh) : chaque nœud alimenté peut relayer les messages d'autres nœuds.\nIdéal : domotique, automatisation bâtiment.",code:""},
-{id:121,ch:"Reseaux",front:"WiFi IoT",back:"Très haut débit. Consommation ÉLEVÉE : autonomie batterie limitée (à la journée). Idéal quand alimentation secteur disponible.\nNon adapté aux capteurs terrains sur batterie.",code:""},
-{id:122,ch:"Reseaux",front:"Bluetooth BLE",back:"Bluetooth Low Energy. Portée 10-100m. Débit ~1 Mbps. Autonomie : mois. Idéal : wearables, santé, objets personnels. Moins adapté IoT grande échelle.",code:""},
-{id:123,ch:"Reseaux",front:"2G GSM — architecture",back:"MS → BTS (antenne) → BSC (contrôle BTS, handover) → MSC (commutateur central)\nBases de données : HLR (permanent) + VLR (itinérance) + AUC (auth) + EIR (appareils)",code:"2G : voix par commutation de circuits. Extension GPRS = paquets IP."},
-{id:124,ch:"Reseaux",front:"Rôles 2G : HLR / VLR / AUC / EIR",back:"HLR : base données abonnés PERMANENTE.\nVLR : base données abonnés en DÉPLACEMENT.\nAUC : Authentification et chiffrement.\nEIR : Registre terminaux (IMEI).",code:""},
-{id:125,ch:"Reseaux",front:"3G UMTS — architecture",back:"UE → NodeB (antenne 3G) → RNC (contrôle NodeB) → Cœur : CS (voix circuits) + PS (données paquets).\nDébit : 2 Mbps typ. HSDPA (3.5G) améliore les débits.",code:""},
-{id:126,ch:"Reseaux",front:"4G LTE — architecture",back:"UE → eNodeB (= NodeB + RNC fusionnés) → EPC (MME + SGW + PGW + HSS)",code:"eNodeB = architecture PLATE (flat)\nEPC = tout IP, plus de commutation circuit"},
-{id:127,ch:"Reseaux",front:"4G LTE — caractéristiques",back:"Tout IP. eNodeB = NodeB+RNC fusionnés (architecture plate).\nDébit 100-150 Mbps (LTE-A : jusqu'à 1 Gbps).\nLatence ~30-50 ms. VoLTE = voix sur IP.",code:""},
-{id:128,ch:"Reseaux",front:"5G — 3 grands cas d'usage IoT",back:"mMTC : connexion de MILLIARDS d'objets (IoT massif).\nURLLC : Ultra fiabilité + latence 1 ms (industrie, médical).\neMBB : Très haut débit (VR, AR, 10 Gbps).",code:""},
-{id:129,ch:"Reseaux",front:"5G — architecture",back:"UE → gNodeB (station de base 5G) → 5G Core (5GC).\n5GC = architecture orientée services (SBA) : gère accès, mobilité, sessions, trafic données.",code:""},
-{id:130,ch:"Reseaux",front:"5G — technologies clés",back:"Massive MIMO : centaines d'antennes, capacité élevée.\nBeamforming : signal dirigé vers l'utilisateur.\nNetwork Slicing : réseaux logiques virtualisés.\nMEC : Edge Computing intégré.",code:""},
-{id:131,ch:"Reseaux",front:"Network Slicing (5G)",back:"Partitionner virtuellement UN réseau physique en plusieurs réseaux logiques indépendants, chacun avec sa propre QoS. Ex: slice IoT massif + slice chirurgie + slice eMBB.",code:""},
-{id:132,ch:"Reseaux",front:"Tableau générations mobiles",back:"2G (GSM): kbps, ~500ms, voix circuit\n3G (UMTS): Mbps, ~100ms, voix+données\n4G (LTE): 100Mbps, ~30ms, Tout IP\n5G (NR): Gbps, <1ms, SBA",code:"Clé : chaque génération ×100 débit, /10 latence"},
-{id:133,ch:"Protocoles",front:"MQTT — architecture",back:"Publisher → Broker ← Subscriber. Publish/Subscribe découplé. Topics hiérarchiques (ex: maison/salon/temp). Connexion persistante TCP.",code:"Port 1883 (standard) | Port 8883 (TLS)"},
-{id:134,ch:"Protocoles",front:"MQTT — 3 niveaux QoS",back:"QoS 0 : At most once (fire-and-forget, peut perdre).\nQoS 1 : At least once (peut dupliquer, accusé de réception).\nQoS 2 : Exactly once (garanti, transaction critique).",code:""},
-{id:135,ch:"Protocoles",front:"MQTT vs HTTP",back:"MQTT : Pub/Sub, overhead ~2 octets, persistant, temps réel ✅, asynchrone.\nHTTP : Req/Resp, headers lourds, nouvelle connexion chaque fois, synchrone.",code:"IoT → MQTT | API Web → HTTP/REST"},
-{id:136,ch:"Protocoles",front:"CoAP",back:"Constrained Application Protocol. HTTP allégé pour objets contraints. Fonctionne sur UDP (pas TCP). RESTful (GET/POST/PUT/DELETE). Idéal pour IoT avec peu de mémoire.",code:""},
-{id:137,ch:"Protocoles",front:"WebSocket pour IoT",back:"Connexion PERSISTANTE et BIDIRECTIONNELLE sur HTTP.\nLe serveur peut pousser des données vers le client sans attendre de requête (Push).\nIdéal : dashboards temps réel, visualisation flux IoT.",code:""},
-{id:138,ch:"Archi",front:"Architecture IoT 4 couches",back:"1. Perception : capteurs, actionneurs, RFID\n2. Réseau : WiFi, LoRa, 5G, transport\n3. Service/Middleware : traitement, stockage, analyse\n4. Application : dashboard, services métier",code:""},
-{id:139,ch:"Archi",front:"Edge vs Fog vs Cloud",back:"Edge : traitement LOCAL sur ou près du capteur. Latence minimale, confidentialité.\nFog : gateway intelligent entre edge et cloud.\nCloud : puissance de calcul centralisée, IA avancée, historique.",code:""},
-{id:140,ch:"Archi",front:"Plateformes IoT : types et exemples",back:"Propriétaires : AWS IoT Core, Azure IoT Hub, Google Cloud IoT, IBM Watson IoT.\nOpen Source : ThingsBoard, Node-RED, Mosquitto, Home Assistant, Eclipse Kapua.",code:""}
+
+const FC = [
+  {id:101, ch:'Index', front:'Quelle est la structure de données utilisée par les index SQL Server ?', back:'Arbre B-Tree (Binary Tree). Complexité de recherche : O(log n).', code:''},
+  {id:102, ch:'Index', front:'Différence entre REORGANIZE et REBUILD ?', back:'REORGANIZE : léger, online, feuilles uniquement, garde le fillfactor. REBUILD : complet, multi-thread, peut bloquer, permet de changer le fillfactor.', code:'ALTER INDEX idx ON table REORGANIZE;\nALTER INDEX idx ON table REBUILD;'},
+  {id:103, ch:'Index', front:'Qu\'est-ce que la fragmentation interne vs externe ?', back:'Interne = espaces vides dans les pages (gaspillage mémoire). Externe = ordre logique ≠ ordre physique (SQL saute entre pages, lent).', code:''},
+  {id:104, ch:'Index', front:'Syntaxe d\'un index couvrant avec INCLUDE ?', back:'INCLUDE stocke des colonnes supplémentaires dans les feuilles sans les trier. Évite le lookup vers la table.', code:'CREATE NONCLUSTERED INDEX idx_name\nON table (col_triee)\nINCLUDE (col1, col2);'},
+  {id:105, ch:'Vues', front:'Quelle vue permet des opérations DML directes ?', back:'Vue simple : 1 seule table, pas de DISTINCT, GROUP BY, colonnes calculées, ou agrégats.', code:''},
+  {id:106, ch:'Vues', front:'Comment créer une vue indexée (matérialisée) ?', back:'1. WITH SCHEMABINDING obligatoire. 2. Créer un index UNIQUE CLUSTERED. Données stockées physiquement, MAJ automatique.', code:'CREATE VIEW v WITH SCHEMABINDING AS\n  SELECT ...\nCREATE UNIQUE CLUSTERED INDEX idx ON v(col);'},
+  {id:107, ch:'Vues', front:'Ordre d\'exécution SQL — de mémoire ?', back:'FROM → JOIN → ON → WHERE → GROUP BY → HAVING → SELECT → DISTINCT → ORDER BY → TOP', code:''},
+  {id:108, ch:'Triggers', front:'Tables virtuelles disponibles dans un trigger DML ?', back:'INSERTED : nouvelles valeurs (INSERT/UPDATE). DELETED : anciennes valeurs (UPDATE/DELETE). Disponibles UNIQUEMENT dans le contexte du trigger.', code:''},
+  {id:109, ch:'Triggers', front:'Syntaxe d\'un trigger DDL pour loguer les DROP TABLE ?', back:'ON DATABASE, FOR DROP_TABLE, utilise EVENTDATA() pour récupérer les détails en XML.', code:'CREATE TRIGGER tr_name\nON DATABASE\nFOR DROP_TABLE\nAS BEGIN\n  DECLARE @x XML = EVENTDATA();\nEND;'},
+  {id:110, ch:'Triggers', front:'Seuil de sévérité pour un rollback automatique dans un trigger AFTER ?', back:'Sévérité ≥ 19 → rollback du trigger ET de l\'action déclenchante. Sévérité < 19 → l\'action reste.', code:''},
+  {id:111, ch:'Transactions', front:'Les 4 propriétés ACID ?', back:'Atomicité (tout/rien), Cohérence (état valide→valide), Isolation (transactions indépendantes), Durabilité (persiste après panne).', code:''},
+  {id:112, ch:'Transactions', front:'Syntaxe complète d\'une transaction avec savepoint ?', back:'BEGIN TRANSACTION → SAVE TRANSACTION → opérations → IF erreur: ROLLBACK TRANSACTION savepoint → ELSE: COMMIT', code:'BEGIN TRANSACTION;\n  SAVE TRANSACTION sp1;\n  -- opérations\n  IF @@ERROR <> 0\n    ROLLBACK TRANSACTION sp1;\n  ELSE\n    COMMIT;'},
+  {id:113, ch:'Transactions', front:'Qu\'est-ce qu\'un deadlock et comment SQL Server le gère ?', back:'Deux transactions attendent mutuellement des ressources verrouillées par l\'autre. SQL Server détecte et tue une "victime" (erreur 1205). DEADLOCK_PRIORITY influence le choix.', code:''},
+  {id:114, ch:'T-SQL', front:'Syntaxe complète d\'un curseur ?', back:'DECLARE → OPEN → FETCH (avant boucle) → WHILE @@FETCH_STATUS=0 → FETCH (fin boucle) → CLOSE → DEALLOCATE', code:'DECLARE cur CURSOR FOR SELECT ...;\nOPEN cur;\nFETCH NEXT FROM cur INTO @var;\nWHILE @@FETCH_STATUS = 0\nBEGIN\n  FETCH NEXT FROM cur INTO @var;\nEND\nCLOSE cur;\nDEALLOCATE cur;'},
+  {id:115, ch:'T-SQL', front:'Différence entre fonction scalaire et table-valued function ?', back:'Scalaire : RETURNS type_simple, retourne 1 valeur, appel avec dbo. Table-valued : RETURNS TABLE, retourne des lignes, utilisable dans FROM.', code:''},
+  {id:116, ch:'T-SQL', front:'Syntaxe d\'une procédure avec paramètre OUTPUT ?', back:'Déclarer avec OUTPUT dans la signature. Passer avec OUTPUT lors de l\'appel. Différent de RETURN (entier uniquement).', code:'CREATE PROCEDURE sp(@val INT OUTPUT)\nAS BEGIN\n  SET @val = 42;\nEND;\n-- Appel :\nDECLARE @r INT;\nEXEC sp @val = @r OUTPUT;'},
+  {id:117, ch:'T-SQL', front:'CASE forme simple vs forme recherchée ?', back:'Simple : CASE expr WHEN val THEN. Recherchée : CASE WHEN condition THEN. La forme recherchée supporte BETWEEN, IS NULL, comparaisons complexes.', code:''},
+  {id:118, ch:'T-SQL', front:'@@FETCH_STATUS : valeurs possibles ?', back:'0 = ligne récupérée. -1 = fin du curseur (plus de lignes). -2 = ligne manquante. WHILE continue SEULEMENT si @@FETCH_STATUS = 0.', code:''},
+  {id:119, ch:'Index', front:'Qu\'est-ce qu\'un Heap en SQL Server ?', back:'Table SANS index clustered. Lignes stockées sans ordre dans des pages. Insertion rapide, recherche = Table Scan complet (lent).', code:''},
+  {id:120, ch:'Statistiques', front:'WITH RECOMPILE — rôle ?', back:'Force SQL Server à recalculer le plan d\'exécution à chaque appel. Utile quand les données changent souvent et que le plan en cache est devenu obsolète.', code:''},
+  {id:121, ch:'Statistiques', front:'Index Hint WITH(INDEX(...)) ?', back:'Force l\'optimiseur à utiliser un index spécifique. Utile quand les stats sont obsolètes et que l\'optimiseur choisit un mauvais plan.', code:'SELECT * FROM EMP WITH (INDEX(idx))\nWHERE dept = \'RH\';'},
+  {id:122, ch:'Vues', front:'INSTEAD OF trigger sur vue complexe — utilité ?', back:'Permet les DML sur des vues avec jointures/agrégats en redirigeant les opérations vers les tables sous-jacentes. SQL exécute le trigger AU LIEU du DML direct sur la vue.', code:''}
 ];
-const EX=[];
-const CS={
-LPWAN:{title:"Comparatif LPWAN",items:[
-  {k:"LoRaWAN portée",v:"2 km (urbain) — 15 km (rural)"},
-  {k:"LoRaWAN débit",v:"0.3 à 50 kbps (selon SF)"},
-  {k:"LoRaWAN messages/j",v:"Illimité* (limité duty cycle 1%)"},
-  {k:"LoRaWAN fréquence",v:"868 MHz Europe (ISM libre)"},
-  {k:"LoRaWAN infra",v:"Propre OU partagée (LoRa Alliance)"},
-  {k:"Sigfox portée",v:"3 — 50 km"},
-  {k:"Sigfox débit",v:"100 bps uplink / 600 bps downlink"},
-  {k:"Sigfox messages/j",v:"140 max (12 octets uplink), 4 downlink"},
-  {k:"Sigfox infra",v:"Opérateur UNIQUE, abonnement obligatoire"},
-  {k:"NB-IoT fréquence",v:"Licenciée LTE (opérateur télécom)"},
-  {k:"NB-IoT débit",v:"~200 kbps"},
-  {k:"NB-IoT messages/j",v:"Illimité"},
-  {k:"Duty cycle Europe",v:"Max 1% (868 MHz ISM, réglementaire)"},
-  {k:"Chiffrement LoRaWAN",v:"AES-128 bout en bout"},
-  {k:"Topologie LoRaWAN",v:"Étoile d'étoiles (Star-of-stars)"},
-  {k:"Spreading Factor",v:"SF7 (rapide/court) → SF12 (lent/long)"},
-],code:`LPWAN : LoRaWAN vs Sigfox vs NB-IoT
-Critère    | LoRaWAN        | Sigfox         | NB-IoT
-Portée     | 2-15 km        | 3-50 km        | cellulaire
-Débit max  | ~50 kbps       | 100 bps        | ~200 kbps
-Msg/jour   | illimité*      | 140 max        | illimité
-Fréquence  | libre 868 MHz  | libre 868 MHz  | licenciée
-Opérateur  | non requis     | obligatoire    | obligatoire
-Topologie  | étoile d'étoiles| étoile        | cellulaire`},
 
-Generations:{title:"Générations Réseaux Mobiles",items:[
-  {k:"2G (GSM)",v:"~9.6 kbps | Voix par commutation de circuits | Architecture : BTS→BSC→MSC"},
-  {k:"2.5G (GPRS)",v:"Extension 2G avec commutation de paquets (IP) → acces Internet mobile"},
-  {k:"2.75G (EDGE)",v:"Amélioration GPRS : débit plus élevé (~384 kbps)"},
-  {k:"3G (UMTS)",v:"2 Mbps | Voix circuits + Données paquets | Architecture : NodeB→RNC→Core"},
-  {k:"3.5G (HSDPA)",v:"Amélioration 3G : haut débit downlink (~14 Mbps)"},
-  {k:"4G (LTE)",v:"100-150 Mbps | Tout IP (plus de commutation circuits) | Architecture plate"},
-  {k:"LTE-Advanced",v:"4G+ : jusqu'à 1 Gbps théorique"},
-  {k:"5G (NR)",v:"Gbps | <1 ms latence | Architecture SBA | mMTC + URLLC + eMBB"},
-  {k:"2G: antenne",v:"BTS (Base Transceiver Station)"},
-  {k:"2G: contrôle",v:"BSC (Base Station Controller)"},
-  {k:"2G: commutateur",v:"MSC (Mobile Switching Center)"},
-  {k:"3G: antenne",v:"NodeB"},
-  {k:"3G: contrôle",v:"RNC (Radio Network Controller)"},
-  {k:"3G: données",v:"SGSN + GGSN"},
-  {k:"4G: antenne",v:"eNodeB (= NodeB + RNC fusionnés)"},
-  {k:"4G: cœur",v:"EPC : MME + SGW + PGW + HSS"},
-  {k:"5G: antenne",v:"gNodeB"},
-  {k:"5G: cœur",v:"5GC : AMF + UPF + SMF"},
-],code:`Architecture par génération :
-2G : MS → BTS → BSC → MSC → (HLR/VLR/AUC/EIR)
-3G : UE → NodeB → RNC → MSC(CS) / SGSN-GGSN(PS)
-4G : UE → eNodeB → EPC(MME, SGW, PGW, HSS)
-5G : UE → gNodeB → 5GC(AMF, UPF, SMF)`},
+const EX = [
+  {id:1, ch:'T-SQL', title:'Calculer et afficher une mention', schema:'Table: Etudiants(id INT, nom NVARCHAR(50), note DECIMAL(5,2))', desc:'Déclare une variable @note à 14.5. Utilise un bloc IF/ELSE pour afficher "Mention Bien" si note >= 14, "Mention Assez Bien" si >= 12, sinon "Ajourné".', task:'Écrire le bloc T-SQL complet avec DECLARE, SET, et IF/ELSE/IF.', sol:`DECLARE @note DECIMAL(5,2);\nSET @note = 14.5;\n\nIF @note >= 14\n    PRINT 'Mention Bien';\nELSE IF @note >= 12\n    PRINT 'Mention Assez Bien';\nELSE\n    PRINT 'Ajourné';`, note:'Les blocs IF sans BEGIN...END n\'exécutent qu\'une seule instruction. Pour plusieurs instructions, utilise BEGIN...END.'},
+  {id:2, ch:'T-SQL', title:'Curseur sur les employés', schema:'Table: Employes(id INT, nom NVARCHAR(100), salaire DECIMAL(10,2), dept NVARCHAR(50))', desc:'Crée un curseur qui parcourt tous les employés du département "IT" et affiche leur nom + salaire.', task:'Écrire le code complet : DECLARE CURSOR, OPEN, FETCH, boucle WHILE, CLOSE, DEALLOCATE.', sol:`DECLARE @nom NVARCHAR(100), @salaire DECIMAL(10,2);\n\nDECLARE emp_cur CURSOR FOR\n    SELECT nom, salaire FROM Employes WHERE dept = 'IT';\n\nOPEN emp_cur;\nFETCH NEXT FROM emp_cur INTO @nom, @salaire;\n\nWHILE @@FETCH_STATUS = 0\nBEGIN\n    PRINT CONCAT(@nom, ' - Salaire: ', CAST(@salaire AS NVARCHAR(20)));\n    FETCH NEXT FROM emp_cur INTO @nom, @salaire;\nEND\n\nCLOSE emp_cur;\nDEALLOCATE emp_cur;`, note:'Toujours faire un FETCH avant la boucle WHILE (premier FETCH), puis un FETCH à la fin de chaque itération. Sans ça, boucle infinie.'},
+  {id:3, ch:'T-SQL', title:'Fonction de calcul de TVA', schema:'Pas de table requise — fonction pure', desc:'Crée une fonction scalaire dbo.fn_CalculTVA qui prend un prix HT (DECIMAL) et retourne le prix TTC avec une TVA de 19%.', task:'Écrire CREATE FUNCTION avec les bons types de retour et l\'appel SELECT.', sol:`CREATE FUNCTION dbo.fn_CalculTVA (@prixHT DECIMAL(10,2))\nRETURNS DECIMAL(10,2)\nAS\nBEGIN\n    RETURN @prixHT * 1.19;\nEND;\nGO\n\n-- Appel\nSELECT dbo.fn_CalculTVA(100.00) AS PrixTTC;`, note:'Rappel important : les fonctions ne peuvent pas modifier les données (pas d\'INSERT/UPDATE/DELETE). Toujours préciser dbo. lors de l\'appel.'},
+  {id:4, ch:'T-SQL', title:'Procédure de transfert de stock', schema:'Table: Stock(produitID INT, quantite INT, depot NVARCHAR(50))', desc:'Crée une procédure sp_TransfererStock qui transfère une quantité d\'un dépôt à un autre. Elle doit vérifier que la quantité disponible est suffisante, et retourner un code de statut (0=succès, 1=erreur).', task:'Écrire CREATE PROCEDURE avec paramètres INPUT, vérification, transaction, et RETURN.', sol:`CREATE PROCEDURE dbo.sp_TransfererStock\n    @produitID INT,\n    @depotSource NVARCHAR(50),\n    @depotDest NVARCHAR(50),\n    @quantite INT\nAS\nBEGIN\n    DECLARE @dispo INT;\n\n    SELECT @dispo = quantite FROM Stock\n    WHERE produitID = @produitID AND depot = @depotSource;\n\n    IF @dispo IS NULL OR @dispo < @quantite\n    BEGIN\n        RAISERROR('Stock insuffisant', 16, 1);\n        RETURN 1;\n    END\n\n    BEGIN TRANSACTION;\n        UPDATE Stock SET quantite = quantite - @quantite\n        WHERE produitID = @produitID AND depot = @depotSource;\n\n        UPDATE Stock SET quantite = quantite + @quantite\n        WHERE produitID = @produitID AND depot = @depotDest;\n    COMMIT;\n\n    RETURN 0;\nEND;\nGO`, note:'Une procédure avec transaction doit gérer les erreurs. En production, utilise TRY/CATCH avec ROLLBACK dans le CATCH.'},
+  {id:5, ch:'Triggers', title:'Trigger de log automatique', schema:'Table: Commandes(id INT, clientID INT, montant DECIMAL, dateCmd DATE)\nTable: LogCommandes(logID INT IDENTITY, action NVARCHAR(50), montant DECIMAL, dateLog DATETIME)', desc:'Crée un trigger AFTER INSERT sur Commandes qui insère automatiquement une ligne dans LogCommandes avec l\'action "NOUVELLE COMMANDE", le montant, et GETDATE().', task:'Écrire CREATE TRIGGER AFTER INSERT avec utilisation de la table INSERTED.', sol:`CREATE TRIGGER tr_LogNouvelleCommande\nON Commandes\nAFTER INSERT\nAS\nBEGIN\n    INSERT INTO LogCommandes (action, montant, dateLog)\n    SELECT 'NOUVELLE COMMANDE', i.montant, GETDATE()\n    FROM inserted i;\nEND;\nGO`, note:'Le SELECT depuis INSERTED permet de gérer les INSERT multi-lignes (plusieurs lignes insérées en une seule commande). Évite d\'utiliser des scalaires avec SELECT TOP 1 si possible.'},
+  {id:6, ch:'Triggers', title:'Protection de suppression', schema:'Table: FacturesArchives(id INT, clientID INT, montant DECIMAL, statut NVARCHAR(20))', desc:'Crée un trigger INSTEAD OF DELETE sur FacturesArchives. Au lieu de supprimer, le trigger met à jour le statut de la ligne à "SUPPRIME" et enregistre qui a tenté la suppression.', task:'Écrire le trigger INSTEAD OF DELETE avec UPDATE et SYSTEM_USER.', sol:`CREATE TRIGGER tr_ProtegerFactures\nON FacturesArchives\nINSTEAD OF DELETE\nAS\nBEGIN\n    UPDATE FacturesArchives\n    SET statut = 'SUPPRIME_PAR_' + SYSTEM_USER\n    WHERE id IN (SELECT id FROM deleted);\n\n    PRINT 'Suppression bloquée. Ligne marquée comme supprimée.';\nEND;\nGO`, note:'INSTEAD OF DELETE utilise la table DELETED (qui contient les lignes que l\'on tentait de supprimer). SYSTEM_USER retourne le nom de l\'utilisateur SQL Server connecté.'},
+  {id:7, ch:'Vues', title:'Vue complexe avec jointure', schema:'Table: Employes(id INT, nom NVARCHAR(100), deptID INT, salaire DECIMAL)\nTable: Departements(id INT, nomDept NVARCHAR(50), ville NVARCHAR(50))', desc:'Crée une vue vw_EmployesDept qui affiche le nom de l\'employé, son département, sa ville, et une colonne calculée "Niveau" : "Senior" si salaire > 5000, sinon "Junior".', task:'Écrire CREATE VIEW avec jointure, CASE, et colonne calculée.', sol:`CREATE VIEW dbo.vw_EmployesDept AS\nSELECT\n    e.nom AS NomEmploye,\n    d.nomDept AS Departement,\n    d.ville AS Ville,\n    e.salaire,\n    CASE\n        WHEN e.salaire > 5000 THEN 'Senior'\n        ELSE 'Junior'\n    END AS Niveau\nFROM Employes e\nJOIN Departements d ON e.deptID = d.id;\nGO`, note:'Cette vue est complexe (jointure + colonne calculée) — les opérations DML directes ne sont pas possibles. Pour les DML, utilise un trigger INSTEAD OF.'},
+  {id:8, ch:'Index', title:'Créer les bons index', schema:`Table: Commandes(id INT PK, clientID INT, dateCommande DATE, statut NVARCHAR(20), montant DECIMAL)\nRequêtes fréquentes :\n  1. SELECT * FROM Commandes WHERE clientID = 42\n  2. SELECT * FROM Commandes WHERE dateCommande BETWEEN '2024-01-01' AND '2024-12-31'\n  3. SELECT clientID, montant FROM Commandes WHERE statut = 'EN_COURS'`, desc:'Identifie et crée les index optimaux pour ces 3 requêtes. Pour la requête 3, utilise un index couvrant.', task:'Écrire les 3 CREATE INDEX adaptés.', sol:`-- Requête 1 : recherche par clientID\nCREATE NONCLUSTERED INDEX idx_Commandes_clientID\nON Commandes (clientID);\n\n-- Requête 2 : recherche par plage de dates\nCREATE NONCLUSTERED INDEX idx_Commandes_date\nON Commandes (dateCommande);\n\n-- Requête 3 : index couvrant (évite le lookup pour montant)\nCREATE NONCLUSTERED INDEX idx_Commandes_statut_cover\nON Commandes (statut)\nINCLUDE (clientID, montant);`, note:'L\'index couvrant sur la requête 3 évite que SQL Server aille chercher les colonnes clientID et montant dans la table principale. Les colonnes dans INCLUDE ne sont pas triées mais stockées dans les feuilles.'},
+  {id:9, ch:'Transactions', title:'Transaction avec SAVE TRANSACTION', schema:'Table: Comptes(id INT, titulaire NVARCHAR(100), solde DECIMAL(10,2))', desc:'Écris un bloc de transaction qui transfère 500 DT du compte 1 au compte 2. Si le solde du compte 1 devient négatif, ROLLBACK jusqu\'au savepoint. Sinon, COMMIT.', task:'Utiliser BEGIN TRANSACTION, SAVE TRANSACTION, vérification, ROLLBACK / COMMIT.', sol:`BEGIN TRANSACTION;\n    SAVE TRANSACTION avant_transfert;\n\n    UPDATE Comptes SET solde = solde - 500 WHERE id = 1;\n    UPDATE Comptes SET solde = solde + 500 WHERE id = 2;\n\n    IF (SELECT solde FROM Comptes WHERE id = 1) < 0\n    BEGIN\n        ROLLBACK TRANSACTION avant_transfert;\n        PRINT 'Solde insuffisant — transfert annulé';\n    END\n    ELSE\n    BEGIN\n        COMMIT;\n        PRINT 'Transfert effectué avec succès';\n    END`, note:'ROLLBACK TRANSACTION NomSave revient au savepoint sans annuler toute la transaction. Ici, on pourrait continuer d\'autres opérations après le ROLLBACK partiel.'},
+  {id:10, ch:'Triggers', title:'Trigger DDL d\'audit', schema:'Table: AuditStructure(id INT IDENTITY, evenement NVARCHAR(100), objet NVARCHAR(200), utilisateur NVARCHAR(100), dateEvenement DATETIME)', desc:'Crée un trigger DDL qui logue dans AuditStructure chaque CREATE_TABLE et DROP_TABLE avec le type d\'événement, le nom de l\'objet, l\'utilisateur, et la date.', task:'Écrire CREATE TRIGGER ON DATABASE avec EVENTDATA() et INSERT dans la table d\'audit.', sol:`CREATE TRIGGER tr_AuditStructure\nON DATABASE\nFOR CREATE_TABLE, DROP_TABLE\nAS\nBEGIN\n    DECLARE @xml XML = EVENTDATA();\n\n    INSERT INTO AuditStructure (evenement, objet, utilisateur, dateEvenement)\n    VALUES (\n        @xml.value('(/EVENT_INSTANCE/EventType)[1]', 'nvarchar(100)'),\n        @xml.value('(/EVENT_INSTANCE/ObjectName)[1]', 'nvarchar(200)'),\n        @xml.value('(/EVENT_INSTANCE/LoginName)[1]', 'nvarchar(100)'),\n        GETDATE()\n    );\nEND;\nGO`, note:'EVENTDATA() retourne un XML. La syntaxe .value(\'(/EVENT_INSTANCE/Tag)[1]\', \'type\') extrait une valeur du XML. Le [1] sélectionne le premier nœud.'},
+  {id:11, ch:'Vues', title:'🏫 Examen — Fonction de disponibilité de salle', schema:'Salles(SalleID INT PK IDENTITY, NomSalle NVARCHAR(100), Capacite INT, Disponible BIT)\nReservations(ReservationID INT PK IDENTITY, SalleID INT FK, Formateur NVARCHAR(100), DateDebut DATE, DateFin DATE)', desc:'Question 1 de l\'examen Gestion des Salles. Crée une fonction qui vérifie si une salle est disponible pour une période donnée. Retourne 1 si disponible, 0 sinon.', task:'CREATE FUNCTION dbo.fn_SalleDisponible avec 3 params : @SalleID INT, @DateDebut DATE, @DateFin DATE. RETURNS INT.', sol:`CREATE FUNCTION dbo.fn_SalleDisponible\n(@SalleID INT, @DateDebut DATE, @DateFin DATE)\nRETURNS INT\nAS\nBEGIN\n    DECLARE @dispo INT;\n    SELECT @dispo = S.Disponible\n    FROM Salles S\n    JOIN Reservations R ON S.SalleID = R.SalleID\n    WHERE S.SalleID = @SalleID;\n    RETURN ISNULL(@dispo, 0);\nEND;\nGO`, note:'Note pédagogique : dans le code original de l\'exam, le curseur était déclaré EN DEHORS de la fonction — ce qui est invalide en T-SQL. Un curseur n\'est pas nécessaire ici.'},
+  {id:12, ch:'T-SQL', title:'🏫 Examen — Procédure de réservation de salle', schema:'Même schéma que l\'exercice 11', desc:'Question 2. Crée une procédure qui vérifie si la salle existe, appelle fn_SalleDisponible, et insère la réservation si disponible. Utilise RAISERROR si la salle n\'existe pas.', task:'CREATE PROCEDURE dbo.sp_ReserverSalle avec 4 paramètres : @SalleID, @Formateur, @DateDebut, @DateFin.', sol:`CREATE PROCEDURE dbo.sp_ReserverSalle\n    @SalleID INT,\n    @Formateur NVARCHAR(100),\n    @DateDebut DATE,\n    @DateFin DATE\nAS\nBEGIN\n    DECLARE @boop INT, @dispo INT;\n\n    SELECT @boop = COUNT(*) FROM Salles WHERE SalleID = @SalleID;\n\n    IF @boop = 0\n        RAISERROR('La salle n\'existe pas', 16, 1);\n    ELSE\n        PRINT('La salle est trouvable');\n\n    SELECT @dispo = dbo.fn_SalleDisponible(@SalleID, @DateDebut, @DateFin);\n\n    IF @dispo = 1\n        PRINT('La salle est disponible');\n    ELSE\n        PRINT('La salle n\'est pas disponible');\n\n    IF @boop = 1 AND @dispo = 1\n        INSERT INTO Reservations(SalleID, Formateur, DateDebut, DateFin)\n        VALUES (@SalleID, @Formateur, @DateDebut, @DateFin);\nEND;\nGO`, note:'Piège de l\'exam original : le @Formateur manquait dans le INSERT VALUES. Toujours vérifier que tous les paramètres sont passés dans l\'INSERT.'},
+  {id:13, ch:'Vues', title:'🏫 Examen — Vue des salles libres aujourd\'hui', schema:'Même schéma que l\'exercice 11', desc:'Question 3. Crée une vue qui affiche les salles non réservées à la date d\'aujourd\'hui (GETDATE()).', task:'CREATE VIEW dbo.vw_SallesLibresAujourdHui. Utilise GETDATE() et NOT BETWEEN.', sol:`CREATE VIEW dbo.vw_SallesLibresAujourdHui AS\nSELECT S.SalleID, S.NomSalle\nFROM Salles S\nJOIN Reservations R ON S.SalleID = R.SalleID\nWHERE GETDATE() NOT BETWEEN R.DateDebut AND R.DateFin;\nGO`, note:'Note : cette vue est complexe (jointure). Les DML directs ne sont pas possibles. Pour les DML, il faudrait un trigger INSTEAD OF.'},
+  {id:14, ch:'Index', title:'🏫 Examen — Index Non-Clusterisé sur Reservations', schema:'Table: Reservations(ReservationID INT PK, SalleID INT FK, Formateur NVARCHAR(100), DateDebut DATE, DateFin DATE)', desc:'Question 4. Crée un index Non-Clusterisé sur la colonne DateDebut de la table Reservations pour optimiser les recherches par date.', task:'CREATE NONCLUSTERED INDEX avec un nom explicite.', sol:`CREATE NONCLUSTERED INDEX question4_index\nON Reservations(DateDebut);\nGO`, note:'Commentaire des notes : "Ce type d\'index est un index virtuel qui pointe vers les données physiques. Utilisé dans le cas des données de taille volumineuse et des données à forte fréquence d\'être insérées ou modifiées."'},
+  {id:15, ch:'Triggers', title:'🏫 Examen — Trigger vérification capacité (bugué !)', schema:'Table: Salles(SalleID INT PK IDENTITY, NomSalle NVARCHAR(100), Capacite INT, Disponible BIT)', desc:'Question 5 — ⚠️ ATTENTION : ce trigger est RÉCURSIF car il fait un INSERT INTO Salles alors qu\'il se déclenche AFTER INSERT sur Salles ! Analyse le bug et comprends pourquoi c\'est dangereux.', task:'Analyser le trigger et expliquer le bug de récursion. Puis écrire une version corrigée sans INSERT INTO Salles dans le trigger.', sol:`-- VERSION ORIGINALE (BUGGUÉE — RÉCURSIVE) :\nCREATE TRIGGER tr_VerifierCapacite\nON Salles\nAFTER INSERT\nAS BEGIN\n    DECLARE @Capacite INT, @NOM NVARCHAR(100), @existe INT;\n    SELECT @Capacite = i.Capacite, @NOM = i.NomSalle FROM inserted i;\n    SELECT @existe = COUNT(*) FROM Salles S JOIN inserted i ON S.NomSalle = i.NomSalle;\n    IF @Capacite >= 8 AND @existe = 0\n        INSERT INTO Salles VALUES (@NOM, @Capacite, 1); -- RÉCURSION ICI !\n    ELSE\n        RAISERROR('Conditions non vérifiées', 16, 1);\nEND;\n\n-- VERSION CORRIGÉE (sans INSERT INTO Salles) :\nCREATE TRIGGER tr_VerifierCapacite_V2\nON Salles\nAFTER INSERT\nAS BEGIN\n    IF EXISTS (SELECT 1 FROM inserted WHERE Capacite < 8)\n    BEGIN\n        RAISERROR('Capacite minimale = 8', 16, 1);\n        ROLLBACK;\n    END\nEND;\nGO`, note:'⚠️ Bug classique : un trigger AFTER INSERT sur TableX qui fait INSERT INTO TableX = récursion. SQL Server limite à 32 niveaux de récursion puis génère une erreur fatale.'},
+  {id:16, ch:'T-SQL', title:'🏫 Examen — Curseur sur les capacités', schema:'Table: Salles(SalleID INT PK, NomSalle NVARCHAR(100), Capacite INT, Disponible BIT)', desc:'Question 6. Crée un curseur qui parcourt la colonne Capacite de la table Salles et affiche chaque valeur.', task:'Écrire le curseur complet : DECLARE, OPEN, FETCH, WHILE @@FETCH_STATUS=0, CLOSE, DEALLOCATE.', sol:`DECLARE question6_cur CURSOR\nFOR SELECT Capacite FROM Salles;\n\nDECLARE @capacity INT;\nOPEN question6_cur;\nFETCH NEXT FROM question6_cur INTO @capacity;\n\nWHILE @@FETCH_STATUS = 0\nBEGIN\n    PRINT (@capacity);\n    FETCH NEXT FROM question6_cur INTO @capacity;\nEND;\n\nCLOSE question6_cur;\nDEALLOCATE question6_cur;`, note:'Rappel : le DECLARE de @capacity doit être AVANT OPEN dans ce contexte car il est utilisé dans FETCH. Toujours faire un FETCH avant la boucle WHILE.'},
+  {id:17, ch:'Triggers', title:'🏫 Examen — Trigger INSTEAD OF DELETE (Bonus)', schema:'Table: Reservations(ReservationID INT PK, SalleID INT FK, Formateur NVARCHAR(100), DateDebut DATE, DateFin DATE)', desc:'Question 7 (Bonus). Crée un trigger qui empêche toute suppression sur la table Reservations. Affiche un message d\'erreur avec RAISERROR.', task:'CREATE TRIGGER INSTEAD OF DELETE qui bloque la suppression.', sol:`CREATE TRIGGER Bonus_quest\nON RESERVATIONS\nINSTEAD OF DELETE\nAS\nBEGIN\n    RAISERROR('C\'est interdit de supprimer sur cette table, attention !', 16, 1);\nEND;\nGO`, note:'INSTEAD OF DELETE : SQL Server exécute le trigger AU LIEU du DELETE. Aucune ligne n\'est supprimée. La table DELETED contient les lignes que l\'utilisateur voulait supprimer.'}
+];
 
-Protocoles:{title:"Protocoles IoT",items:[
-  {k:"MQTT modèle",v:"Publish/Subscribe via Broker"},
-  {k:"MQTT transport",v:"TCP | Port 1883 / 8883 (TLS)"},
-  {k:"MQTT overhead",v:"Très faible (headers minimes) — bien plus léger que HTTP"},
-  {k:"MQTT QoS 0",v:"At most once (fire-and-forget)"},
-  {k:"MQTT QoS 1",v:"At least once (peut dupliquer)"},
-  {k:"MQTT QoS 2",v:"Exactly once (garanti)"},
-  {k:"HTTP modèle",v:"Request/Response (client-serveur)"},
-  {k:"HTTP ports",v:"80 (HTTP) | 443 (HTTPS)"},
-  {k:"CoAP",v:"HTTP allégé sur UDP, RESTful, IoT contraint, appareils limites"},
-  {k:"WebSocket",v:"Bidirectionnel temps réel sur HTTP, idéal dashboards IoT"},
-  {k:"MQTT vs HTTP IoT",v:"MQTT idéal (push, léger, asynchrone) | HTTP pour API web"},
-],code:`Brokers MQTT populaires : Mosquitto, HiveMQ
-Topic exemple : maison/salon/temperature
-Connexion MQTT : persistante (pas de reconnexion par message)
-CoAP : UDP → moins fiable mais plus léger que TCP`},
-
-ACCITR:{title:"Composants IoT (ACCITR)",items:[
-  {k:"A — Authentification",v:"Identité unique pour chaque objet"},
-  {k:"C — Capteurs",v:"Perception : mesure grandeurs physiques"},
-  {k:"C — Connexion",v:"Objets communiquent entre eux"},
-  {k:"I — Intégration",v:"Compatibilité entre systèmes différents"},
-  {k:"T — Traitement",v:"Stockage et analyse des données"},
-  {k:"R — Réseaux",v:"Transport du monde réel vers numérique"},
-  {k:"Capteur",v:"Mesure → signal électrique → numérisation"},
-  {k:"Actionneur",v:"Signal électrique → action physique"},
-  {k:"Types capteurs",v:"États (porte), Comptage (battements), Mesure (temp)"},
-  {k:"Plateformes propri.",v:"AWS IoT Core, Azure IoT Hub, Google Cloud IoT"},
-  {k:"Plateformes open",v:"ThingsBoard, Node-RED, Mosquitto, Home Assistant"},
-],code:`A-C-C-I-T-R : mnémonique EXAM obligatoire
-Flux IoT : Capteur → Réseau → Traitement → Actionneur`},
-
-ArbreDecision:{title:"Arbre de Décision — Choix Réseau",items:[
-  {k:"Haut débit + vidéo + secteur",v:"WiFi / 4G / 5G"},
-  {k:"Domotique courte portée",v:"Zigbee / Z-Wave / BLE"},
-  {k:"Identification proximité",v:"NFC / RFID"},
-  {k:"Champ agricole / batterie longue durée",v:"LoRaWAN / Sigfox"},
-  {k:"Tracking national / roaming",v:"NB-IoT / 4G / 5G"},
-  {k:"Prototypage WiFi+BT rapide",v:"ESP32"},
-  {k:"Prototypage simple local",v:"Arduino + shield"},
-  {k:"Produit industriel haute perf",v:"STM32"},
-  {k:"Critère portée",v:"Proche → WiFi/Zigbee | Loin → LoRa/Sigfox/NB-IoT"},
-  {k:"Critère consommation",v:"Batterie → LPWAN | Secteur → WiFi/4G"},
-  {k:"Critère débit",v:"Petit msg → LPWAN | Gros data → WiFi/4G/5G"},
-  {k:"Critère coût infra",v:"Libre → LoRaWAN | Opérateur → NB-IoT/Sigfox"},
-],code:`Critères de choix réseau IoT :
-1. Portée     2. Débit    3. Consommation
-4. Coût       5. Mobilité  6. Sécurité
-7. Densité    8. Temps réel (latence)`},
-
-Glossaire:{title:"Glossaire Acronymes Clés",items:[
-  {k:"IoT",v:"Internet of Things"},
-  {k:"M2M",v:"Machine to Machine"},
-  {k:"LPWAN",v:"Low Power Wide Area Network"},
-  {k:"CSS",v:"Chirp Spread Spectrum (modulation LoRa)"},
-  {k:"ADR",v:"Adaptive Data Rate (LoRaWAN)"},
-  {k:"SF",v:"Spreading Factor (LoRa, SF7-SF12)"},
-  {k:"UNB",v:"Ultra Narrow Band (Sigfox)"},
-  {k:"QoS",v:"Quality of Service"},
-  {k:"BLE",v:"Bluetooth Low Energy"},
-  {k:"RFID",v:"Radio Frequency Identification"},
-  {k:"BTS",v:"Base Transceiver Station (antenne 2G)"},
-  {k:"BSC",v:"Base Station Controller (contrôle 2G)"},
-  {k:"MSC",v:"Mobile Switching Center (commutateur)"},
-  {k:"HLR",v:"Home Location Register (abonnés permanents)"},
-  {k:"VLR",v:"Visitor Location Register (abonnés itinérants)"},
-  {k:"RNC",v:"Radio Network Controller (contrôle 3G)"},
-  {k:"eNodeB",v:"Evolved NodeB = NodeB+RNC fusionné (4G)"},
-  {k:"EPC",v:"Evolved Packet Core (cœur 4G, tout IP)"},
-  {k:"MME",v:"Mobility Management Entity (4G)"},
-  {k:"gNodeB",v:"Next Generation NodeB (5G)"},
-  {k:"mMTC",v:"massive Machine Type Communications (5G IoT)"},
-  {k:"URLLC",v:"Ultra-Reliable Low-Latency Communications (5G)"},
-  {k:"eMBB",v:"enhanced Mobile Broadband (5G)"},
-  {k:"MEC",v:"Multi-access Edge Computing"},
-  {k:"SBA",v:"Service-Based Architecture (5G Core)"},
-],code:""},
-
-ExamTips:{title:"🎯 Stratégie d'Examen — 10 Types de Questions",items:[
-  {k:"Q1: Définir l'IoT",v:"→ 3 éléments : 1) Extension d'Internet aux objets physiques 2) Collecte/transmission/traitement de données 3) Sans intervention humaine directe"},
-  {k:"Q2: Différence X vs Y",v:"→ Toujours 3 axes : Portée, Débit, Consommation. Pour protocoles : modèle (Pub/Sub vs Req/Resp), overhead, connexion."},
-  {k:"Q3: Composants IoT",v:"→ ACCITR : Authentification · Capteurs · Connexion · Intégration · Traitement · Réseaux. Mémoriser l'ordre."},
-  {k:"Q4: Pourquoi LoRaWAN pour agriculture?",v:"→ Longue portée (km de champ), faible consommation (batterie années), petits messages (temp/humidité suffisent), pas d'abonnement opérateur."},
-  {k:"Q5: Architecture GSM/3G/4G/5G",v:"→ Mémo : 2G: BTS→BSC→MSC | 3G: NodeB→RNC→Core | 4G: eNodeB→EPC(MME,SGW,PGW) | 5G: gNodeB→5GC(AMF,UPF,SMF)"},
-  {k:"Q6: Apport 5G à l'IoT",v:"→ mMTC (milliards d'objets), URLLC (latence <1ms, critique), eMBB (haut débit), Network Slicing, MEC (Edge Computing)."},
-  {k:"Q7: Caractéristiques LPWAN",v:"→ Longue portée + faible consommation + faible débit + faible coût. Non adapté : vidéo, streaming, temps réel strict."},
-  {k:"Q8: MQTT vs HTTP",v:"→ MQTT: Pub/Sub, léger, persistant, push asynchrone, idéal IoT. HTTP: Req/Resp, stateless, synchrone, API web."},
-  {k:"Q9: Classes LoRaWAN",v:"→ A=plus économe (2 fenêtres après envoi), obligatoire. B=beacons programmés (Smart City). C=réception continue (industrie, + énergie)."},
-  {k:"Q10: Choisir le bon réseau",v:"→ Matrice : Portée? + Débit? + Batterie? + Opérateur? + Coût? Court+batterie→Zigbee/BLE, Long+batterie→LoRa/Sigfox, Long+opérateur→NB-IoT/4G/5G"},
-],code:`MNÉMONIQUES EXAM :
-ACCITR = 6 composants IoT
-BTS→BSC→MSC = 2G architecture
-NodeB→RNC→Core = 3G
-eNodeB→EPC = 4G (tout IP, flat)
-gNodeB→5GC = 5G (SBA)
-mMTC / URLLC / eMBB = 3 usages 5G
-QoS 0=perd, 1=duplique, 2=exact
-LoRa=PHY, LoRaWAN=réseau`},
+const CS = {
+  Index: {icon:'⚡', color:'#10b981', bg:'rgba(16,185,129,0.12)', title:'Index — Limites', items:[{k:'Clustered',v:'1 seul par table'},{k:'Non-Clustered',v:'Jusqu\'à 999'},{k:'Fillfactor < 30%',v:'REORGANIZE'},{k:'Fillfactor > 30%',v:'REBUILD'},{k:'Seek vs Scan',v:'Seek = ciblé, Scan = complet'},{k:'Complexité B-Tree',v:'O(log n)'}], code:''},
+  Vues: {icon:'👁️', color:'#3b82f6', bg:'rgba(59,130,246,0.12)', title:'Vues — Règles DML', items:[{k:'Vue simple',v:'DML possible'},{k:'Vue complexe',v:'DML souvent impossible'},{k:'Avec jointures',v:'DML impossible'},{k:'Avec GROUP BY',v:'DML impossible'},{k:'Avec DISTINCT',v:'DML impossible'},{k:'Vue indexée',v:'Pas de DISTINCT/GROUP BY/UNION'}], code:''},
+  Triggers: {icon:'⚡', color:'#a855f7', bg:'rgba(168,85,247,0.12)', title:'Triggers — Table virtuelles', items:[{k:'INSERT → INSERTED',v:'Nouvelles lignes'},{k:'INSERT → DELETED',v:'Non utilisée'},{k:'UPDATE → INSERTED',v:'Nouvelles valeurs'},{k:'UPDATE → DELETED',v:'Anciennes valeurs'},{k:'DELETE → INSERTED',v:'Non utilisée'},{k:'DELETE → DELETED',v:'Lignes supprimées'}], code:''},
+  Transactions: {icon:'🔒', color:'#f59e0b', bg:'rgba(245,158,11,0.12)', title:'Transactions — ACID', items:[{k:'Atomicité',v:'Tout ou rien'},{k:'Cohérence',v:'État valide → valide'},{k:'Isolation',v:'Transactions indépendantes'},{k:'Durabilité',v:'Persiste après panne'},{k:'XACT_ABORT ON',v:'Rollback total dès 1ère erreur'},{k:'Deadlock',v:'SQL Server tue une victime'}], code:''},
+  Statistiques: {icon:'📊', color:'#ec4899', bg:'rgba(236,72,153,0.12)', title:'Statistiques — Seuils', items:[{k:'MAJ automatique',v:'À 20% de lignes modifiées'},{k:'> 50% données cibles',v:'Full scan préférable'},{k:'FULLSCAN',v:'100% précis, lent'},{k:'SAMPLE N ROWS',v:'Rapide, extrapolation'},{k:'SAMPLE N PERCENT',v:'Rapide, extrapolation'},{k:'Afficher stats',v:'DBCC SHOW_STATISTICS'}], code:''},
+  TSQL: {icon:'💻', color:'#06b6d4', bg:'rgba(6,182,212,0.12)', title:'T-SQL — Syntaxes clés', items:[{k:'Déclarer variable',v:'DECLARE @var TYPE'},{k:'Assigner',v:'SET @var = ... ou SELECT @var = ...'},{k:'Afficher',v:'PRINT ou SELECT'},{k:'Curseur exit',v:'@@FETCH_STATUS = 0'},{k:'Appel fonction',v:'SELECT dbo.MaFonction(...)'},{k:'Répéter N fois',v:'GO N'}], code:''},
+  Raiserror: {icon:'🚨', color:'#ef4444', bg:'rgba(239,68,68,0.12)', title:'Sévérité RAISERROR', items:[{k:'< 10',v:'Info / debug'},{k:'10-18',v:'Erreurs utilisateur'},{k:'19-21',v:'Erreurs fatales'},{k:'< 19 (trigger AFTER)',v:'Action DML reste'},{k:'≥ 19 (trigger AFTER)',v:'Rollback total'},{k:'XACT_ABORT ON',v:'Rollback même < 19'}], code:''},
+  Ordre: {icon:'🔢', color:'#14b8a6', bg:'rgba(20,184,166,0.12)', title:'Ordre exécution SQL', items:[{k:'1',v:'FROM'},{k:'2',v:'JOIN + ON'},{k:'3',v:'WHERE'},{k:'4',v:'GROUP BY'},{k:'5',v:'HAVING'},{k:'6',v:'SELECT'},{k:'7',v:'DISTINCT'},{k:'8',v:'ORDER BY'},{k:'9',v:'TOP'}], code:''},
+  Types: {icon:'🔠', color:'#f97316', bg:'rgba(249,115,22,0.12)', title:'Types de données T-SQL', items:[{k:'INT',v:'Entier 32 bits'},{k:'BIGINT',v:'Entier 64 bits'},{k:'DECIMAL(p,s)',v:'p chiffres, s après virgule'},{k:'VARCHAR(n)',v:'Non-Unicode, 1 octet/char'},{k:'NVARCHAR(n)',v:'Unicode, 2 octets/char'},{k:'DATETIME',v:'Date + heure'},{k:'BIT',v:'0 / 1 / NULL'},{k:'FLOAT',v:'Virgule flottante'}], code:''},
+  Blocs: {icon:'📦', color:'#6366f1', bg:'rgba(99,102,241,0.12)', title:'Blocs T-SQL', items:[{k:'Bloc anonyme',v:'BEGIN ... END'},{k:'Procédure',v:'Modularisation, réutilisation'},{k:'Fonction',v:'Calcul, retour de valeur'},{k:'IF/ELSE',v:'Condition, BEGIN/END si multi-ligne'},{k:'WHILE + BREAK',v:'Itération avec sortie'},{k:'GO N',v:'Répéter batch N fois'},{k:'GO seul',v:'Sépare les batches (variables non partagées)'}], code:''},
+  IndexTypes: {icon:'🗂️', color:'#22c55e', bg:'rgba(34,197,94,0.12)', title:'Types d\'index — récap', items:[{k:'Clustered',v:'1/table, ordre physique, B-Tree'},{k:'Non-Clustered',v:'Max 999, structure séparée, pointeur'},{k:'Unique Non-Clustered',v:'Valeurs uniques garanties'},{k:'Covering (INCLUDE)',v:'Cols en feuilles, évite lookup'},{k:'Heap',v:'Table sans clustered, Table Scan'},{k:'Vue indexée',v:'WITH SCHEMABINDING + UNIQUE CLUSTERED'}], code:''},
+  Hints: {icon:'💡', color:'#eab308', bg:'rgba(234,179,8,0.12)', title:'Hints et diagnostics', items:[{k:'WITH RECOMPILE',v:'Recalcule le plan d\'exécution'},{k:'WITH(INDEX(idx))',v:'Force un index spécifique'},{k:'DBCC SHOW_STATISTICS',v:'Affiche les stats d\'un index'},{k:'UPDATE STATISTICS FULLSCAN',v:'100% précis, lent'},{k:'UPDATE STATISTICS SAMPLE N',v:'Rapide, extrapolation'},{k:'@@FETCH_STATUS',v:'0=ok, -1=fin, -2=manquant'}], code:''},
+  Curseurs: {icon:'🧭', color:'#8b5cf6', bg:'rgba(139,92,246,0.15)', title:'Curseurs — Navigation', items:[{k:'Forward-Only',v:'Par défaut, en avant seul'},{k:'SCROLL',v:'Permet navigation bidirectionnelle'},{k:'FETCH NEXT',v:'Ligne suivante'},{k:'FETCH PRIOR',v:'Ligne précédente (si SCROLL)'},{k:'FETCH FIRST / LAST',v:'1ère / dernière ligne (si SCROLL)'},{k:'DEALLOCATE',v:'Libère la mémoire du curseur'}], code:'DECLARE c CURSOR SCROLL FOR SELECT...\nOPEN c;\nFETCH NEXT FROM c INTO @v;\nCLOSE c; DEALLOCATE c;'},
+  Routines: {icon:'⚙️', color:'#0ea5e9', bg:'rgba(14,165,233,0.15)', title:'Procédures vs Fonctions', items:[{k:'Fonction scalaire',v:'RETURNS type, 1 seule valeur'},{k:'Fonction TVF Inline',v:'RETURNS TABLE, RETURN (SELECT...)'},{k:'Fonction TVF Multi',v:'RETURNS @t TABLE, INSERT INTO @t'},{k:'DML dans Fonction',v:'Interdit (pas d\'INSERT/UPDATE/DELETE)'},{k:'Procédure — OUTPUT',v:'Paramètre de retour modifié par SP'},{k:'Procédure — RETURN',v:'Retourne un entier (code statut)'},{k:'Procédure — SELECT',v:'Retourne un jeu de résultats complet'}], code:'CREATE PROC sp(@p INT OUTPUT)\nAS SET @p=42; RETURN 0;\n\nCREATE FUNC fn() RETURNS INT\nAS BEGIN RETURN 10; END;'},
+  VuesSec: {icon:'🛡️', color:'#3b82f6', bg:'rgba(59,130,246,0.15)', title:'Vues — Sécurité & Options', items:[{k:'WITH CHECK OPTION',v:'Bloque INSERT/UPDATE hors WHERE'},{k:'SCHEMABINDING',v:'Verrouille structure table source'},{k:'GRANT SELECT',v:'Autorise lecture sur la vue'},{k:'DENY DELETE',v:'Interdit suppression sur la vue'},{k:'Abstraction',v:'Masque les colonnes sensibles'},{k:'Matérialisation',v:'Stocke résultat en index unique'}], code:'CREATE VIEW v WITH SCHEMABINDING AS\nSELECT a, b FROM dbo.T WHERE a>10\nWITH CHECK OPTION;'},
+  Diagnostic: {icon:'🩺', color:'#f43f5e', bg:'rgba(244,63,94,0.15)', title:'Diagnostic & Lenteurs', items:[{k:'Page Split',v:'Insertion dans page de 8 Ko pleine'},{k:'Ext. Fragmentation',v:'Désordonné sur disque (sauts de page)'},{k:'Int. Fragmentation',v:'Espaces vides dans pages (gaspillage)'},{k:'Requête lente ? #1',v:'Vérifier si index sur bonne colonne'},{k:'Requête lente ? #2',v:'Stats obsolètes → UPDATE STATS'},{k:'Requête lente ? #3',v:'Plan obsolète → WITH RECOMPILE'},{k:'Cible > 50%',v:'Full Scan plus rapide qu\'Index'}], code:'-- Lenteur ? Recalculer stats et plan :\nUPDATE STATISTICS T WITH FULLSCAN;\nEXEC sp WITH RECOMPILE;'},
+  TriggersXML: {icon:'📜', color:'#d946ef', bg:'rgba(217,70,239,0.15)', title:'Triggers DDL & XML', items:[{k:'Portée DDL',v:'ON DATABASE ou ON ALL SERVER'},{k:'Événements DDL',v:'FOR CREATE_TABLE, DROP_TABLE...'},{k:'EVENTDATA()',v:'Renvoie détails en XML'},{k:'EventType',v:'Type d\'événement déclencheur'},{k:'ObjectName',v:'Nom de l\'objet ciblé'},{k:'Extraction XML',v:'@x.value(\'(/Tag)[1]\', \'type\')'},{k:'INSTEAD OF',v:'Redirige DML sur vues complexes'}], code:'DECLARE @x XML = EVENTDATA();\nSELECT @x.value(\'(/EVENT_INSTANCE/ObjectName)[1]\', \'nvarchar(100)\');'}
 };
-const TRAPS=[
-{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"LoRa et LoRaWAN sont la même chose",right:"LoRa = modulation radio PHYSIQUE (propriétaire Semtech). LoRaWAN = protocole RÉSEAU (LoRa Alliance). LoRaWAN S'APPUIE sur LoRa.",why:"LoRa définit comment le signal est transmis (CSS). LoRaWAN définit comment le réseau fonctionne (authentification, classes, ADR...).",rule:"LoRa = le signal radio. LoRaWAN = le protocole réseau par-dessus."},
-{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"La Classe C LoRaWAN consomme le moins d'énergie car elle est 'complète'",right:"La Classe A est la PLUS économe (2 fenêtres courtes après envoi, dort le reste du temps). Classe C consomme le PLUS (réception quasi-continue).",why:"Classe A = minimum obligatoire pour TOUS les appareils LoRaWAN. Elle dort pratiquement tout le temps.",rule:"Classe A = moins de conso | Classe B = milieu | Classe C = plus de conso"},
-{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"Un SF élevé (SF12) est toujours préférable car il augmente la portée",right:"SF12 = grande portée MAIS débit très faible + temps d'émission long → consomme plus d'énergie et réduit la capacité réseau.",why:"Il faut choisir le SF minimum permettant d'atteindre la destination. L'ADR fait ce choix automatiquement.",rule:"SF élevé → portée↑ MAIS débit↓ + temps_émission↑ + conso↑. Utiliser SF minimum suffisant."},
-{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Le Duty Cycle 1% (868 MHz) est une limitation technique du matériel",right:"Le Duty Cycle de 1% est une CONTRAINTE RÉGLEMENTAIRE européenne (ETSI), pas une limitation technologique.",why:"La réglementation limite l'utilisation des bandes ISM libres pour éviter la saturation du spectre partagé.",rule:"Duty cycle = réglementaire (ETSI Europe), pas technologique."},
-{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"Sigfox et LoRaWAN sont équivalents : on peut déployer son propre réseau Sigfox",right:"Sigfox est un réseau opéré par UN seul opérateur (abonnement obligatoire). LoRaWAN peut être déployé en réseau PRIVÉ sans opérateur.",why:"Sigfox = modèle opérateur fermé (comme un opérateur télécom). LoRaWAN = standard ouvert, réseau propre possible.",rule:"Sigfox → opérateur unique, abonnement. LoRaWAN → réseau privé possible, standard ouvert."},
-{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Zigbee utilise une topologie en étoile comme LoRaWAN",right:"Zigbee utilise un réseau MAILLÉ (mesh) où chaque nœud alimenté peut servir de routeur. LoRaWAN utilise une étoile d'étoiles.",why:"Le mesh Zigbee permet d'étendre la portée grâce aux relais entre objets. LoRaWAN ne permet pas ce relayage inter-capteurs.",rule:"Zigbee = mesh. LoRaWAN = star-of-stars. NE PAS inverser."},
-{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"NB-IoT utilise les fréquences libres ISM comme LoRa",right:"NB-IoT utilise des fréquences LICENCIÉES LTE (opérateur télécom obligatoire). LoRaWAN et Sigfox utilisent les bandes ISM libres.",why:"C'est un critère différenciateur clé. NB-IoT = réseau cellulaire, opérateur requis, fréquences payantes.",rule:"LoRaWAN/Sigfox → ISM libre 868 MHz. NB-IoT → fréquences licenciées LTE."},
-{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"eNodeB (4G) est juste l'équivalent du NodeB (3G)",right:"eNodeB = NodeB + RNC FUSIONNÉS. Il intègre les fonctions de contrôle radio (RNC) en plus de l'antenne. Architecture plate (flat).",why:"En 4G, on supprime la couche RNC → architecture plus plate et plus efficace (moins de latence).",rule:"3G : NodeB + RNC séparés. 4G : eNodeB = NodeB+RNC fusionnés → flat architecture."},
-{cat:"Confusion fréquente",sev:3,ch:"Reseaux",wrong:"En 4G, la voix utilise encore la commutation de circuits",right:"La 4G est TOUT IP. La voix passe par VoLTE (Voice over LTE), en commutation de paquets IP. Plus de circuit switching.",why:"L'EPC (Evolved Packet Core) est un cœur réseau entièrement IP. La 2G et 3G utilisaient la commutation de circuits pour la voix.",rule:"4G = Tout IP (voix = VoLTE). 2G/3G = circuits pour voix + paquets pour données."},
-{cat:"Erreur classique",sev:3,ch:"Protocoles",wrong:"MQTT utilise UDP pour sa légèreté",right:"MQTT fonctionne sur TCP (fiable, connexion persistante). C'est CoAP qui utilise UDP.",why:"MQTT est conçu pour des connexions persistantes et fiables via TCP. La légèreté de MQTT vient de ses petits headers, pas de l'UDP.",rule:"MQTT → TCP (ports 1883/8883). CoAP → UDP. NE PAS confondre."},
-{cat:"Confusion fréquente",sev:3,ch:"Protocoles",wrong:"MQTT QoS 0 garantit la livraison au moins une fois",right:"QoS 0 = 'at most once' = fire-and-forget. AUCUNE garantie. Le message peut être perdu.",why:"QoS 1 = at least once (peut dupliquer). QoS 2 = exactly once (garanti). QoS 0 est le niveau MINIMUM sans garantie.",rule:"QoS 0 = peut perdre. QoS 1 = au moins une fois. QoS 2 = exactement une fois."},
-{cat:"Erreur classique",sev:2,ch:"Protocoles",wrong:"Le Broker MQTT est le publisher qui distribue les messages",right:"Le Broker MQTT est un SERVEUR INTERMÉDIAIRE qui reçoit des publishers et distribue aux subscribers. Il ne publie pas lui-même.",why:"Confusion sur les rôles : Publisher = produit, Subscriber = consomme, Broker = redistribue. Le découplage est l'avantage clé.",rule:"Publisher → Broker ← Subscriber. Le Broker est l'intermédiaire, pas l'émetteur."},
-{cat:"Confusion fréquente",sev:3,ch:"Hardware",wrong:"Arduino et Raspberry Pi sont tous les deux des microcontrôleurs",right:"Arduino = microcontrôleur (exécute une seule boucle, pas d'OS). Raspberry Pi = microprocesseur avec OS Linux complet (RAM, stockage, multitâche).",why:"La distinction est fondamentale : Arduino pour contrôle temps-réel simple, RPi pour traitement complexe avec OS.",rule:"Arduino = microcontrôleur (C/C++, loop). RPi = microprocesseur (Linux, Python, multitâche)."},
-{cat:"Erreur classique",sev:2,ch:"Hardware",wrong:"La transmission radio est moins consommatrice que le traitement CPU dans l'IoT",right:"La TRANSMISSION RADIO est la principale source de consommation dans l'IoT. Le CPU consomme bien moins.",why:"Les modules radio transmettent à ~40-50 mA, en veille <10 µA. D'où l'importance du deep sleep et du duty cycle.",rule:"Consommation IoT : Tx Radio (40-50 mA) >> CPU >> Capteurs. Deep sleep = <10 µA."},
-{cat:"Confusion fréquente",sev:2,ch:"Reseaux",wrong:"La 5G remplace complètement NB-IoT et LoRaWAN pour l'IoT",right:"Non : NB-IoT et LoRaWAN restent pertinents pour l'IoT LPWAN (batterie longue durée, faible coût). La 5G cible l'IoT massif/critique (mMTC, URLLC) mais est plus coûteuse.",why:"Chaque technologie a son créneau. LoRaWAN/NB-IoT = capteurs batterie longue durée. 5G = IoT critique + haute densité.",rule:"5G complète (pas remplace) LoRaWAN/NB-IoT. Choix selon portée, conso, coût."},
-{cat:"Erreur classique",sev:3,ch:"Reseaux",wrong:"Le MSC en 2G gère les antennes radio directement",right:"Le MSC est le commutateur CENTRAL (logique). C'est la BTS qui est l'antenne, et le BSC qui contrôle les BTS.",why:"Hiérarchie 2G : BTS (antenne) → BSC (contrôle BTS) → MSC (commutation appels, mobilité).",rule:"BTS = antenne. BSC = contrôle BTS. MSC = commutateur central 2G."},
-{cat:"Confusion fréquente",sev:2,ch:"Archi",wrong:"Edge Computing et Cloud Computing sont la même chose",right:"Edge = traitement LOCAL près du capteur (faible latence, offline possible). Cloud = traitement CENTRALISÉ à distance (puissance, historique, IA).",why:"Le Edge computing réduit la latence et la bande passante nécessaire en traitant localement.",rule:"Edge = local, rapide, confidentiel. Cloud = centralisé, puissant, dépendant du réseau."},
-{cat:"Exception importante",sev:3,ch:"Reseaux",wrong:"LoRaWAN supporte bien la communication en temps réel strict",right:"LoRaWAN N'est PAS adapté au temps réel strict : duty cycle 1%, débit faible (kbps), latence de secondes.",why:"Les contraintes réglementaires et le faible débit rendent LoRaWAN inadapté pour la commande temps-réel.",rule:"LoRaWAN = données périodiques + petits messages. Temps réel → 4G/5G/WiFi."},
-{cat:"Erreur classique",sev:2,ch:"Protocoles",wrong:"Une plateforme IoT propriétaire est toujours supérieure à une open source",right:"Les plateformes open source (ThingsBoard, Node-RED) sont souvent plus flexibles et gratuites. Les propriétaires offrent support et SLA mais sont payantes.",why:"Le choix dépend des besoins : budget, support, personnalisation, données sensibles.",rule:"Open source = flexible, gratuit, auto-hébergé. Propriétaire = support, SLA, coût."},
-{cat:"Cas limite",sev:2,ch:"Reseaux",wrong:"Sigfox permet une communication bidirectionnelle équivalente à LoRaWAN",right:"Sigfox est très limité en downlink : seulement 4 messages DOWNLINK par jour max (vs uplink 140/jour). La bidirectionnalité est quasi-nulle.",why:"La modulation UNB de Sigfox est optimisée pour l'uplink massif. Le downlink est une fonctionnalité secondaire très limitée.",rule:"Sigfox downlink : 4 msg/jour max. LoRaWAN : bidirectionnel (limité par duty cycle mais bien meilleur)."},
-{cat:"Erreur de cas pratique",sev:3,ch:"Archi",wrong:"Choisir le WiFi pour des capteurs agricoles en plein champ car 'tout le monde a le WiFi'",right:"WiFi = portée ~100-200m et forte consommation. Pour un champ de plusieurs km², il faudrait des dizaines de routeurs. LoRaWAN couvre le même champ avec 1-2 Gateways.",why:"Le piège : confondre disponibilité domestique du WiFi avec adaptabilité IoT terrain. Le bon critère est portée + autonomie batterie, pas la familiarité.",rule:"Toujours raisonner en termes de portée, consommation, débit nécessaire. Pas de 'choix évident'."},
-{cat:"Erreur de cas pratique",sev:3,ch:"Protocoles",wrong:"Utiliser HTTP/REST pour des capteurs IoT qui envoient en temps réel",right:"HTTP = requête/réponse synchrone. Le capteur doit interroger le serveur (polling) ou le serveur ne peut pas pousser de données. MQTT est asynchrone et fait du push automatiquement.",why:"HTTP est conçu pour le web classique. Pour IoT temps réel, le modèle Pub/Sub MQTT est naturellement adapté.",rule:"Données temps réel + push → MQTT. API web, requête ponctuelle → HTTP/REST."},
-{cat:"Erreur de cas pratique",sev:2,ch:"Archi",wrong:"Choisir la 5G pour tous les cas IoT car 'c'est le futur'",right:"5G est coûteuse, énergivore, et surdimensionnée pour des capteurs IoT simples. LoRaWAN ou NB-IoT sont souvent plus adaptés pour les déploiements batterie longue durée.",why:"La 5G vise mMTC/URLLC/eMBB. Elle n'est pas optimisée pour les capteurs à batterie qui envoient 10 octets/heure.",rule:"Choisir selon le besoin réel. 5G = IoT critique + haute densité. LPWAN = capteurs batterie longue durée."},
-{cat:"Erreur de cas pratique",sev:3,ch:"Reseaux",wrong:"Penser que LoRaWAN et Sigfox sont interchangeables",right:"LoRaWAN = réseau privé possible, messages illimités (sous duty cycle), standard ouvert. Sigfox = opérateur unique, 140 msg/jour max, abonnement obligatoire.",why:"Le modèle économique est fondamentalement différent. Sigfox est plus simple à déployer mais très contraint. LoRaWAN est plus flexible mais demande une infrastructure.",rule:"Sigfox = clé en main mais limité. LoRaWAN = flexible mais à déployer."},
-{cat:"Erreur de cas pratique",sev:2,ch:"Archi",wrong:"Considérer que Edge et Cloud Computing sont en opposition",right:"Edge et Cloud sont COMPLÉMENTAIRES. Edge traite localement ce qui est urgent/confidentiel. Cloud reçoit les données agrégées pour analyse historique et IA.",why:"Une architecture IoT mature utilise les deux : Edge pour réactivité, Cloud pour puissance et historique.",rule:"Edge + Cloud = architecture optimale. Pas l'un OU l'autre, mais les deux ensemble selon les besoins."}
-];
 
 /* === STATE === */
 const ST={
@@ -535,8 +367,8 @@ const ST={
   search:'',
   streak:0,
   lastActive:'',
-  load(){try{const s=localStorage.getItem('iot_state');if(s){const d=JSON.parse(s);this.qcm.answers=d.qa||{};this.qcm.bookmarks=d.bk||{};this.fc.states=d.fs||{};this.ex.completed=d.ec||{};this.streak=d.str||0;this.lastActive=d.la||'';}}catch(e){}},
-  save(){try{localStorage.setItem('iot_state',JSON.stringify({qa:this.qcm.answers,bk:this.qcm.bookmarks,fs:this.fc.states,ec:this.ex.completed,str:this.streak,la:this.lastActive}))}catch(e){}}
+  load(){try{const s=localStorage.getItem('tsql_state');if(s){const d=JSON.parse(s);this.qcm.answers=d.qa||{};this.qcm.bookmarks=d.bk||{};this.fc.states=d.fs||{};this.ex.completed=d.ec||{};this.streak=d.str||0;this.lastActive=d.la||'';}}catch(e){}},
+  save(){try{localStorage.setItem('tsql_state',JSON.stringify({qa:this.qcm.answers,bk:this.qcm.bookmarks,fs:this.fc.states,ec:this.ex.completed,str:this.streak,la:this.lastActive}))}catch(e){}}
 };
 ST.load();
 
@@ -571,7 +403,7 @@ function initTabs(){
       if(b.dataset.tab==='qcm') renderQCM();
       if(b.dataset.tab==='flashcards') renderFC();
       if(b.dataset.tab==='cheatsheet') renderCS();
-      if(b.dataset.tab==='traps') renderTraps();
+      if(b.dataset.tab==='exercices') renderEx();
     });
   });
 }
@@ -585,7 +417,7 @@ window.addEventListener('scroll',()=>{
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b;}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function chTag(ch){
-  const m={Intro:'tag-rmi',Hardware:'tag-rest',Reseaux:'tag-kafka',Protocoles:'tag-rpc',Archi:'tag-adv'};
+  const m={'Index':'tag-rmi','Vues':'tag-rest','Triggers':'tag-kafka','Transactions':'tag-rpc','Statistiques':'tag-adv','T-SQL':'tag-intro'};
   return `<span class="tag ${m[ch]||'tag-rmi'}">${esc(ch)}</span>`;
 }
 function diffTag(d){const m={easy:'tag-easy',med:'tag-med',hard:'tag-hard'};const l={easy:'Facile',med:'Moyen',hard:'Difficile'};return `<span class="tag ${m[d]}">${l[d]}</span>`;}
@@ -619,7 +451,7 @@ function renderQCM(){
   const answered=answeredIds.length;
   const correct=answeredIds.filter(k=>ST.qcm.answers[k]===true).length;
   const wrong=answeredIds.filter(k=>ST.qcm.answers[k]===false).length;
-  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
+  const chapters=['all','Index','Vues','Triggers','Transactions','Statistiques','T-SQL'];
   let pool=ST.qcm.shuffled.length?ST.qcm.shuffled:Q;
   if(!ST.qcm.shuffled.length){ST.qcm.shuffled=shuffle(Q);pool=ST.qcm.shuffled;}
   const fp=getFilteredQ();
@@ -643,16 +475,33 @@ function renderQCM(){
     if(ST.qcm.bookmarks[qq.id])cls+=' bk';
     return `<button class="${cls}" onclick="gotoQ(${i})">${i+1}</button>`;
   }).join('');
-  let optsHtml=q.opts.map((o,i)=>{
-    let cls='opt-btn';
-    let badge='';
+  let optsHtml='';
+  const isMulti=Array.isArray(q.ans);
+  const pending=ST.qcm.pending||{};
+  if(isMulti){
+    const selSet=ST.qcm.pending&&ST.qcm.pending[q.id]?new Set(ST.qcm.pending[q.id]):new Set();
+    optsHtml=q.opts.map((o,i)=>{
+      let cls='opt-btn';let badge='';
+      if(isAns){
+        if(q.ans.includes(i)){cls+=' correct';badge='<span class="opt-badge ok">✓</span>';}
+        else if(selSet.has(i)&&!q.ans.includes(i)){cls+=' wrong';badge='<span class="opt-badge bad">✗</span>';}
+      } else {
+        if(selSet.has(i))cls+=' correct';
+      }
+      return `<button class="${cls}" ${isAns?'disabled':''} onclick="toggleMultiSel(${q.id},${i})">${String.fromCharCode(65+i)}. ${hlSearch(o)}${badge}</button>`;
+    }).join('');
+    if(!isAns) optsHtml+=`<button class="btn btn-p" style="margin-top:10px" onclick="submitMulti(${q.id},${JSON.stringify(q.ans)})">✔ Valider la sélection</button>`;
+  } else {
     const selIdx=Number(ST.qcm.answers[String(q.id)+'_sel']);
-    if(isAns){
-      if(i===q.ans){cls+=' correct';badge='<span class="opt-badge ok">✓ Correcte</span>';}
-      else if(ST.qcm.answers[q.id]===false && i===selIdx){cls+=' wrong';badge='<span class="opt-badge bad">✗ Votre réponse</span>';}
-    }
-    return `<button class="${cls}" ${isAns?'disabled':''} onclick="answerQ(${q.id},${i},${q.ans})">${String.fromCharCode(65+i)}. ${hlSearch(o)}${badge}</button>`;
-  }).join('');
+    optsHtml=q.opts.map((o,i)=>{
+      let cls='opt-btn';let badge='';
+      if(isAns){
+        if(i===q.ans){cls+=' correct';badge='<span class="opt-badge ok">✓ Correcte</span>';}
+        else if(ST.qcm.answers[q.id]===false && i===selIdx){cls+=' wrong';badge='<span class="opt-badge bad">✗ Votre réponse</span>';}
+      }
+      return `<button class="${cls}" ${isAns?'disabled':''} onclick="answerQ(${q.id},${i},${q.ans})">${String.fromCharCode(65+i)}. ${hlSearch(o)}${badge}</button>`;
+    }).join('');
+  }
   el.innerHTML=`
 <div class="dash">
   <div class="stat"><div class="v">${total}</div><div class="l">Questions total</div></div>
@@ -689,6 +538,22 @@ function renderQCM(){
 </div>`;
 }
 function answerQ(id,sel,ans){ST.qcm.answers[id]=(sel===ans);ST.qcm.answers[id+'_sel']=sel;ST.save();updateStreak();renderQCM();}
+function toggleMultiSel(id,i){
+  if(!ST.qcm.pending) ST.qcm.pending={};
+  if(!ST.qcm.pending[id]) ST.qcm.pending[id]=[];
+  const arr=ST.qcm.pending[id];
+  const idx=arr.indexOf(i);
+  if(idx===-1) arr.push(i); else arr.splice(idx,1);
+  renderQCM();
+}
+function submitMulti(id,correctArr){
+  if(!ST.qcm.pending||!ST.qcm.pending[id]||ST.qcm.pending[id].length===0){showToast('⚠️ Sélectionne au moins une réponse !');return;}
+  const sel=ST.qcm.pending[id].slice().sort();
+  const cor=[...correctArr].sort();
+  const ok=sel.length===cor.length&&sel.every((v,i)=>v===cor[i]);
+  ST.qcm.answers[id]=ok;
+  ST.save();updateStreak();renderQCM();
+}
 function nextQ(){const fp=getFilteredQ();if(ST.qcm.idx<fp.length-1){ST.qcm.idx++;renderQCM();}}
 function prevQ(){if(ST.qcm.idx>0){ST.qcm.idx--;renderQCM();}}
 function skipQ(){nextQ();}
@@ -712,7 +577,7 @@ function showResults(){
 /* === FLASHCARD ENGINE === */
 function renderFC(){
   const el=document.getElementById('tab-flashcards');
-  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
+  const chapters=['all','Index','Vues','Triggers','Transactions','Statistiques','T-SQL'];
   let pool=FC.filter(f=>ST.fc.chapter==='all'||f.ch===ST.fc.chapter);
   if(ST.search){
     const s=ST.search.toLowerCase();
@@ -739,12 +604,26 @@ function renderFC(){
   const mastered=Object.values(ST.fc.states).filter(v=>v==='ok').length;
   const stateLabel={rev:'❌ À revoir',med:'∼ Moyen',ok:'✅ Maîtrisée',none:'🆕 Nouvelle'}[st];
   const stateColor={rev:'var(--err)',med:'var(--warn)',ok:'var(--ok)',none:'var(--txt2)'}[st];
-  const stateBorder={rev:'var(--err)',med:'var(--warn)',ok:'var(--ok)',none:'var(--border)'}[st];
   const revCount=finalPool.filter(f=>ST.fc.states[f.id]==='rev').length;
   const srHint=revCount>0?`⚠️ ${revCount} carte${revCount>1?'s':''} à revoir en tête de file`:'✅ Aucune carte à revoir';
+  
+  const chColors={
+    Index:{c:'#10b981',bg:'rgba(16,185,129,0.18)',icon:'⚡'},
+    Vues:{c:'#3b82f6',bg:'rgba(59,130,246,0.18)',icon:'👁️'},
+    Triggers:{c:'#a855f7',bg:'rgba(168,85,247,0.18)',icon:'⚡'},
+    Transactions:{c:'#f59e0b',bg:'rgba(245,158,11,0.18)',icon:'🔒'},
+    Statistiques:{c:'#ec4899',bg:'rgba(236,72,153,0.18)',icon:'📊'},
+    'T-SQL':{c:'#06b6d4',bg:'rgba(6,182,212,0.18)',icon:'💻'}
+  };
+  const colObj=chColors[f.ch]||{c:'#3b82f6',bg:'rgba(59,130,246,0.18)',icon:'🃏'};
+
   el.innerHTML=`
 <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px">
-  ${chapters.map(c=>`<button class="f-btn${ST.fc.chapter===c?' on':''}" onclick="setFCh('${c}')">${c==='all'?'Tous':c}</button>`).join('')}
+  ${chapters.map(c=>{
+    const col=chColors[c]?chColors[c].c:'#3b82f6';
+    const on=(ST.fc.chapter===c);
+    return `<button class="f-btn" style="border-color:${on?col:'var(--border)'}; background:${on?col:'transparent'}; color:${on?'#000':'var(--txt2)'}; font-weight:${on?'700':'600'}; box-shadow:${on?'0 0 14px '+col+'80':'none'}" onclick="setFCh('${c}')">${c==='all'?'🌟 Tous':(chColors[c]?chColors[c].icon+' ':'')+c}</button>`;
+  }).join('')}
   <button class="btn btn-s" onclick="shuffleFC()" style="margin-left:auto">🔀 Mélanger</button>
 </div>
 <div style="font-size:12px;color:${revCount>0?'var(--warn)':'var(--ok)'};margin-bottom:12px;padding:6px 10px;background:${revCount>0?'rgba(245,158,11,.08)':'rgba(34,197,94,.08)'};border-radius:6px;border-left:3px solid ${revCount>0?'var(--warn)':'var(--ok)'}">
@@ -758,16 +637,20 @@ function renderFC(){
 </div>
 <div style="text-align:center;color:var(--txt2);font-size:13px;margin-bottom:8px">${i+1} / ${finalPool.length} — Cliquer pour retourner</div>
 <div class="fc-arena">
-  <div class="flashcard" id="fc-card" onclick="flipFC()" style="--fc-border:${stateBorder}">
-    <div class="fc-face fc-front" style="border-color:${stateBorder}">
-      <div class="fc-lbl">Question — ${f.ch}</div>
-      <div style="font-size:11px;font-weight:700;color:${stateColor};margin-bottom:8px;letter-spacing:.3px">${stateLabel}</div>
-      <div class="fc-txt">${hlSearch(f.front)}</div>
+  <div class="flashcard" id="fc-card" onclick="flipFC()" style="box-shadow:0 12px 40px ${colObj.bg}">
+    <div class="fc-face fc-front" style="border:2px solid ${colObj.c}60; background:linear-gradient(145deg, var(--panel), ${colObj.bg}); box-shadow:inset 0 1px 1px rgba(255,255,255,0.1)">
+      <div class="fc-lbl" style="color:${colObj.c}; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px; text-shadow:0 0 10px ${colObj.c}60">
+        <span style="font-size:18px">${colObj.icon}</span> Question &mdash; ${f.ch}
+      </div>
+      <div style="font-size:11px;font-weight:700;color:${stateColor};margin-bottom:12px;background:rgba(0,0,0,0.4);padding:3px 12px;border-radius:12px;display:inline-block">${stateLabel}</div>
+      <div class="fc-txt" style="font-size:18px; font-weight:600; text-shadow:0 2px 10px rgba(0,0,0,0.6)">${hlSearch(f.front)}</div>
     </div>
-    <div class="fc-face fc-back">
-      <div class="fc-lbl">Réponse</div>
-      <div class="fc-txt">${hlSearch(f.back)}</div>
-      ${f.code?`<div class="fc-code">${esc(f.code)}</div>`:''}
+    <div class="fc-face fc-back" style="border:2px solid ${colObj.c}; background:linear-gradient(145deg, #09090b, ${colObj.c}35); box-shadow:inset 0 1px 1px rgba(255,255,255,0.1)">
+      <div class="fc-lbl" style="color:${colObj.c}; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:8px; text-shadow:0 0 10px ${colObj.c}60">
+        <span style="font-size:18px">💡</span> Réponse
+      </div>
+      <div class="fc-txt" style="font-size:16px; font-weight:500; margin-bottom:12px; text-shadow:0 2px 10px rgba(0,0,0,0.6)">${hlSearch(f.back)}</div>
+      ${f.code?`<div class="fc-code" style="border:1px solid ${colObj.c}60; background:rgba(0,0,0,0.65); color:#fff; font-size:13px; line-height:1.5">${esc(f.code)}</div>`:''}
     </div>
   </div>
 </div>
@@ -778,7 +661,7 @@ function renderFC(){
 </div>
 <div style="display:flex;justify-content:center;gap:12px;margin-top:14px">
   <button class="btn btn-s" onclick="prevFC()" ${i===0?'disabled':''}>← Préc</button>
-  <button class="btn btn-p" onclick="nextFC()" ${i===pool.length-1?'disabled':''}>Suiv →</button>
+  <button class="btn btn-p" onclick="nextFC()" ${i===finalPool.length-1?'disabled':''}>Suiv →</button>
 </div>`;
 }
 function flipFC(){document.getElementById('fc-card').classList.toggle('flipped');}
@@ -796,18 +679,29 @@ function renderCS(){
     el.innerHTML=`<div class="empty"><span class="empty-icon">📜</span><div class="empty-title">Aucun Cheat Sheet</div><div class="empty-sub">Les fiches de révision seront ajoutées bientôt.</div></div>`;
     return;
   }
-  const idx=`<div class="jump-idx">${keys.map(k=>`<button class="j-link" onclick="document.getElementById('cs-${k}').scrollIntoView({behavior:'smooth'})">${CS[k].title}</button>`).join('')}</div>`;
+  const idx=`<div class="jump-idx" style="display:flex; gap:8px; flex-wrap:wrap; padding:16px; background:var(--panel); border:1px solid var(--border); border-radius:12px; margin-bottom:24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3)">
+    ${keys.map(k=>{
+      const c=CS[k];
+      return `<button class="j-link" style="border:1px solid ${c.color}40; background:${c.bg}; color:${c.color}; font-weight:600; padding:6px 14px; border-radius:8px; display:flex; align-items:center; gap:8px; transition:all .2s;" onmouseover="this.style.boxShadow='0 0 14px ${c.color}60'; this.style.borderColor='${c.color}'" onmouseout="this.style.boxShadow='none'; this.style.borderColor='${c.color}40'" onclick="document.getElementById('cs-${k}').scrollIntoView({behavior:'smooth'})"><span style="font-size:15px">${c.icon}</span> ${esc(c.title.split('—')[0].trim())}</button>`;
+    }).join('')}
+  </div>`;
   let html=idx+'<div class="cheat-grid">';
   keys.forEach(k=>{
     const c=CS[k];
     const s=ST.search?ST.search.toLowerCase():'';
     const items=c.items.filter(it=>!s||it.k.toLowerCase().includes(s)||it.v.toLowerCase().includes(s));
     if(ST.search && items.length===0 && !c.code.toLowerCase().includes(s)) return;
-    html+=`<div class="cc" id="cs-${k}">
-      <div class="cc-h"><h3>${esc(c.title)}</h3><button class="copy-btn" onclick="copyCS('${k}')">📋 Copier</button></div>
-      <div class="cc-b">
-        ${items.map(it=>`<div class="ci"><span class="ci-k">${hlSearch(it.k)}</span><span class="ci-v ac">${hlSearch(it.v)}</span></div>`).join('')}
-        ${c.code && (!ST.search || c.code.toLowerCase().includes(s))?`<div class="cs">${esc(c.code)}</div>`:''}
+    html+=`<div class="cc" id="cs-${k}" style="border-top:4px solid ${c.color}; border-radius:10px; box-shadow:0 4px 25px ${c.bg}; transition:all .3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 35px ${c.color}30'" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 25px ${c.bg}'">
+      <div class="cc-h" style="background:linear-gradient(135deg, var(--panel) 30%, ${c.bg}); border-bottom:1px solid rgba(255,255,255,0.06); padding:12px 16px;">
+        <h3 style="color:${c.color}; font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; text-shadow:0 0 10px ${c.color}40;"><span style="font-size:18px">${c.icon}</span> ${esc(c.title)}</h3>
+        <button class="copy-btn" style="border:1px solid ${c.color}40; color:${c.color}; background:${c.bg}; padding:4px 10px; border-radius:6px; font-weight:600;" onmouseover="this.style.background='${c.color}'; this.style.color='#000'" onmouseout="this.style.background='${c.bg}'; this.style.color='${c.color}'" onclick="copyCS('${k}')">📋 Copier</button>
+      </div>
+      <div class="cc-b" style="padding:14px 16px;">
+        ${items.map((it, iNum)=>`<div class="ci" style="border-bottom:1px solid rgba(255,255,255,0.04); padding:8px 4px; background:${iNum%2===0?'transparent':'rgba(255,255,255,0.015)'}; border-radius:4px;">
+          <span class="ci-k" style="color:var(--txt2); font-weight:600; font-size:13px;">${hlSearch(it.k)}</span>
+          <span class="ci-v ac" style="color:${c.color}; font-weight:700; font-size:13px; text-shadow:0 0 8px ${c.color}20;">${hlSearch(it.v)}</span>
+        </div>`).join('')}
+        ${c.code && (!ST.search || c.code.toLowerCase().includes(s))?`<div class="cs" style="border-left:3px solid ${c.color}; background:rgba(0,0,0,0.4); color:var(--txt); padding:10px; font-size:12px; border-radius:0 6px 6px 0; margin-top:10px;">${esc(c.code)}</div>`:''}
       </div>
     </div>`;
   });
@@ -816,43 +710,52 @@ function renderCS(){
 }
 function copyCS(k){const c=CS[k];const txt=c.items.map(i=>i.k+': '+i.v).join('\n')+(c.code?'\n\n'+c.code:'');navigator.clipboard.writeText(txt).then(()=>showToast('✓ Copié dans le presse-papiers'));}
 
-/* === TRAPS ENGINE === */
-function renderTraps(){
-  const el=document.getElementById('tab-traps');
-  if(!TRAPS.length){
-    el.innerHTML=`<div class="empty"><span class="empty-icon">🪤</span><div class="empty-title">Aucun piège</div><div class="empty-sub">Les pièges d'examen seront ajoutés bientôt.</div></div>`;
+/* === EXERCICES ENGINE === */
+function renderEx(){
+  const el=document.getElementById('tab-exercices');
+  if(!EX.length){
+    el.innerHTML=`<div class="empty"><span class="empty-icon">💻</span><div class="empty-title">Aucun exercice</div><div class="empty-sub">Les exercices de code seront ajoutés bientôt.</div></div>`;
     return;
   }
-  const cats=['all','Confusion fréquente','Erreur classique','Exception importante','Cas limite'];
-  const chapters=['all','Intro','Hardware','Reseaux','Protocoles','Archi'];
-  const activeCat=window._trapCat||'all';
-  const activeCh=window._trapCh||'all';
-  let filtered=TRAPS.filter(t=>(activeCat==='all'||t.cat===activeCat)&&(activeCh==='all'||t.ch===activeCh));
-  if(ST.search){
-    const s=ST.search.toLowerCase();
-    filtered=filtered.filter(t=>t.wrong.toLowerCase().includes(s)||t.right.toLowerCase().includes(s)||t.why.toLowerCase().includes(s)||t.rule.toLowerCase().includes(s));
-  }
-  const sevDots=n=>[...Array(3)].map((_,i)=>`<div class="s-dot" style="background:${i<n?'var(--err)':'var(--border)'}"></div>`).join('');
-  let html=`<div class="filter-bar">${cats.map(c=>`<button class="f-btn${activeCat===c?' on':''}" onclick="window._trapCat='${c}';renderTraps()">${c==='all'?'Toutes':c}</button>`).join('')}</div>
-  <div class="filter-bar">${chapters.map(c=>`<button class="f-btn${activeCh===c?' on':''}" onclick="window._trapCh='${c}';renderTraps()">${c==='all'?'Tous':c}</button>`).join('')}</div>`;
-  filtered.forEach(t=>{
-    const cls=t.cat==='Confusion fréquente'?'w':t.cat==='Exception importante'?'i':'';
-    html+=`<div class="trap-card ${cls}">
-      <div class="tc-head">
-        <div><span class="tc-cat" style="color:${cls==='w'?'var(--warn)':cls==='i'?'var(--accent)':'var(--err)'}">${esc(t.cat)}</span> ${chTag(t.ch)}</div>
-        <div class="severity">${sevDots(t.sev)}</div>
+  let html = '';
+  EX.forEach(e=>{
+    const s=ST.search?ST.search.toLowerCase():'';
+    if(s && !e.title.toLowerCase().includes(s) && !e.desc.toLowerCase().includes(s) && !e.task.toLowerCase().includes(s)) return;
+    
+    html+=`<div class="exo-card">
+      <div class="exo-header">
+        <span class="exo-num">Exercice ${e.id}</span>
+        <span class="exo-title">${hlSearch(e.title)}</span>
+        ${chTag(e.ch)}
       </div>
-      <div class="tw"><div class="lbl">❌ Erreur fréquente</div><div>${hlSearch(t.wrong)}</div></div>
-      <div class="tc" style="margin-top:8px"><div class="lbl">✅ Réalité</div><div>${hlSearch(t.right)}</div></div>
-      <div style="font-size:12px;color:var(--txt2);margin-top:6px">💬 ${hlSearch(t.why)}</div>
-      <div class="tc-rule">📌 ${hlSearch(t.rule)}</div>
+      <div class="exo-body">
+        <div class="exo-desc">${hlSearch(e.desc)}</div>
+        <div class="exo-schema">${esc(e.schema)}</div>
+        <div class="exo-task">${hlSearch(e.task)}</div>
+        <textarea class="code-area" id="exo-input-${e.id}" placeholder="-- Écris ton code T-SQL ici..."></textarea>
+        <div class="exo-actions">
+          <button class="btn btn-ok" onclick="toggleSolution(${e.id})">Voir solution</button>
+          <button class="btn btn-s" onclick="document.getElementById('exo-input-${e.id}').value=''">Effacer</button>
+        </div>
+        <div class="solution-box" id="sol-${e.id}">
+          <div class="solution-header">Solution</div>
+          <div class="solution-code">${esc(e.sol)}</div>
+          <div class="solution-note"><strong style="color:var(--warn)">Note :</strong> ${hlSearch(e.note)}</div>
+        </div>
+      </div>
     </div>`;
   });
-  if(filtered.length===0){
-    const sub=ST.search?`Aucun piège ne correspond à <b>&laquo;${esc(ST.search)}&raquo;</b>.`:'Aucun piège pour cette combinaison de filtres.';
-    html+=`<div class="empty"><span class="empty-icon">🪤</span><div class="empty-title">Aucun piège trouvé</div><div class="empty-sub">${sub}</div></div>`;
+  if(html===''){
+    html=`<div class="empty"><span class="empty-icon">🔍</span><div class="empty-title">Aucun résultat</div><div class="empty-sub">Aucun exercice ne correspond à <b>&laquo;${esc(ST.search)}&raquo;</b>.</div></div>`;
   }
   el.innerHTML=html;
+}
+
+function toggleSolution(id){
+  const box=document.getElementById('sol-'+id);
+  box.classList.toggle('show');
+  const btn=box.previousElementSibling.querySelector('.btn-ok');
+  btn.textContent=box.classList.contains('show')?'Cacher solution':'Voir solution';
 }
 
 /* === SEARCH === */
@@ -863,7 +766,7 @@ function triggerActiveTabRender(){
   if(tab==='qcm') renderQCM();
   else if(tab==='flashcards') renderFC();
   else if(tab==='cheatsheet') renderCS();
-  else if(tab==='traps') renderTraps();
+  else if(tab==='exercices') renderEx();
 }
 document.getElementById('search-box').addEventListener('input',e=>{
   ST.search=e.target.value.trim();
@@ -939,12 +842,25 @@ function showShortcuts(){
   </table>`);
 }
 
-
 /* === INIT === */
 window.onload=()=>{
   initTabs();
   renderQCM();
   document.getElementById('streak-val').textContent=ST.streak;
+  setTimeout(()=>{
+    const bar=document.getElementById('splash-prog');
+    if(bar) bar.style.width='100%';
+    setTimeout(()=>{
+      const sp=document.getElementById('app-splash');
+      if(sp){
+        sp.style.opacity='0';
+        sp.style.transform='scale(1.1)';
+        sp.style.pointerEvents='none';
+        document.body.classList.add('loaded');
+        setTimeout(()=>sp.remove(),800);
+      }
+    },800);
+  },100);
 };
 </script>
 </body>
