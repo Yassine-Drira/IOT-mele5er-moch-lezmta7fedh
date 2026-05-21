@@ -1,1227 +1,225 @@
-# Remote_Work_Quiz_ForProject
+<!-- AlgoRep QCM — 50 Questions Algorithmique Répartie IGL3 FST Tunis El-Manar -->
+<!-- Style: Premium Dark Minimalist | Sections: ExMut · Election · Diffusion · Horloges -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Remote Work — AR Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AlgoRep QCM — Algorithmique Répartie</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --void: #010408;
-  --deep: #040c18;
-  --panel: rgba(6,20,44,0.72);
-  --panel-bright: rgba(8,28,62,0.85);
-  --cyan: #00f5ff;
-  --cyan-dim: rgba(0,245,255,0.15);
-  --cyan-glow: rgba(0,245,255,0.4);
-  --teal: #00e5c8;
-  --purple: #b060ff;
-  --purple-dim: rgba(176,96,255,0.15);
-  --gold: #ffd060;
-  --green: #00ff88;
-  --red: #ff4060;
-  --white90: rgba(255,255,255,0.92);
-  --white50: rgba(255,255,255,0.5);
-  --white20: rgba(255,255,255,0.2);
-  --white08: rgba(255,255,255,0.08);
-  --border-c: rgba(0,245,255,0.25);
-  --border-p: rgba(176,96,255,0.25);
+:root{
+  --bg:#0a0a0f;--surface:#13131a;--surface2:#1c1c28;--border:#2a2a3d;
+  --accent:#7c6fff;--accent2:#ff6b9d;--accent3:#00d4aa;
+  --text:#e8e8f0;--text2:#9090b0;--text3:#5a5a7a;
+  --correct:#00d4aa;--wrong:#ff4d6d;--neutral:#7c6fff;
 }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;overflow-x:hidden}
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+/* HEADER */
+.header{background:linear-gradient(135deg,#0d0d1a 0%,#131320 100%);border-bottom:1px solid var(--border);padding:20px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.header-inner{max-width:900px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.logo-sub{font-size:11px;color:var(--text2);font-weight:400}
+.header-stats{display:flex;gap:20px;align-items:center}
+.stat-pill{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--text2)}
+.stat-pill span{color:var(--accent);font-weight:700}
 
-html, body {
-  width:100%; height:100%;
-  background: var(--void);
-  color: var(--white90);
-  font-family: 'Rajdhani', sans-serif;
-  overflow: hidden;
-  cursor: crosshair;
-  touch-action: manipulation; /* Prevents double-tap zoom on mobile */
-}
+/* PROGRESS */
+.progress-wrap{max-width:900px;margin:0 auto;padding:16px 24px 0}
+.progress-bar-bg{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .4s cubic-bezier(.4,0,.2,1);width:0%}
+.progress-labels{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text3)}
 
-/* ═══════════ CANVAS BACKGROUND ═══════════ */
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:32px 24px 80px}
 
-/* ═══════════ DEPTH GRID ═══════════ */
-.grid-plane {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
-  transform: perspective(800px) rotateX(55deg) translateY(30%);
-  transform-origin: bottom center;
-  animation: gridMove 8s linear infinite;
-}
+/* CATEGORY BADGE */
+.cat-badge{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:500;color:var(--text2);margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase}
+.cat-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
-@keyframes gridMove {
-  from { background-position: 0 0; }
-  to   { background-position: 0 60px; }
-}
+/* QUESTION CARD */
+.question-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:16px;transition:border-color .2s;display:none}
+.question-card.active{display:block;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.question-card:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)20}
+.q-number{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:12px;letter-spacing:1px}
+.q-text{font-size:16px;font-weight:500;line-height:1.65;color:var(--text);margin-bottom:28px}
+.q-text code{font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-size:13px;color:var(--accent3)}
 
-/* ═══════════ HUD CORNERS ═══════════ */
-.hud-corner {
-  position: fixed;
-  width: min(60px, 10vw); height: min(60px, 10vw);
-  z-index: 10;
-  pointer-events: none;
-}
-.hud-corner::before, .hud-corner::after {
-  content: '';
-  position: absolute;
-  background: var(--cyan);
-}
-.hud-corner::before { width: 2px; height: 100%; }
-.hud-corner::after  { width: 100%; height: 2px; }
+/* OPTIONS */
+.options{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:flex-start;gap:14px;background:var(--surface2);border:1.5px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.opt::before{content:'';position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .2s}
+.opt:hover::before{opacity:.04}
+.opt:hover{border-color:var(--accent);transform:translateX(3px)}
+.opt-key{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--text3);min-width:20px;padding-top:1px;transition:color .2s}
+.opt-text{font-size:14px;line-height:1.55;color:var(--text2);transition:color .2s;position:relative;z-index:1}
+.opt:hover .opt-key,.opt:hover .opt-text{color:var(--text)}
 
-.hud-tl { top:16px; left:16px; }
-.hud-tr { top:16px; right:16px; transform: scaleX(-1); }
-.hud-bl { bottom:16px; left:16px; transform: scaleY(-1); }
-.hud-br { bottom:16px; right:16px; transform: scale(-1); }
+/* STATES */
+.opt.selected{border-color:var(--accent);background:linear-gradient(90deg,#7c6fff12,var(--surface2))}
+.opt.selected .opt-key{color:var(--accent)}
+.opt.selected .opt-text{color:var(--text)}
+.opt.correct{border-color:var(--correct)!important;background:linear-gradient(90deg,#00d4aa15,var(--surface2))!important}
+.opt.correct .opt-key{color:var(--correct)!important}
+.opt.wrong{border-color:var(--wrong)!important;background:linear-gradient(90deg,#ff4d6d15,var(--surface2))!important}
+.opt.wrong .opt-key{color:var(--wrong)!important}
+.opt.disabled{cursor:default;pointer-events:none}
 
-/* HUD data overlays */
-.hud-data {
-  position: fixed;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  color: rgba(0,245,255,0.5);
-  z-index: 10;
-  pointer-events: none;
-  line-height: 1.8;
-}
-.hud-data.tl { top: 82px; left: 20px; }
-.hud-data.tr { top: 82px; right: 20px; text-align: right; }
-.hud-data.bl { bottom: 82px; left: 20px; }
+/* EXPLANATION */
+.explanation{margin-top:20px;padding:16px 18px;background:var(--surface2);border-left:3px solid var(--accent3);border-radius:0 10px 10px 0;font-size:13px;color:var(--text2);line-height:1.65;display:none}
+.explanation.show{display:block;animation:fadeUp .25s ease}
+.explanation strong{color:var(--accent3)}
 
-/* Hide background data text on very small screens to avoid overlap */
-@media(max-width: 600px) {
-  .hud-data { display: none; }
-}
+/* NAV BUTTONS */
+.nav-row{display:flex;gap:12px;margin-top:28px;align-items:center}
+.btn{padding:12px 28px;border-radius:10px;border:none;cursor:pointer;font-size:14px;font-weight:600;font-family:'Inter',sans-serif;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#5a4fcf);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px #7c6fff40}
+.btn-secondary{background:var(--surface2);border:1.5px solid var(--border);color:var(--text2)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--text)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
 
-/* Scan line */
-.scanline {
-  position: fixed;
-  left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.6), transparent);
-  z-index: 10;
-  pointer-events: none;
-  animation: scan 4s linear infinite;
-}
-@keyframes scan {
-  from { top: -2px; opacity: 1; }
-  to   { top: 100vh; opacity: 0.3; }
-}
+/* QUESTION MAP */
+.qmap{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.qmap-item{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface2);font-size:12px;font-weight:600;color:var(--text3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s}
+.qmap-item:hover{border-color:var(--accent);color:var(--accent)}
+.qmap-item.answered{background:var(--accent);border-color:var(--accent);color:#fff}
+.qmap-item.current{border-color:var(--accent2);color:var(--accent2);box-shadow:0 0 0 2px #ff6b9d30}
+.qmap-item.correct-map{background:var(--correct);border-color:var(--correct);color:#fff}
+.qmap-item.wrong-map{background:var(--wrong);border-color:var(--wrong);color:#fff}
 
-/* ═══════════ SCREENS ═══════════ */
-.screen {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  perspective: 1200px;
-  padding: 15px;
-}
-.screen.active { display: flex; }
+/* SCORE SCREEN */
+.score-screen{display:none;text-align:center;padding:60px 24px}
+.score-screen.show{display:block;animation:fadeUp .5s ease}
+.score-ring{width:160px;height:160px;margin:0 auto 32px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring-text{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-pct{font-size:36px;font-weight:700;color:var(--text)}
+.score-label{font-size:12px;color:var(--text3)}
+.score-title{font-size:24px;font-weight:700;margin-bottom:8px}
+.score-sub{font-size:14px;color:var(--text2);margin-bottom:40px}
+.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:500px;margin:0 auto 40px}
+.score-stat{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px}
+.score-stat-val{font-size:28px;font-weight:700;margin-bottom:4px}
+.score-stat-lab{font-size:12px;color:var(--text2)}
 
-/* ═══════════ INTRO ═══════════ */
-#intro { gap: 0; }
-
-.intro-orb {
-  width: clamp(120px, 40vw, 180px); height: clamp(120px, 40vw, 180px);
-  position: relative;
-  margin-bottom: 36px;
-  animation: orbFloat 4s ease-in-out infinite;
-}
-@keyframes orbFloat {
-  0%,100% { transform: translateY(0) rotateX(0deg); }
-  50% { transform: translateY(-16px) rotateX(8deg); }
-}
-
-.orb-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.5px solid var(--cyan);
-  animation: ringRotate 6s linear infinite;
-  box-shadow: 0 0 20px var(--cyan-glow), inset 0 0 20px rgba(0,245,255,0.05);
-}
-.orb-ring:nth-child(2) {
-  inset: 14px;
-  border-color: var(--purple);
-  animation-duration: 4s;
-  animation-direction: reverse;
-  box-shadow: 0 0 15px rgba(176,96,255,0.4), inset 0 0 15px rgba(176,96,255,0.05);
-}
-.orb-ring:nth-child(3) {
-  inset: 28px;
-  border-color: var(--teal);
-  animation-duration: 8s;
-}
-.orb-core {
-  position: absolute;
-  inset: 42px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,245,255,0.3), rgba(176,96,255,0.2), transparent);
-  animation: corePulse 2s ease-in-out infinite;
-}
-@keyframes corePulse {
-  0%,100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-@keyframes ringRotate {
-  from { transform: rotateX(70deg) rotate(0deg); }
-  to   { transform: rotateX(70deg) rotate(360deg); }
-}
-
-.intro-eyebrow {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(9px, 3vw, 11px);
-  color: var(--cyan);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s 0.2s forwards;
-  text-align: center;
-}
-
-.intro-title {
-  font-family: 'Orbitron', monospace;
-  font-size: clamp(2.2rem, 8vw, 3.6rem);
-  font-weight: 900;
-  text-align: center;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s 0.4s forwards;
-  text-shadow: 0 0 40px rgba(0,245,255,0.4);
-}
-.intro-title .hl { color: var(--cyan); }
-.intro-title .hl2 { color: var(--purple); }
-
-.intro-meta {
-  display: flex;
-  gap: clamp(12px, 3vw, 32px);
-  margin: 28px 0 40px;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s 0.6s forwards;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.meta-chip {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(9px, 2.5vw, 11px);
-  color: var(--cyan);
-  border: 1px solid var(--border-c);
-  background: var(--cyan-dim);
-  padding: 6px 14px;
-  border-radius: 4px;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-}
-.meta-chip::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0,245,255,0.15), transparent);
-  animation: chipShimmer 3s infinite;
-}
-@keyframes chipShimmer {
-  from { left: -100%; }
-  to   { left: 100%; }
-}
-
-@keyframes fadeSlideUp {
-  from { opacity:0; transform: translateY(20px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-
-/* ═══════════ LAUNCH BUTTON ═══════════ */
-.btn-launch {
-  position: relative;
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: clamp(0.8rem, 3vw, 0.9rem);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--void);
-  background: var(--cyan);
-  border: none;
-  padding: 18px clamp(30px, 8vw, 52px);
-  cursor: pointer;
-  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-  transition: all 0.2s;
-  opacity: 0;
-  animation: fadeSlideUp 0.6s 0.8s forwards;
-  box-shadow: 0 0 40px var(--cyan-glow), 0 0 80px rgba(0,245,255,0.15);
-}
-.btn-launch:hover {
-  background: white;
-  box-shadow: 0 0 60px rgba(0,245,255,0.8), 0 0 120px rgba(0,245,255,0.3);
-  transform: scale(1.04);
-}
-.btn-launch:active { transform: scale(0.98); }
-
-/* ═══════════ QUIZ SCREEN ═══════════ */
-#quiz {
-  gap: 16px;
-  padding: 10px;
-}
-
-/* Top HUD bar */
-.quiz-hud {
-  width: 100%;
-  max-width: 820px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.q-id {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(10px, 3vw, 11px);
-  color: var(--cyan);
-  letter-spacing: 2px;
-}
-
-.timer-hud {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: auto;
-}
-
-.timer-track {
-  width: clamp(80px, 20vw, 180px);
-  height: 4px;
-  background: rgba(0,245,255,0.1);
-  border-radius: 0;
-  position: relative;
-  overflow: visible;
-}
-.timer-fill {
-  height: 100%;
-  background: var(--cyan);
-  transition: width 1s linear, background 0.5s;
-  box-shadow: 0 0 10px var(--cyan);
-  position: relative;
-}
-.timer-fill::after {
-  content: '';
-  position: absolute;
-  right: -3px; top: 50%;
-  transform: translateY(-50%);
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: white;
-  box-shadow: 0 0 8px var(--cyan);
-}
-
-.timer-num {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: clamp(0.9rem, 3vw, 1rem);
-  color: var(--cyan);
-  min-width: 28px;
-  text-align: right;
-  transition: color 0.3s;
-  text-shadow: 0 0 12px currentColor;
-}
-
-/* Progress nodes */
-.progress-nodes {
-  display: flex;
-  gap: clamp(4px, 1.5vw, 8px);
-  align-items: center;
-}
-.pnode {
-  width: clamp(14px, 3vw, 24px); 
-  height: 4px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: all 0.4s;
-  position: relative;
-}
-.pnode.cur {
-  background: var(--cyan);
-  border-color: var(--cyan);
-  box-shadow: 0 0 8px var(--cyan-glow);
-  transform: scaleY(2.5);
-}
-.pnode.ok {
-  background: var(--green);
-  border-color: var(--green);
-}
-.pnode.no {
-  background: var(--red);
-  border-color: var(--red);
-}
-.pnode.skip {
-  background: var(--gold);
-  border-color: var(--gold);
-}
-
-/* ═══════════ HOLOGRAPHIC PANEL ═══════════ */
-.holo-panel {
-  width: 100%;
-  max-width: 820px;
-  max-height: 75vh; /* Prevents overflow on mobile */
-  overflow-y: auto; /* Allows scrolling */
-  overflow-x: hidden;
-  background: var(--panel);
-  border: 1px solid var(--border-c);
-  border-radius: 4px;
-  padding: clamp(20px, 5vw, 36px) clamp(16px, 5vw, 40px);
-  position: relative;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 0 0 1px rgba(0,245,255,0.05),
-    0 20px 60px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(0,245,255,0.2),
-    inset 0 -1px 0 rgba(176,96,255,0.1);
-  transform-style: preserve-3d;
-  animation: panelIn 0.5s cubic-bezier(0.16,1,0.3,1) both;
-}
-
-/* Custom Cyberpunk Scrollbar */
-.holo-panel::-webkit-scrollbar { width: 6px; }
-.holo-panel::-webkit-scrollbar-track { background: rgba(0,245,255,0.05); }
-.holo-panel::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 10px; }
-.holo-panel::-webkit-scrollbar-thumb:hover { background: white; }
-
-@keyframes panelIn {
-  from { opacity:0; transform: perspective(1000px) rotateX(-8deg) translateY(30px) scale(0.97); }
-  to   { opacity:1; transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1); }
-}
-
-/* Refraction edge */
-.holo-panel::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), var(--teal), transparent);
-  opacity: 0.8;
-}
-
-/* Interior glow */
-.holo-panel::after {
-  content: '';
-  position: absolute;
-  top: -40%; left: -20%;
-  width: 60%; height: 80%;
-  background: radial-gradient(ellipse, rgba(0,245,255,0.04) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-/* Corner notches */
-.panel-notch {
-  position: absolute;
-  width: 14px; height: 14px;
-  border-color: var(--cyan);
-  border-style: solid;
-  opacity: 0.7;
-  z-index: 2; /* Keeps them above scrollable content */
-}
-.panel-notch.tl { top:0; left:0; border-width:2px 0 0 2px; }
-.panel-notch.tr { top:0; right:0; border-width:2px 2px 0 0; }
-.panel-notch.bl { bottom:0; left:0; border-width:0 0 2px 2px; }
-.panel-notch.br { bottom:0; right:0; border-width:0 2px 2px 0; }
-
-.q-section-tag {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  color: var(--purple);
-  text-transform: uppercase;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.q-section-tag::before {
-  content: '';
-  width: 20px; height: 1px;
-  background: var(--purple);
-  display: inline-block;
-}
-
-.q-text {
-  font-family: 'Orbitron', monospace;
-  font-size: clamp(1rem, 4vw, 1.2rem);
-  font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 24px;
-  color: var(--white90);
-  letter-spacing: 0.01em;
-}
-
-/* ═══════════ OPTIONS ═══════════ */
-.opts-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-@media(max-width:650px) {
-  .opts-grid { grid-template-columns: 1fr; }
-}
-
-.opt-btn {
-  position: relative;
-  background: rgba(0,245,255,0.03);
-  border: 1px solid rgba(0,245,255,0.18);
-  color: var(--white90);
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(0.95rem, 3.5vw, 1rem);
-  font-weight: 500;
-  text-align: left;
-  padding: 14px 16px 14px 44px;
-  cursor: pointer;
-  transition: all 0.2s;
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  line-height: 1.4;
-  overflow: hidden;
-}
-
-.opt-btn::before {
-  content: attr(data-lbl);
-  position: absolute;
-  left: 14px; top: 50%;
-  transform: translateY(-50%);
-  font-family: 'Orbitron', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--cyan);
-  letter-spacing: 1px;
-}
-
-.opt-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0,245,255,0) 0%, rgba(0,245,255,0.06) 100%);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.opt-btn:hover:not(:disabled) {
-  border-color: var(--cyan);
-  background: rgba(0,245,255,0.08);
-  box-shadow: 0 0 20px rgba(0,245,255,0.12), inset 0 0 20px rgba(0,245,255,0.04);
-  transform: translateX(4px);
-}
-.opt-btn:hover:not(:disabled)::after { opacity: 1; }
-
-.opt-btn:disabled { cursor: default; }
-
-.opt-btn.correct {
-  border-color: var(--green);
-  background: rgba(0,255,136,0.08);
-  color: var(--green);
-  box-shadow: 0 0 20px rgba(0,255,136,0.2);
-  animation: correctPulse 0.5s ease;
-}
-.opt-btn.correct::before { color: var(--green); }
-
-.opt-btn.wrong {
-  border-color: var(--red);
-  background: rgba(255,64,96,0.08);
-  color: var(--red);
-  box-shadow: 0 0 15px rgba(255,64,96,0.15);
-  animation: wrongShake 0.4s ease;
-}
-.opt-btn.wrong::before { color: var(--red); }
-
-@keyframes correctPulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-}
-@keyframes wrongShake {
-  0%,100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-/* ═══════════ EXPLANATION & NEXT ROW ═══════════ */
-.explanation {
-  margin-top: 20px;
-  padding: 16px 20px;
-  border-left: 2px solid var(--purple);
-  background: var(--purple-dim);
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(0.85rem, 3.5vw, 0.95rem);
-  font-weight: 400;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.65;
-  animation: fadeSlideUp 0.3s ease;
-  position: relative;
-}
-.explanation strong { color: var(--white90); font-weight: 600; }
-.explanation .expl-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--purple);
-  display: block;
-  margin-bottom: 8px;
-}
-
-/* Sticky Next Button so it never gets lost off-screen */
-.next-row {
-  position: sticky;
-  bottom: 0px; 
-  margin-top: 24px;
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 0;
-  background: linear-gradient(to bottom, transparent 0%, var(--panel) 40%, var(--panel) 100%);
-  z-index: 10;
-}
-
-.btn-next {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: clamp(0.7rem, 2.5vw, 0.75rem);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--void);
-  background: var(--cyan);
-  border: none;
-  padding: 14px clamp(20px, 5vw, 36px);
-  cursor: pointer;
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  transition: all 0.2s;
-  box-shadow: 0 0 24px var(--cyan-glow);
-}
-.btn-next:hover {
-  background: white;
-  box-shadow: 0 0 40px rgba(0,245,255,0.7);
-  transform: scale(1.04);
-}
-
-/* ═══════════ RESULTS ═══════════ */
-#results { gap: clamp(16px, 4vw, 28px); text-align: center; }
-
-.results-header {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(9px, 2.5vw, 11px);
-  letter-spacing: 4px;
-  color: var(--cyan);
-  text-transform: uppercase;
-}
-
-/* Holographic score ring */
-.score-holo {
-  position: relative;
-  width: clamp(140px, 40vw, 200px); 
-  height: clamp(140px, 40vw, 200px);
-  margin: 0 auto;
-}
-.score-holo svg { 
-  width: 100%; height: 100%; 
-  transform: rotate(-90deg); 
-  filter: drop-shadow(0 0 12px var(--cyan)); 
-}
-.score-holo-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.score-big {
-  font-family: 'Orbitron', monospace;
-  font-weight: 900;
-  font-size: clamp(2rem, 8vw, 2.8rem);
-  color: var(--white90);
-  text-shadow: 0 0 20px var(--cyan-glow);
-  line-height: 1;
-}
-.score-out {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(9px, 2.5vw, 11px);
-  color: var(--cyan);
-  letter-spacing: 2px;
-  margin-top: 6px;
-}
-
-.verdict-title {
-  font-family: 'Orbitron', monospace;
-  font-weight: 700;
-  font-size: clamp(1.2rem, 4vw, 1.8rem);
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 30px var(--cyan-glow);
-  margin-bottom: 8px;
-}
-
-.verdict-body {
-  font-family: 'Rajdhani', sans-serif;
-  font-size: clamp(0.9rem, 3.5vw, 1rem);
-  font-weight: 400;
-  color: var(--white50);
-  max-width: 420px;
-  line-height: 1.7;
-  margin: 0 auto;
-}
-
-.stats-row {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.stat-box {
-  background: var(--panel);
-  border: 1px solid var(--border-c);
-  padding: 14px 18px;
-  min-width: clamp(80px, 25vw, 100px);
-  text-align: center;
-  position: relative;
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  backdrop-filter: blur(12px);
-}
-.stat-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-}
-
-.stat-val {
-  font-family: 'Orbitron', monospace;
-  font-weight: 900;
-  font-size: clamp(1.4rem, 5vw, 2rem);
-  line-height: 1;
-}
-.stat-val.g { color: var(--green); text-shadow: 0 0 16px rgba(0,255,136,0.5); }
-.stat-val.r { color: var(--red);   text-shadow: 0 0 16px rgba(255,64,96,0.5); }
-.stat-val.y { color: var(--gold);  text-shadow: 0 0 16px rgba(255,208,96,0.5); }
-
-.stat-lbl {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: clamp(8px, 2vw, 9px);
-  letter-spacing: 2px;
-  color: var(--white50);
-  margin-top: 8px;
-  text-transform: uppercase;
-}
-
-.btn-restart {
-  font-family: 'Orbitron', monospace;
-  font-weight: 600;
-  font-size: clamp(0.7rem, 2.5vw, 0.75rem);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  background: transparent;
-  border: 1px solid var(--border-c);
-  padding: 14px clamp(20px, 6vw, 36px);
-  cursor: pointer;
-  transition: all 0.2s;
-  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  margin-top: 10px;
-}
-.btn-restart:hover {
-  border-color: var(--cyan);
-  background: var(--cyan-dim);
-  box-shadow: 0 0 24px rgba(0,245,255,0.2);
-}
-
-/* Ripple */
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(0,245,255,0.3);
-  transform: scale(0);
-  animation: rippleAnim 0.6s linear;
-  pointer-events: none;
-  z-index: 99;
-}
-@keyframes rippleAnim {
-  to { transform: scale(4); opacity: 0; }
-}
+/* INTRO */
+.intro{text-align:center;padding:60px 24px}
+.intro h1{font-size:32px;font-weight:700;margin-bottom:12px;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.intro p{color:var(--text2);font-size:15px;max-width:560px;margin:0 auto 32px;line-height:1.7}
+.intro-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:40px}
+.chip{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:6px 16px;font-size:12px;color:var(--text2)}
 </style>
 </head>
 <body>
-
-<canvas id="bg-canvas"></canvas>
-
-<div class="grid-plane"></div>
-
-<div class="scanline"></div>
-
-<div class="hud-corner hud-tl"></div>
-<div class="hud-corner hud-tr"></div>
-<div class="hud-corner hud-bl"></div>
-<div class="hud-corner hud-br"></div>
-
-<div class="hud-data tl" id="hud-tl">
-  SYS::ONLINE<br>
-  LOC::SPATIAL_LAYER_7<br>
-  RES::1920×1080<br>
-  PING::&lt;1ms
-</div>
-<div class="hud-data tr" id="hud-tr">
-  MODULE::QUIZ_v2.4<br>
-  AUTH::VERIFIED<br>
-  ENC::AES-256<br>
-  <span id="hud-time">--:--:--</span>
-</div>
-<div class="hud-data bl">
-  REMOTE_WORK::ANALYSIS<br>
-  SECTIONS::03<br>
-  Q_LOADED::10
-</div>
-
-<div id="intro" class="screen active">
-  <div class="intro-orb">
-    <div class="orb-ring"></div>
-    <div class="orb-ring"></div>
-    <div class="orb-ring"></div>
-    <div class="orb-core"></div>
-  </div>
-  <div class="intro-eyebrow">// POST-SESSION ASSESSMENT //</div>
-  <div class="intro-title">
-    REMOTE<br>
-    <span class="hl">WORK</span> <span class="hl2">QUIZ</span>
-  </div>
-  <div class="intro-meta">
-    <div class="meta-chip">10 QUESTIONS</div>
-    <div class="meta-chip">30s / QUESTION</div>
-    <div class="meta-chip">~8 MIN TOTAL</div>
-  </div>
-  <button class="btn-launch" id="btn-launch" onclick="startOrResumeQuiz()">INITIALIZE SESSION</button>
-</div>
-
-<div id="quiz" class="screen">
-  <div class="quiz-hud">
-    <span class="q-id" id="q-id">Q.01 / 10</span>
-    <div class="progress-nodes" id="prog-nodes"></div>
-    <div class="timer-hud">
-      <div class="timer-track"><div class="timer-fill" id="t-fill"></div></div>
-      <span class="timer-num" id="t-num">30</span>
-    </div>
-  </div>
-
-  <div class="holo-panel" id="q-panel">
-    <div class="panel-notch tl"></div>
-    <div class="panel-notch tr"></div>
-    <div class="panel-notch bl"></div>
-    <div class="panel-notch br"></div>
-    <div class="q-section-tag" id="q-sec">SECTION</div>
-    <div class="q-text" id="q-txt">Question text</div>
-    <div class="opts-grid" id="opts-grid"></div>
-    <div class="explanation" id="expl" style="display:none;"></div>
-    <div class="next-row" id="next-row" style="display:none;">
-      <button class="btn-next" onclick="nextQ()">NEXT QUERY →</button>
-    </div>
-  </div>
-</div>
-
-<div id="results" class="screen">
-  <div class="results-header">// SESSION COMPLETE — ANALYSIS REPORT //</div>
-  <div class="score-holo">
-    <svg viewBox="0 0 200 200">
-      <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(0,245,255,0.1)" stroke-width="8"/>
-      <circle cx="100" cy="100" r="85" fill="none" stroke="var(--cyan)" stroke-width="8"
-        stroke-linecap="butt" stroke-dasharray="534" id="score-arc" stroke-dashoffset="534"/>
-    </svg>
-    <div class="score-holo-text">
-      <div class="score-big" id="sc-num">0</div>
-      <div class="score-out" id="sc-out">OUT OF 10</div>
-    </div>
-  </div>
-  <div>
-    <div class="verdict-title" id="verd-title">PROCESSING…</div>
-    <div class="verdict-body" id="verd-body"></div>
-  </div>
-  <div class="stats-row">
-    <div class="stat-box">
-      <div class="stat-val g" id="s-ok">0</div>
-      <div class="stat-lbl">CORRECT</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val r" id="s-no">0</div>
-      <div class="stat-lbl">INCORRECT</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-val y" id="s-sk">0</div>
-      <div class="stat-lbl">SKIPPED</div>
-    </div>
-  </div>
-  <button class="btn-restart" onclick="restart()">↺ REINITIALIZE</button>
-</div>
-
+<div id="app"><!-- JS renders here --></div>
 <script>
-/* ═══ AMBIENT PARTICLE CANVAS ═══ */
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let W, H, particles = [];
-
-function resizeCanvas() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.r = Math.random() * 1.2 + 0.2;
-    this.vx = (Math.random() - 0.5) * 0.3;
-    this.vy = (Math.random() - 0.5) * 0.3;
-    this.a = Math.random() * 0.5 + 0.1;
-    this.color = Math.random() > 0.5 ? '0,245,255' : '176,96,255';
-  }
-  update() {
-    this.x += this.vx; this.y += this.vy;
-    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(${this.color},${this.a})`;
-    ctx.fill();
-  }
-}
-
-function initParticles() {
-  particles = Array.from({length: 80}, () => new Particle()); // Reduced slightly for mobile performance
-}
-
-function drawConnections() {
-  for (let i = 0; i < particles.length; i++) {
-    for (let j = i + 1; j < particles.length; j++) {
-      const dx = particles[i].x - particles[j].x;
-      const dy = particles[i].y - particles[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 100) {
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x, particles[i].y);
-        ctx.lineTo(particles[j].x, particles[j].y);
-        ctx.strokeStyle = `rgba(0,245,255,${0.06 * (1 - dist/100)})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-      }
-    }
-  }
-}
-
-function animCanvas() {
-  ctx.clearRect(0, 0, W, H);
-  drawConnections();
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animCanvas);
-}
-
-resizeCanvas();
-initParticles();
-animCanvas();
-window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-
-/* ═══ HUD CLOCK ═══ */
-function updateHUDTime() {
-  const now = new Date();
-  const hh = String(now.getHours()).padStart(2,'0');
-  const mm = String(now.getMinutes()).padStart(2,'0');
-  const ss = String(now.getSeconds()).padStart(2,'0');
-  const el = document.getElementById('hud-time');
-  if (el) el.textContent = `${hh}:${mm}:${ss}`;
-}
-setInterval(updateHUDTime, 1000);
-updateHUDTime();
-
-/* ═══ RIPPLE ═══ */
-document.addEventListener('click', e => {
-  if (e.target.tagName === 'BUTTON') {
-    const rip = document.createElement('span');
-    rip.className = 'ripple';
-    rip.style.cssText = `left:${e.clientX-20}px;top:${e.clientY-20}px;width:40px;height:40px;`;
-    document.body.appendChild(rip);
-    setTimeout(() => rip.remove(), 600);
-  }
-});
-
-/* ═══ QUIZ DATA ═══ */
-const QS = [
-  { sec:"SECTION 01 — FRAMEWORK", q:"Before 2020, remote work was mainly associated with which two groups?", opts:["Large corporations and governments","Freelancers and tech startups","Healthcare workers and educators","Finance professionals and lawyers"], c:1, ex:"Prior to the pandemic, remote work was a niche arrangement primarily reserved for <strong>freelancers and tech startups</strong>. The traditional office was the unquestioned standard for most industries." },
-  { sec:"SECTION 01 — FRAMEWORK", q:"What is the 'Paradox of Remote Work' described in the presentation?", opts:["Workers earn more but spend more on equipment","Companies save money but lose productivity","Workers gained autonomy while corporations increased digital monitoring","Talent pools expanded but hiring slowed down"], c:2, ex:"The paradox is the constant tension between <strong>freedom and control</strong> — professionals gained unprecedented autonomy and flexibility, while corporations simultaneously increased digital monitoring and performance tracking." },
-  { sec:"SECTION 01 — MODELS", q:"Which remote work model provides complete professional independence but trades away job security?", opts:["Fully Remote","Hybrid Work","Outsourcing","Freelancing"], c:3, ex:"<strong>Freelancing</strong> provides complete professional independence, but trades away job security and stable income — distinct from fully remote which still implies an employer-employee relationship." },
-  { sec:"SECTION 02 — ADVANTAGES", q:"Which of the following was listed as a company-level advantage of remote work?", opts:["Higher employee salaries","Easier recruitment from anywhere","Stronger team cohesion","Faster decision making"], c:1, ex:"For companies, <strong>easier recruitment</strong> — the ability to hire talent from anywhere — was a key benefit, alongside reduced costs and lower absenteeism." },
-  { sec:"SECTION 02 — REALITY CHECK", q:"The presentation argues that 'flexibility is partly a myth.' What supports this claim?", opts:["Remote workers are paid less than office workers","Deadlines, meetings, and schedules still control the workday","Most remote jobs require on-site visits once a month","Technology makes remote collaboration impossible"], c:1, ex:"The reality check slide points out that <strong>deadlines, meetings, and schedules still control the day</strong>, meaning the promise of full flexibility rarely holds true in practice." },
-  { sec:"SECTION 02 — KEY NUMBERS", q:"What percentage of employees work remotely at least part-time today (post-pandemic)?", opts:["Around 5–7%","Around 15%","Around 30%","Around 60%"], c:2, ex:"Before COVID, remote work was rare at only <strong>5–7%</strong>. Today, <strong>around 30%</strong> of employees work remotely at least part-time — a dramatic structural shift." },
-  { sec:"SECTION 03 — LEGAL", q:"Which article of Tunisia's Labour Code authorises remote work?", opts:["Article 12","Article 29","Article 47","Article 81"], c:1, ex:"<strong>Article 29</strong> of the Labour Code allows remote work in Tunisia. However, many companies still lack clear contracts covering working hours, social security, and employee rights." },
-  { sec:"SECTION 03 — PRODUCTIVITY", q:"A Stanford study found remote workers can be up to 13% more productive — but a Microsoft report showed a trade-off. What decreased?", opts:["Individual task speed","Team creativity and innovation","Meeting attendance","Software tool usage"], c:1, ex:"While individual productivity rose, the Microsoft report revealed that <strong>team creativity decreased</strong>. This is why hybrid work became the dominant model — balancing both dimensions." },
-  { sec:"SECTION 03 — TOOLS", q:"Which was described as an AI-powered tool that improved efficiency and reduced workload in remote settings?", opts:["Slack","Zoom","Notion AI","Google Drive"], c:2, ex:"<strong>Notion AI</strong> was cited as an AI-powered solution shaping the future of remote work, improving efficiency beyond what standard communication tools offer." },
-  { sec:"SECTION 03 — REMOTE WORK 2.0", q:"What is the presentation's final conclusion about the future of work?", opts:["Remote work will completely replace offices within 5 years","The office will make a full comeback by 2030","Work is moving toward a hybrid, technology-driven model — neither fully remote nor fully office-based","Remote work is only viable for tech companies"], c:2, ex:"The conclusion: the future will be <strong>neither fully remote nor fully office-based</strong>, but a balance between flexibility, control, and digital collaboration — a hybrid model still being defined." }
+// ============================================================
+// DATA — 50 QCM questions
+// ============================================================
+const QUESTIONS=[
+{cat:"Exclusion Mutuelle",q:"Dans l'algorithme de Lamport, combien de messages sont nécessaires au total pour qu'un processus accède une fois à la SC (avec N processus) ?",opts:["2×(N−1)","N−1","3×(N−1)","4×(N−1)"],ans:2,exp:"Lamport nécessite (N−1) requêtes + (N−1) ACK + (N−1) lib = <strong>3×(N−1)</strong> messages."},
+{cat:"Exclusion Mutuelle",q:"Pi peut entrer en SC dans l'algorithme de Lamport si et seulement si :",opts:["Sa requête est en tête de sa file ET il a reçu un ACK de tous les autres avec estampille > la sienne","Sa requête est en tête de sa file ET il a envoyé un lib à tous","Il a reçu un ACK de la majorité des processus","Sa file locale est vide"],ans:0,exp:"Les deux conditions cumulées : <strong>tête de file</strong> + <strong>ACK de tous</strong> (avec estampille supérieure). Si égalité → on compare les numéros de processus."},
+{cat:"Exclusion Mutuelle",q:"Dans Lamport, à la réception d'une requête (Req, ti) de Pi, que fait Pj ?",opts:["Il entre en SC immédiatement","Il envoie un ACK à Pi et place la requête dans sa file","Il envoie un lib à Pi","Il ignore la requête si son propre estampille est plus grand"],ans:1,exp:"Pj enregistre la requête dans sa file locale <strong>et</strong> envoie un ACK à Pi — c'est obligatoire quel que soit son état."},
+{cat:"Exclusion Mutuelle",q:"Lamport garantit-il l'absence de famine ?",opts:["Oui, grâce à l'ordre strict des estampilles croissantes","Non, un processus peut être indéfiniment prioritaire","Oui, mais seulement si les canaux sont FIFO","Non, car les ACK peuvent se perdre"],ans:0,exp:"Les estampilles croissantes et l'ordre (estampille, pid) garantissent que chaque demandeur devient <strong>tête de file en temps fini</strong> → pas de famine."},
+{cat:"Exclusion Mutuelle",q:"Ricart & Agrawala réduit le nombre de messages par rapport à Lamport en :",opts:["Supprimant les requêtes","Fusionnant les ACK et les messages de libération en une seule réponse différée","Utilisant un jeton à la place des acquittements","Limitant les diffusions à un sous-ensemble de processus"],ans:1,exp:"R&A élimine le message <em>lib</em> séparé : la libération se fait en envoyant les <strong>réponses différées</strong>, réduisant à <strong>2(N−1)</strong> messages."},
+{cat:"Exclusion Mutuelle",q:"Dans Ricart & Agrawala, Pi diffère sa réponse à la requête de Pj quand :",opts:["L'estampille de Pi < estampille de Pj","Pi est en SC OU (Pi est demandeur ET estampille Pi < estampille Pj)","Pi est toujours au repos","Pi a déjà envoyé un lib"],ans:1,exp:"Pi diffère si : <strong>il est en SC</strong>, OU s'il est aussi demandeur avec une estampille <em>inférieure</em> (il est prioritaire). C'est le piège classique : la plus petite estampille est prioritaire."},
+{cat:"Exclusion Mutuelle",q:"Combien de messages R&A sont nécessaires par accès à la SC (N processus) ?",opts:["3×(N−1)","2×(N−1)","N","2×N"],ans:1,exp:"<strong>(N−1) requêtes</strong> envoyées + <strong>(N−1) réponses</strong> reçues = 2×(N−1). Plus efficace que Lamport (3×(N−1))."},
+{cat:"Exclusion Mutuelle",q:"Dans la variante jeton de Ricart & Agrawala, que contient le jeton ?",opts:["L'identifiant du dernier détenteur uniquement","Un tableau jeton[i] indiquant le nombre de fois que chaque Pi a accédé à la RSC","La liste des processus en attente","Un bit booléen indiquant si la RSC est libre"],ans:1,exp:"Le jeton transporte un tableau <strong>jeton[j]</strong> = nb d'accès de Pj connus. Permet de décider à qui envoyer le jeton à la libération."},
+{cat:"Exclusion Mutuelle",q:"Dans l'algorithme du jeton circulant (Le Lann 77), la topologie utilisée est :",opts:["Un anneau unidirectionnel","Un anneau bidirectionnel","Un graphe complet","Un arbre couvrant"],ans:0,exp:"Le Lann 77 repose sur un <strong>anneau unidirectionnel</strong> — le jeton ne circule que dans un seul sens."},
+{cat:"Exclusion Mutuelle",q:"Quel est l'inconvénient majeur du jeton circulant (Le Lann) ?",opts:["Il ne garantit pas la sûreté","Le jeton circule même si aucun site n'est demandeur","Il nécessite 3(N−1) messages par accès","Il ne garantit pas l'équité"],ans:1,exp:"Même sans demandeur actif, le jeton <strong>tourne en permanence</strong> sur l'anneau → échange de messages inutiles."},
+{cat:"Exclusion Mutuelle",q:"Si le jeton est perdu dans Le Lann, la solution est :",opts:["Redémarrer tous les processus","Lancer une élection pour désigner un processus qui régénère le jeton","Envoyer un message de détresse à tous","Utiliser un timeout et recréer le jeton localement"],ans:1,exp:"Perte de jeton → <strong>élection</strong> (ex. Bully ou Chang-Roberts) → le nouveau coordinateur régénère un jeton unique."},
+{cat:"Exclusion Mutuelle",q:"Quelle propriété garantit qu'il n'y a qu'un seul jeton dans Le Lann ?",opts:["La vivacité","L'équité","L'unicité du jeton (invariant à maintenir)","La sûreté FIFO"],ans:2,exp:"L'<strong>unicité du jeton</strong> est l'invariant central : un seul jeton en circulation à tout moment garantit la sûreté (au plus un en SC)."},
+{cat:"Exclusion Mutuelle",q:"Dans R&A version jeton, quand Pi libère la SC, il cherche le prochain destinataire du jeton en parcourant Req à partir de :",opts:["L'indice 0","L'indice i+1 (cycliquement)","L'indice ayant la plus petite estampille","Un indice aléatoire"],ans:1,exp:"Pi parcourt de <strong>(i+1) mod N</strong> cycliquement pour trouver Pj tel que Req[j] > jeton[j], garantissant l'équité circulaire."},
+{cat:"Algorithmes d'Élection",q:"L'algorithme du Bully élit :",opts:["Le processus avec l'identifiant le plus petit","Le processus qui initie l'élection en premier","Le processus avec l'identifiant le plus élevé encore actif","Le processus avec le moins de charge"],ans:2,exp:"Bully (La Brute) : les processus à id plus élevé '<em>écrasent</em>' les autres → élu = <strong>id maximum</strong> parmi les processus actifs."},
+{cat:"Algorithmes d'Élection",q:"Quelle est la complexité en messages du Bully dans le pire des cas ?",opts:["O(N²)","O(N·log N)","O(N)","O(1)"],ans:0,exp:"Dans le pire cas (le processus à id le plus bas initie), chaque processus envoie des messages à tous ceux d'id supérieur → <strong>O(N²)</strong>."},
+{cat:"Algorithmes d'Élection",q:"Dans le Bully, le meilleur cas correspond à :",opts:["Tous les processus initient l'élection simultanément","Le processus à id le plus élevé (N−1) initie l'élection","Le processus voisin du coordinateur initie","Aucun processus ne répond"],ans:1,exp:"Si le processus d'id max initie, il n'a personne à contacter d'id supérieur → se déclare élu directement → <strong>N−1 messages</strong> seulement (annonce ELU)."},
+{cat:"Algorithmes d'Élection",q:"Dans l'algorithme de Le Lann (anneau unidirectionnel), quel processus est élu ?",opts:["Celui avec l'id le plus grand","Celui qui initie l'élection en premier","Celui avec l'id le plus petit parmi les initiateurs","Celui avec le moins de voisins"],ans:2,exp:"Le Lann 77 : chaque id circule sur l'anneau. L'initiateur qui reçoit sa propre id <strong>et</strong> a le plus petit id se déclare élu."},
+{cat:"Algorithmes d'Élection",q:"Chang & Roberts améliore Le Lann principalement en :",opts:["Élisant le processus d'id minimum","Éteignant les initiateurs dont l'id est inférieur à un id reçu, réduisant le trafic","Utilisant un anneau bidirectionnel","Nécessitant O(N) messages dans tous les cas"],ans:1,exp:"Chang-Roberts : un initiateur qui reçoit un id <strong>plus grand que le sien s'éteint</strong> et ne retransmet que les plus grands → réduit les messages en moyenne à <strong>O(N·log N)</strong>."},
+{cat:"Algorithmes d'Élection",q:"Dans Chang & Roberts, quel processus est finalement élu ?",opts:["Le premier à envoyer un message","Celui dont l'id revient à lui-même après avoir circulé","Celui avec l'id minimum","Celui qui reçoit le plus de messages"],ans:1,exp:"Quand un initiateur reçoit <strong>son propre id</strong> qui a survécu à toute la circonférence → il se déclare élu. Élu = <strong>id maximum</strong>."},
+{cat:"Algorithmes d'Élection",q:"L'algorithme de Franklin (1982) se distingue par :",opts:["L'utilisation d'un graphe complet","L'envoi de messages dans les deux sens sur un anneau bidirectionnel","L'élection du processus d'id minimum","La complexité O(N²) dans tous les cas"],ans:1,exp:"Franklin utilise un <strong>anneau bidirectionnel</strong> : chaque candidat envoie son id à gauche et à droite, compare avec ses deux voisins — candidat survit si son id est le max local."},
+{cat:"Algorithmes d'Élection",q:"Quelle est la complexité moyenne de Chang & Roberts ?",opts:["O(N)","O(N²)","O(N·log N)","O(log N)"],ans:2,exp:"Chang & Roberts : <strong>O(N·log N)</strong> en moyenne, O(N²) dans le pire cas (ids en ordre décroissant sur l'anneau)."},
+{cat:"Algorithmes d'Élection",q:"Quelle est l'utilité principale des algorithmes d'élection dans les systèmes répartis ?",opts:["Optimiser le routage des messages","Désigner un coordinateur quand l'ancien tombe en panne","Équilibrer la charge entre processus","Détecter les interblocages"],ans:1,exp:"L'élection sert à <strong>désigner un nouveau leader/coordinateur</strong> (ex. maître BD distribuée, régénérateur de jeton) quand l'ancien est défaillant."},
+{cat:"Algorithmes d'Élection",q:"Dans Le Lann, la complexité dans le pire cas est :",opts:["O(N·log N)","O(N²)","O(N)","O(1)"],ans:1,exp:"Le Lann pire cas : O(N²) — si les ids sont en ordre décroissant, chaque id parcourt presque tout l'anneau avant d'être éliminé."},
+{cat:"Algorithmes d'Élection",q:"Quelle propriété un algorithme d'élection doit-il garantir ?",opts:["Sûreté uniquement : un seul élu","Vivacité uniquement : toujours un élu en temps fini","Sûreté ET Vivacité","Équité : tous les processus ont la même probabilité d'être élus"],ans:2,exp:"Élection : <strong>Sûreté</strong> (un seul po élu à la fois) + <strong>Vivacité</strong> (un élu est désigné en temps fini). Les deux ensemble."},
+{cat:"Diffusion",q:"La différence entre Broadcast et Multicast est :",opts:["Le broadcast est fiable, le multicast ne l'est pas","Le multicast cible un groupe sélectionné, le broadcast cible tous les nœuds du réseau","Le broadcast utilise un arbre, le multicast utilise le flooding","Le multicast garantit l'ordre FIFO, pas le broadcast"],ans:1,exp:"<strong>Broadcast</strong> = tous les nœuds. <strong>Multicast</strong> = groupe sélectionné. L'émetteur peut ne pas appartenir au groupe multicast."},
+{cat:"Diffusion",q:"Dans le protocole de diffusion Best-Effort, que se passe-t-il si l'émetteur plante en cours de diffusion ?",opts:["Tous les processus reçoivent quand même le message grâce à la rediffusion","Certains processus peuvent recevoir le message, d'autres non","Le protocole relance automatiquement la diffusion","Aucun processus ne reçoit le message"],ans:1,exp:"Best-Effort : <strong>pas de garantie globale</strong>. Si l'émetteur plante après avoir envoyé à certains seulement → réception partielle possible."},
+{cat:"Diffusion",q:"Le Flooding (inondation) présente comme inconvénient principal :",opts:["Il ne peut pas atteindre tous les nœuds","La duplication excessive des messages","Il nécessite un arbre couvrant préalable","Il ne fonctionne que sur anneaux"],ans:1,exp:"Flooding : chaque nœud retransmet à tous ses voisins → <strong>duplication massive</strong> des messages (un même message reçu plusieurs fois par nœud)."},
+{cat:"Diffusion",q:"La diffusion par Spanning Tree (arbre couvrant) garantit :",opts:["La tolérance aux pannes de liens","N−1 messages et aucune duplication","L'ordre causal de délivrance","La fiabilité si l'émetteur plante"],ans:1,exp:"Spanning Tree : <strong>N−1 messages exactement</strong> (un par lien de l'arbre), aucune duplication. Inconvénient : sensible aux pannes de liens de l'arbre."},
+{cat:"Diffusion",q:"La propriété d'accord (Agreement) dans la diffusion fiable signifie :",opts:["L'émetteur délivre le message avant tous les autres","Si un processus correct reçoit m, alors tous les processus corrects reçoivent m","Les messages sont délivrés dans l'ordre d'émission","Aucun message dupliqué n'est délivré"],ans:1,exp:"Accord = <strong>tout ou rien</strong> pour les processus corrects : si l'un reçoit, tous reçoivent. C'est la garantie clé de la diffusion fiable."},
+{cat:"Diffusion",q:"La diffusion fiable garantit-elle un ordre de délivrance des messages ?",opts:["Oui, ordre FIFO toujours garanti","Oui, ordre causal toujours garanti","Non, aucune contrainte d'ordre n'est spécifiée","Oui, ordre total garanti"],ans:2,exp:"La diffusion fiable garantit validité, accord et intégrité — mais <strong>aucun ordre</strong> de délivrance n'est imposé. L'ordre est une propriété additionnelle."},
+{cat:"Diffusion",q:"Quelle relation existe entre l'ordre FIFO et l'ordre Causal ?",opts:["FIFO ⊃ Causal (causal est plus fort)","FIFO = Causal (équivalents)","FIFO ⊂ Causal (causal implique FIFO, pas l'inverse)","Ils sont indépendants"],ans:2,exp:"<strong>Causal → FIFO</strong> mais pas l'inverse. L'ordre causal est plus fort : il respecte toutes les relations happened-before, pas seulement l'ordre d'un même émetteur."},
+{cat:"Diffusion",q:"La diffusion atomique (ABCAST) est définie comme :",opts:["Diffusion fiable + ordre FIFO","Diffusion fiable + ordre causal","Diffusion fiable + ordre total","Diffusion best-effort + ordre total"],ans:2,exp:"<strong>Diffusion Atomique = Diffusion Fiable + Ordre Total</strong>. Tous les processus corrects délivrent le même ensemble de messages dans le même ordre."},
+{cat:"Diffusion",q:"L'ordre Total dans la diffusion signifie :",opts:["Les messages d'un même émetteur sont délivrés dans l'ordre d'envoi","Si Pi délivre m avant m', alors tous les processus corrects délivrent m avant m'","Les messages causalement liés sont délivrés dans l'ordre causal","Chaque message est délivré au plus une fois"],ans:1,exp:"<strong>Ordre Total</strong> = même ordre de délivrance pour <em>tous</em> les processus corrects, indépendamment de l'émetteur."},
+{cat:"Diffusion",q:"La diffusion Gossip / Épidémique présente comme avantage principal :",opts:["Garantie de réception par tous les nœuds","Nombre minimal de messages (N−1)","Scalabilité et tolérance aux pannes","Ordre causal garanti"],ans:2,exp:"Gossip est <strong>scalable et tolérant aux pannes</strong>. Inconvénient : probabiliste, pas de garantie absolue de réception par tous."},
+{cat:"Diffusion",q:"L'ordre FIFO seul (sans fiabilité) garantit-il que tous les messages sont délivrés ?",opts:["Oui, FIFO implique délivrance garantie","Non, FIFO impose uniquement l'ordre pour un même émetteur, pas la délivrance","Oui, si les canaux sont fiables point-à-point","Non, uniquement si combiné avec l'ordre causal"],ans:1,exp:"<strong>FIFO ≠ Fiable</strong>. FIFO impose que si Pi envoie m puis m', tout processus délivre m avant m' — mais un message peut ne jamais être délivré du tout."},
+{cat:"Diffusion",q:"Dans la diffusion causale (CBCAST), si A.d1 précède causalement B.d2, alors :",opts:["B.d2 peut être délivré avant A.d1 sans violation","A.d1 doit être délivré avant B.d2 par tous les processus corrects","L'ordre de délivrance est indéterminé","Seul B doit respecter cet ordre"],ans:1,exp:"Ordre causal : si m1 <em>précède causalement</em> m2, alors <strong>tous les processus corrects délivrent m1 avant m2</strong> — quel que soit l'émetteur."},
+{cat:"Diffusion",q:"Quelle combinaison correspond à la diffusion fiable FIFO ?",opts:["Best-effort + ordre total","Fiable + ordre causal","Fiable + ordre FIFO","Fiable + ordre total"],ans:2,exp:"<strong>Diffusion FIFO Fiable = Diffusion Fiable + Ordre FIFO</strong>. Distinct de la causale (qui est plus forte) et de l'atomique (ordre total)."},
+{cat:"Diffusion",q:"La diffusion uniforme diffère de la diffusion fiable en ce qu'elle :",opts:["Utilise moins de messages","Impose des contraintes même sur les processus fautifs","Ne garantit que l'accord, pas la validité","Est équivalente à la diffusion fiable"],ans:1,exp:"Diffusion <strong>Uniforme</strong> = les propriétés (accord, etc.) s'appliquent aussi aux processus qui tombent en panne — plus forte que la fiable classique."},
+{cat:"Horloges & Causalité",q:"La principale différence entre horloge scalaire de Lamport et horloge vectorielle est :",opts:["L'horloge vectorielle consomme moins de mémoire","L'horloge vectorielle capture la causalité complète (concurrent vs précédent), Lamport seulement l'ordre partiel","L'horloge de Lamport est plus précise","Elles sont équivalentes pour les systèmes répartis"],ans:1,exp:"Lamport → <strong>ordre partiel</strong> (si a→b alors h(a)<h(b) mais l'inverse n'est pas garanti). Vectorielle → <strong>causalité complète</strong> (équivalence avec →)."},
+{cat:"Horloges & Causalité",q:"Règle de mise à jour de l'horloge de Lamport lors de la réception d'un message avec horloge h' :",opts:["h = h + 1","h = h' + 1","h = max(h, h') + 1","h = max(h, h')"],ans:2,exp:"Réception : <strong>h = max(h_local, h_reçu) + 1</strong>. Le +1 est crucial et souvent oublié aux examens."},
+{cat:"Horloges & Causalité",q:"Si deux événements ont la même horloge de Lamport, ils sont :",opts:["Nécessairement causalement liés","Nécessairement concurrents","Potentiellement concurrents OU causalement liés (impossible de distinguer sans horloge vectorielle)","Forcément sur le même processus"],ans:2,exp:"Lamport ne distingue pas : même estampille peut signifier concurrence OU causalité. Seule l'<strong>horloge vectorielle</strong> permet de trancher."},
+{cat:"Horloges & Causalité",q:"Une coupure est cohérente si et seulement si :",opts:["Tous les processus ont le même nombre d'événements dans la coupure","Aucun message n'est reçu dans la coupure sans avoir été émis dans la coupure","Tous les messages en transit sont inclus dans la coupure","La coupure contient exactement N événements"],ans:1,exp:"Cohérence : pas de <em>message zombie</em> — si la réception r est dans la coupure, l'émission correspondante doit aussi l'être. <strong>Pas de message traversant la coupure de droite à gauche.</strong>"},
+{cat:"Horloges & Causalité",q:"L'algorithme de Chandy-Lamport sert à :",opts:["Élire un coordinateur dans un système réparti","Capturer un état global cohérent (snapshot) sans arrêter le système","Diffuser un message à tous les processus de façon causale","Détecter les interblocages en temps réel"],ans:1,exp:"Chandy-Lamport = algorithme de <strong>snapshot distribué</strong> : capture un état global cohérent pendant l'exécution normale, via des marqueurs."},
+{cat:"Horloges & Causalité",q:"Dans Chandy-Lamport, que fait un processus Pi qui reçoit un marqueur pour la première fois sur un canal Cji ?",opts:["Il ignore le marqueur et continue","Il enregistre son état local, commence à enregistrer les messages entrants sur ses autres canaux, et envoie un marqueur sur tous ses canaux sortants","Il envoie son état à tous les processus","Il s'arrête jusqu'à la fin du snapshot"],ans:1,exp:"Première réception marqueur : <strong>enregistrer état local + enregistrer canaux entrants restants + propager marqueur</strong>. Si marqueur déjà reçu → l'état du canal = messages reçus depuis l'enregistrement jusqu'au marqueur."},
+{cat:"Horloges & Causalité",q:"Dans un système réparti, l'absence d'horloge globale implique :",opts:["L'impossibilité d'ordonner les événements","L'utilisation d'horloges logiques pour établir un ordre partiel ou causal","Que tous les algorithmes sont impossibles à implémenter","Que les messages doivent être synchrones"],ans:1,exp:"Sans horloge globale, on utilise des <strong>horloges logiques</strong> (Lamport scalaire ou vectorielle) pour établir un ordre partiel sur les événements."},
+{cat:"Pièges & Révision",q:"Lequel de ces énoncés est FAUX concernant R&A ?",opts:["R&A nécessite 2(N−1) messages par accès SC","Dans R&A, le processus avec la plus petite estampille est prioritaire","Dans R&A, un processus au repos répond immédiatement","Dans R&A, un processus en SC diffère sa réponse et envoie un lib séparé à la sortie"],ans:3,exp:"FAUX : dans R&A, à la sortie de SC, Pi envoie les <strong>réponses différées directement</strong> (pas un lib séparé). Il n'y a pas de message lib — c'est la différence clé avec Lamport."},
+{cat:"Pièges & Révision",q:"Quelle affirmation est CORRECTE concernant la diffusion atomique ?",opts:["Diffusion atomique = diffusion causale + ordre FIFO","Diffusion atomique = diffusion fiable + ordre total","Diffusion atomique = best-effort + ordre causal","Diffusion atomique = diffusion FIFO + ordre causal"],ans:1,exp:"<strong>Atomique = Fiable + Ordre Total</strong>. Ne pas confondre avec causale (fiable + causal) ou FIFO (fiable + FIFO)."},
+{cat:"Pièges & Révision",q:"Si P2 tombe en panne pendant qu'il détient la SC dans Lamport, la conséquence est :",opts:["Les autres processus entrent en SC normalement","Famine : P1 et P3 attendent indéfiniment le lib de P2","P1 et P3 se partagent automatiquement la SC","L'élection d'un nouveau coordinateur est déclenchée automatiquement"],ans:1,exp:"P2 défaillant en SC = <strong>jamais de lib envoyé</strong> → P1 et P3 bloqués indéfiniment = <strong>famine</strong>. Solution : timeout + exclusion de P2 du groupe."},
+{cat:"Pièges & Révision",q:"Concernant le Bully et Le Lann, laquelle de ces comparaisons est exacte ?",opts:["Bully élit l'id min, Le Lann élit l'id max","Bully élit l'id max, Le Lann élit l'id min","Tous deux élisent l'id max","Tous deux élisent l'id min"],ans:1,exp:"Piège classique : <strong>Bully → id MAX</strong> (le plus puissant gagne), <strong>Le Lann → id MIN</strong> (le plus petit id circulant sur l'anneau est élu)."},
+{cat:"Pièges & Révision",q:"Pourquoi l'idée de partager N places en p lots de N/p dans un algorithme de parking distribué est-elle incorrecte ?",opts:["Car p ne divise pas toujours N","Car si un lot est plein et d'autres sont vides, des voitures sont refusées inutilement — violation de la vivacité","Car cela viole la sûreté en dépassant N","Car les gardiens ne peuvent pas communiquer"],ans:1,exp:"Violation de <strong>vivacité</strong> : une voiture peut être refusée même si le parking global n'est pas plein (son lot local est plein). Sous-utilisation des ressources."},
+{cat:"Pièges & Révision",q:"Dans la diffusion causale, un protocole correct gère la violation en :",opts:["Rejetant définitivement le message reçu en avance","Retardant la délivrance du message jusqu'à ce que tous ses prédécesseurs causaux aient été délivrés","Demandant une retransmission à l'émetteur","Délivrant immédiatement puis envoyant une correction"],ans:1,exp:"La diffusion causale <strong>met en attente (bufferise)</strong> m2 jusqu'à ce que m1 (son prédécesseur causal) soit délivré. Garantit l'ordre causal sans rejeter de messages."}
 ];
-
-const LBLS = ['A','B','C','D'];
-const TIME = 30;
-
-let cur=0, score=0, correct=0, wrong=0, skipped=0;
-let tInt=null, tLeft=TIME, answered=false;
-let dotState = Array(10).fill('');
-
-/* ═══ STATE MANAGEMENT (LOCAL STORAGE) ═══ */
-function saveState() {
-  const state = { cur, score, correct, wrong, skipped, dotState };
-  localStorage.setItem('arQuizState', JSON.stringify(state));
+// ============================================================
+// STATE
+// ============================================================
+let cur=0,answers=Array(QUESTIONS.length).fill(-1),submitted=Array(QUESTIONS.length).fill(false);
+const KEYS=['A','B','C','D'];
+const CAT_COLORS={'Exclusion Mutuelle':'#7c6fff',"Algorithmes d'Élection":'#ff6b9d','Diffusion':'#00d4aa','Horloges & Causalité':'#ffd166','Pièges & Révision':'#ff9f43'};
+function score(){return answers.reduce((s,a,i)=>s+(a===QUESTIONS[i].ans?1:0),0);}
+function pct(){return Math.round(score()/QUESTIONS.length*100);}
+function renderHeader(){
+  const s=submitted.filter(Boolean).length;
+  return `<div class="header"><div class="header-inner"><div class="logo"><div class="logo-icon">⚡</div><div><div class="logo-text">AlgoRep QCM</div><div class="logo-sub">Algorithmique Répartie · IGL3 FST</div></div></div><div class="header-stats"><div class="stat-pill">Question <span>${cur+1}</span>/${QUESTIONS.length}</div><div class="stat-pill">Répondues <span>${s}</span></div><div class="stat-pill">Score <span>${score()}</span></div></div></div><div class="progress-wrap"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${(cur+1)/QUESTIONS.length*100}%"></div></div><div class="progress-labels"><span>${QUESTIONS[cur].cat}</span><span>${cur+1} / ${QUESTIONS.length}</span></div></div></div>`;
 }
-
-function loadState() {
-  const saved = localStorage.getItem('arQuizState');
-  if (saved) {
-    const state = JSON.parse(saved);
-    cur = state.cur;
-    score = state.score;
-    correct = state.correct;
-    wrong = state.wrong;
-    skipped = state.skipped;
-    dotState = state.dotState;
-    return true;
-  }
-  return false;
+function renderQMap(){
+  return `<div class="qmap">${QUESTIONS.map((q,i)=>{let cls='qmap-item';if(i===cur)cls+=' current';else if(submitted[i]){cls+=answers[i]===q.ans?' correct-map':' wrong-map';}else if(answers[i]>=0)cls+=' answered';return `<div class="${cls}" onclick="goTo(${i})">${i+1}</div>`;}).join('')}</div>`;
 }
-
-function clearState() {
-  localStorage.removeItem('arQuizState');
+function renderQuestion(){
+  const q=QUESTIONS[cur],color=CAT_COLORS[q.cat]||'#7c6fff',isSubmitted=submitted[cur];
+  const opts=q.opts.map((o,i)=>{let cls='opt';if(isSubmitted){cls+=' disabled';if(i===q.ans)cls+=' correct';else if(i===answers[cur]&&answers[cur]!==q.ans)cls+=' wrong';}else if(answers[cur]===i)cls+=' selected';return `<div class="${cls}" onclick="select(${i})"><span class="opt-key">${KEYS[i]}</span><span class="opt-text">${o}</span></div>`;}).join('');
+  const expHtml=isSubmitted?`<div class="explanation show">💡 ${q.exp}</div>`:'';
+  return `<div class="question-card active"><div class="cat-badge"><span class="cat-dot" style="background:${color}"></span>${q.cat}</div><div class="q-number">QUESTION ${String(cur+1).padStart(2,'0')} / ${QUESTIONS.length}</div><div class="q-text">${q.q}</div><div class="options">${opts}</div>${expHtml}<div class="nav-row"><button class="btn btn-secondary" onclick="goTo(${cur-1})" ${cur===0?'disabled':''}>← Précédente</button>${!isSubmitted?`<button class="btn btn-primary" onclick="submit()" ${answers[cur]<0?'disabled':''}>Valider ✓</button>`:''} ${cur<QUESTIONS.length-1?`<button class="btn btn-primary" onclick="goTo(${cur+1})">Suivante →</button>`:`<button class="btn btn-primary" onclick="showScore()">Résultats 🏆</button>`}</div></div>`;
 }
-
-// Check for saved state on load to update the launch button
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('arQuizState')) {
-    document.getElementById('btn-launch').textContent = 'RESUME SESSION';
-  }
-});
-
-/* ═══ CORE LOGIC ═══ */
-function show(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function renderScore(){
+  const s=score(),p=pct(),emoji=p>=80?'🏆':p>=60?'👍':p>=40?'📚':'💪',msg=p>=80?'Excellent ! Tu maîtrises AlgoRep !':p>=60?'Bon travail, révise les points faibles !':p>=40?'Continue tes révisions !':'Relis le guide et recommence !';
+  const r=69,c=2*Math.PI*r,dash=c*(1-p/100);
+  return `<div class="score-screen show"><div class="score-ring"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="${r}" fill="none" stroke="#1c1c28" stroke-width="12"/><circle cx="80" cy="80" r="${r}" fill="none" stroke="url(#gr)" stroke-width="12" stroke-linecap="round" stroke-dasharray="${c.toFixed(2)}" stroke-dashoffset="${dash.toFixed(2)}"/><defs><linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#7c6fff"/><stop offset="100%" stop-color="#ff6b9d"/></linearGradient></defs></svg><div class="score-ring-text"><div class="score-pct">${p}%</div><div class="score-label">Score</div></div></div><div class="score-title">${emoji} ${msg}</div><div class="score-sub">Tu as répondu correctement à <strong style="color:#7c6fff">${s}</strong> questions sur <strong>${QUESTIONS.length}</strong></div><div class="score-grid"><div class="score-stat"><div class="score-stat-val" style="color:#00d4aa">${s}</div><div class="score-stat-lab">✓ Correctes</div></div><div class="score-stat"><div class="score-stat-val" style="color:#ff4d6d">${QUESTIONS.length-s}</div><div class="score-stat-lab">✗ Incorrectes</div></div><div class="score-stat"><div class="score-stat-val" style="color:#7c6fff">${p}%</div><div class="score-stat-lab">Résultat</div></div></div><button class="btn btn-primary" onclick="restart()">🔄 Recommencer</button> <button class="btn btn-secondary" style="margin-left:12px" onclick="goTo(0)">📋 Revoir</button></div>`;
 }
-
-function startOrResumeQuiz() {
-  if (loadState() && cur < QS.length) {
-    // Resume
-    buildNodes();
-    show('quiz');
-    renderQ();
-  } else {
-    // Start fresh
-    startQuiz();
-  }
+function renderIntro(){
+  const cats=[...new Set(QUESTIONS.map(q=>q.cat))];
+  return `<div class="intro"><h1>Algorithmique Répartie — QCM</h1><p>50 questions couvrant l'intégralité du programme IGL3 FST. Questions tricky — pas de réponse évidente ni de pattern. Testez votre vrai niveau.</p><div class="intro-chips">${cats.map(c=>`<span class="chip" style="border-color:${(CAT_COLORS[c]||'#7c6fff')}40;color:${CAT_COLORS[c]||'#7c6fff'}">${c}</span>`).join('')}<span class="chip">50 Questions</span><span class="chip">Explications</span></div><button class="btn btn-primary" onclick="startQuiz()">Commencer le QCM →</button></div>`;
 }
-
-function startQuiz() {
-  clearState();
-  cur=0; score=0; correct=0; wrong=0; skipped=0;
-  dotState=Array(10).fill('');
-  buildNodes();
-  show('quiz');
-  renderQ();
+let view='intro';
+function startQuiz(){view='quiz';render();}
+function select(i){if(!submitted[cur]){answers[cur]=i;render();}}
+function submit(){if(answers[cur]>=0){submitted[cur]=true;render();}}
+function goTo(i){if(i>=0&&i<QUESTIONS.length){cur=i;render();}}
+function showScore(){view='score';render();}
+function restart(){cur=0;answers=Array(QUESTIONS.length).fill(-1);submitted=Array(QUESTIONS.length).fill(false);view='intro';render();}
+function render(){
+  const app=document.getElementById('app');
+  if(view==='intro'){app.innerHTML=renderIntro();return;}
+  if(view==='score'){app.innerHTML=renderHeader()+`<div class="main">`+renderScore()+`</div>`;return;}
+  app.innerHTML=renderHeader()+`<div class="main">`+renderQMap()+renderQuestion()+`</div>`;
 }
-
-function buildNodes() {
-  const wrap = document.getElementById('prog-nodes');
-  wrap.innerHTML = '';
-  QS.forEach((_,i) => {
-    const d = document.createElement('div');
-    d.className='pnode'; d.id='pn'+i;
-    wrap.appendChild(d);
-  });
-}
-
-function syncNodes() {
-  QS.forEach((_,i) => {
-    const d = document.getElementById('pn'+i);
-    if (!d) return;
-    d.className = 'pnode';
-    if (dotState[i]==='ok') d.classList.add('ok');
-    else if (dotState[i]==='no') d.classList.add('no');
-    else if (dotState[i]==='skip') d.classList.add('skip');
-    if (i===cur) d.classList.add('cur');
-  });
-}
-
-function renderQ() {
-  answered = false;
-  const q = QS[cur];
-  document.getElementById('q-id').textContent = `Q.${String(cur+1).padStart(2,'0')} / ${QS.length}`;
-  document.getElementById('q-sec').textContent = q.sec;
-  document.getElementById('q-txt').textContent = q.q;
-  document.getElementById('expl').style.display = 'none';
-  document.getElementById('next-row').style.display = 'none';
-
-  // Restart panel animation
-  const panel = document.getElementById('q-panel');
-  panel.style.animation = 'none'; panel.offsetHeight;
-  panel.style.animation = '';
-  
-  // Scroll to top of panel for new question
-  panel.scrollTop = 0;
-
-  const grid = document.getElementById('opts-grid');
-  grid.innerHTML = '';
-  q.opts.forEach((opt,i) => {
-    const btn = document.createElement('button');
-    btn.className = 'opt-btn';
-    btn.setAttribute('data-lbl', LBLS[i]);
-    btn.textContent = opt;
-    btn.onclick = () => pick(i);
-    grid.appendChild(btn);
-  });
-
-  syncNodes();
-  startTimer();
-  saveState(); // Save state at the start of each question
-}
-
-function startTimer() {
-  clearInterval(tInt);
-  tLeft = TIME;
-  updTimer();
-  tInt = setInterval(() => {
-    tLeft--;
-    updTimer();
-    if (tLeft <= 0) { clearInterval(tInt); if (!answered) timeUp(); }
-  }, 1000);
-}
-
-function updTimer() {
-  const pct = (tLeft / TIME) * 100;
-  const fill = document.getElementById('t-fill');
-  const num  = document.getElementById('t-num');
-  fill.style.width = pct + '%';
-  if (tLeft <= 10) {
-    fill.style.background = 'var(--red)';
-    fill.style.boxShadow = '0 0 10px var(--red)';
-    num.style.color = 'var(--red)';
-  } else if (tLeft <= 20) {
-    fill.style.background = 'var(--gold)';
-    fill.style.boxShadow = '0 0 10px var(--gold)';
-    num.style.color = 'var(--gold)';
-  } else {
-    fill.style.background = 'var(--cyan)';
-    fill.style.boxShadow = '0 0 10px var(--cyan)';
-    num.style.color = 'var(--cyan)';
-  }
-  num.textContent = tLeft;
-}
-
-function timeUp() {
-  answered = true; skipped++;
-  dotState[cur] = 'skip';
-  const q = QS[cur];
-  const btns = document.querySelectorAll('.opt-btn');
-  btns[q.c].classList.add('correct');
-  btns.forEach(b => b.disabled = true);
-  showExpl('⏱ TIME EXPIRED — ' + q.ex);
-  syncNodes();
-  saveState();
-}
-
-function pick(idx) {
-  if (answered) return;
-  answered = true;
-  clearInterval(tInt);
-  const q = QS[cur];
-  const btns = document.querySelectorAll('.opt-btn');
-  btns.forEach(b => b.disabled = true);
-  if (idx === q.c) {
-    btns[idx].classList.add('correct');
-    score++; correct++;
-    dotState[cur] = 'ok';
-    showExpl('✓ CONFIRMED — ' + q.ex);
-  } else {
-    btns[idx].classList.add('wrong');
-    btns[q.c].classList.add('correct');
-    wrong++;
-    dotState[cur] = 'no';
-    showExpl('✗ NEGATIVE — ' + q.ex);
-  }
-  syncNodes();
-  saveState();
-}
-
-function showExpl(html) {
-  const el = document.getElementById('expl');
-  el.innerHTML = `<span class="expl-label">// SYSTEM ANALYSIS //</span>${html}`;
-  el.style.display = 'block';
-  document.getElementById('next-row').style.display = 'flex';
-  
-  // Auto-scroll slightly so the next button is obvious, even though it's sticky
-  const panel = document.getElementById('q-panel');
-  setTimeout(() => {
-    panel.scrollTo({ top: panel.scrollHeight, behavior: 'smooth' });
-  }, 100);
-}
-
-function nextQ() {
-  cur++;
-  if (cur >= QS.length) showResults();
-  else renderQ();
-}
-
-function showResults() {
-  clearState(); // Wipe state once finished
-  show('results');
-  const pct = score / QS.length;
-  document.getElementById('sc-num').textContent = score;
-  document.getElementById('s-ok').textContent = correct;
-  document.getElementById('s-no').textContent = wrong;
-  document.getElementById('s-sk').textContent = skipped;
-
-  const arc = document.getElementById('score-arc');
-  const circum = 534;
-  arc.style.strokeDashoffset = circum;
-  setTimeout(() => {
-    arc.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1)';
-    arc.style.strokeDashoffset = circum - (pct * circum);
-  }, 300);
-
-  if (pct >= 0.8) { arc.setAttribute('stroke','var(--green)'); arc.parentElement.style.filter='drop-shadow(0 0 12px var(--green))'; }
-  else if (pct >= 0.5) { arc.setAttribute('stroke','var(--cyan)'); }
-  else { arc.setAttribute('stroke','var(--red)'); arc.parentElement.style.filter='drop-shadow(0 0 12px var(--red))'; }
-
-  const verdicts = [
-    [10, "PERFECT SCORE", "Outstanding. You absorbed every concept from the presentation. Full system comprehension confirmed."],
-    [8,  "EXCELLENT OUTPUT", "Strong grasp across all three sections — framework, statistics, legal, and future technology."],
-    [6,  "SATISFACTORY RESULT", "Solid understanding. Review the sections where you dropped — especially statistics and legal frameworks."],
-    [4,  "PARTIAL ACQUISITION", "You caught the main ideas but key details need reinforcement. Revisit the slides and retry."],
-    [0,  "REBOOT REQUIRED", "The material covers substantial ground. Return to the presentation, then reinitialize the quiz."]
-  ];
-
-  const [,t,b] = verdicts.find(([min]) => score >= min);
-  document.getElementById('verd-title').textContent = t;
-  document.getElementById('verd-body').textContent = b;
-}
-
-function restart() { startQuiz(); }
+render();
 </script>
 </body>
 </html>
